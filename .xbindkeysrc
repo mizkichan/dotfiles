@@ -1,0 +1,11 @@
+"pulseaudio-ctl mute"
+	XF86AudioMute
+
+"pulseaudio-ctl up"
+	XF86AudioRaiseVolume
+
+"pulseaudio-ctl down"
+	XF86AudioLowerVolume
+
+"scrot -m ~/pic/screenshot/%y%m%d%H%M%S.png"
+	Print
