@@ -1,0 +1,14 @@
+! .Xresources
+
+! rxvt-unicode
+URxvt.foreground	: #FFFFFF
+URxvt.background	: #000000
+URxvt.font		: xft:M+ 1mn:style=medium:pixelsize=13
+URxvt.boldFont		: xft:M+ 1mn:style=bold:pixelsize=13
+URxvt.italicFont	: xft:IPAMincho:pixelsize=13
+URxvt.scrollBar_right	: True
+URxvt.scrollstyle	: xterm
+URxvt.saveLines		: 1024
+URxvt.cursorBlink	: True
+URxvt.pointerBlank	: True
+URxvt.pointerBlankDelay	: 1

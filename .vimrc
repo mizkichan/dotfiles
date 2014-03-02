@@ -192,21 +192,6 @@ NeoBundle 'tyru/open-browser.vim'
 	" インデント"{{{
 		" シンプルな自動インデントを使う
 		set autoindent	" local
-
-		" この辺はモードライン使ったほうがいいんじゃね {{{
-			" 自動インデントで挿入される空白の数
-			" >> など。'smarttab' が有効なら行頭の <TAB> も
-			" 0 なら 'tabstop' と同じ値
-			set shiftwidth=0	" local
-
-			" タブキーで挿入される空白の数
-			" 行頭以外での <TAB> で使われる
-			" 0 なら 'tabstop' が、-1 なら 'shiftwidth' が使われる
-			set softtabstop=0	" local
-
-			" タブ文字の見掛けの幅
-			set tabstop=4	" local
-		"}}}
 	"}}}
 	
 	" マウスは使わない
