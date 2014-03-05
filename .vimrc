@@ -22,23 +22,13 @@ NeoBundleLazy 'nvie/vim-flake8', {
 \	}
 \}
 
-NeoBundleLazy 'davidhalter/jedi-vim', {
-\	'autoload' : {
-\		'filetypes' : [ 'python' ]
-\	}
-\}
+NeoBundleLazy 'davidhalter/jedi-vim',		{ 'autoload' : { 'filetypes' : [ 'python' ] } }
+NeoBundleLazy 'ehamberg/vim-cute-python',	{ 'autoload' : { 'filetypes' : [ 'python' ] } }
 
-NeoBundleLazy 'ehamberg/vim-cute-python', {
-\	'autoload' : {
-\		'filetypes' : [ 'python' ]
-\	}
-\}
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundleLazy 'mintplant/vim-literate-coffeescript',	{ 'autoload' : { 'filetypes' : [ 'coffee' ] } }
 
-NeoBundleLazy 'othree/html5.vim', {
-\	'autoload' : {
-\		'filetypes' : [ 'html' ]
-\	}
-\}
+NeoBundleLazy 'othree/html5.vim',		{ 'autoload' : { 'filetypes' : [ 'html' ] } }
 
 NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
 NeoBundle 'chrisbra/SudoEdit.vim'
