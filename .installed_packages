@@ -3,6 +3,7 @@
 # 	% yaourt -Qe | grep -v '(base' | sed -e 's/ .\+$//g' | sort
 
 community/abcde
+community/cabextract
 community/darkhttpd
 community/dmenu
 community/exfat-utils
@@ -37,15 +38,18 @@ extra/burp
 extra/cdparanoia
 extra/cdrkit
 extra/chromium
+extra/cups
 extra/faac
 extra/faad2
 extra/gdb
 extra/gimp
 extra/git
+extra/gnu-netcat
 extra/gnumeric
 extra/gptfdisk
 extra/graphviz
 extra/gsettings-desktop-schemas
+extra/gutenprint
 extra/gv
 extra/imagemagick
 extra/libcanberra
@@ -73,6 +77,7 @@ extra/smbclient
 extra/subversion
 extra/tree
 extra/uim
+extra/unrar
 extra/w3m
 extra/xclip
 extra/xf86-input-synaptics
