@@ -7,12 +7,12 @@ arch=("i686" "x86_64")
 url="http://www.vim.org"
 license=("custom:vim")
 depends=("gpm" "gtk2" "gawk")
-makedepends=("mercurial" "python" "python2" "ruby" "luajit" "tcl" "gpm" "gtk2")
+makedepends=("mercurial" "python" "python2" "ruby" "luajit" "gpm" "gtk2")
 optdepends=("python: Python support"
             "python2: Python2 support"
             "ruby: Ruby support"
             "luajit: Lua support"
-            "tcl: Tcl support")
+            )
 conflicts=("vim" "gvim" "vim-runtime")
 provides=("vim" "gvim")
 source=("${pkgname}::hg+https://vim.googlecode.com/hg/")
@@ -40,8 +40,7 @@ build() {
         --enable-perlinterp=dynamic \
         --enable-python3interp=dynamic \
         --enable-pythoninterp=dynamic \
-        --enable-rubyinterp=dynamic \
-        --enable-tclinterp
+        --enable-rubyinterp=dynamic
 	make
 }
 
