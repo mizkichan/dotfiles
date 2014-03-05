@@ -1,0 +1,63 @@
+# Maintainer: Mizki SUZUMORI <mizki9577@gmail.com>
+pkgname=vim-custom
+pkgver=7.4.192
+pkgrel=1
+pkgdesc="Vi Improved, a highly configurable, improved version of the vi text editor"
+arch=("i686" "x86_64")
+url="http://www.vim.org"
+license=("custom:vim")
+depends=("gpm" "gtk2" "gawk")
+makedepends=("mercurial" "python" "python2" "ruby" "luajit" "tcl" "gpm" "gtk2")
+optdepends=("python: Python support"
+            "python2: Python2 support"
+            "ruby: Ruby support"
+            "luajit: Lua support"
+            "tcl: Tcl support")
+conflicts=("vim" "gvim" "vim-runtime")
+provides=("vim" "gvim")
+source=("${pkgname}::hg+https://vim.googlecode.com/hg/")
+md5sums=("SKIP")
+
+pkgver() {
+	cd "${srcdir}/${pkgname}"
+	hg tip --template "{latesttag}\n" | sed "s/^v//;s/-/./g"
+}
+
+build() {
+    cd "${srcdir}/${pkgname}"
+    ./configure \
+        --prefix=/usr \
+        --with-compiledby="鈴森みずき <mizki9577@gmail.com>" \
+        --with-features=huge \
+        --with-luajit \
+        --with-x \
+        --enable-fail-if-missing \
+        --enable-gui=gtk2 \
+        --enable-cscope \
+        --enable-xim \
+        --enable-multibyte \
+        --enable-luainterp=dynamic \
+        --enable-perlinterp=dynamic \
+        --enable-python3interp=dynamic \
+        --enable-pythoninterp=dynamic \
+        --enable-rubyinterp=dynamic \
+        --enable-tclinterp
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}"
+    make DESTDIR="${pkgdir}" install
+
+    rm "${pkgdir}/usr/bin/"{ex,view}
+
+    find "${pkgdir}/usr/share/man" -type d -name 'man1' 2>/dev/null | \
+        while read _mandir; do
+            cd "${_mandir}"
+            rm -f ex.1 view.1
+        done
+
+    install -Dm644 "${srcdir}/${pkgname}/runtime/doc/uganda.txt" "${pkgdir}/usr/share/licenses/${pkgname}/license.txt"
+}
+
+# vim: ft=sh ts=4 sts=4 sw=4 et
