@@ -1,11 +1,13 @@
+# インストール済みパッケージのうち、自分で明示的にインストールしたものの一覧
+# 生成方法:
+# 	% yaourt -Qe | grep -v '(base' | sed -e 's/ .\+$//g' | sort
+
 community/abcde
-community/cabextract
 community/darkhttpd
 community/dmenu
 community/exfat-utils
 community/fbterm
 community/fuse-exfat
-community/hwinfo
 community/i3-wm
 community/i3lock
 community/i3status
@@ -15,12 +17,9 @@ community/markdown
 community/nodejs
 community/notify-osd
 community/otf-ipafont
-community/pypy3
-community/python-httplib2
 community/rxvt-unicode
 community/scrot
 community/skk-jisyo
-community/stress
 community/ttf-symbola
 community/xbindkeys
 community/xcursor-neutral
@@ -29,10 +28,7 @@ core/efibootmgr
 core/grub
 core/gummiboot
 core/iw
-core/linux-docs
-core/linux-headers
 core/openssh
-core/rfkill
 core/wpa_actiond
 extra/alsa-utils
 extra/archlinux-themes-slim
@@ -46,7 +42,6 @@ extra/faad2
 extra/gdb
 extra/gimp
 extra/git
-extra/gnu-netcat
 extra/gnumeric
 extra/gptfdisk
 extra/graphviz
@@ -56,7 +51,6 @@ extra/imagemagick
 extra/libcanberra
 extra/libmtp
 extra/libnotify
-extra/liboauth
 extra/lm_sensors
 extra/mercurial
 extra/namcap
@@ -69,20 +63,16 @@ extra/pkgstats
 extra/pulseaudio
 extra/pulseaudio-alsa
 extra/python-pip
-extra/python-pyqt5
 extra/python2-pip
 extra/qemu
 extra/qrencode
-extra/qt4
 extra/rsync
 extra/sane
 extra/slim
 extra/smbclient
 extra/subversion
-extra/tcl
 extra/tree
 extra/uim
-extra/unrar
 extra/w3m
 extra/xclip
 extra/xf86-input-synaptics
