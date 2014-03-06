@@ -1,7 +1,7 @@
 # インストール済みパッケージのうち、自分で明示的にインストールしたものの一覧
 # 生成方法:
 # 	% yaourt -Qe | grep -v '(base' | sed -e 's/ .\+$//g' | sort
-
+#
 community/abcde
 community/cabextract
 community/darkhttpd
