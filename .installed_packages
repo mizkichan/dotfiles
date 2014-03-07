@@ -21,7 +21,6 @@ community/otf-ipafont
 community/rxvt-unicode
 community/scrot
 community/skk-jisyo
-community/ttf-symbola
 community/xbindkeys
 community/xcursor-neutral
 core/dosfstools
@@ -34,6 +33,7 @@ core/wpa_actiond
 extra/alsa-utils
 extra/archlinux-themes-slim
 extra/archlinux-wallpaper
+extra/bdf-unifont
 extra/burp
 extra/cdparanoia
 extra/cdrkit
@@ -55,7 +55,6 @@ extra/imagemagick
 extra/libcanberra
 extra/libmtp
 extra/libnotify
-extra/lm_sensors
 extra/mercurial
 extra/namcap
 extra/ntfs-3g
@@ -67,6 +66,7 @@ extra/pkgstats
 extra/pulseaudio
 extra/pulseaudio-alsa
 extra/python-pip
+extra/python-pyqt5
 extra/python2-pip
 extra/qemu
 extra/qrencode
@@ -103,7 +103,6 @@ local/pulseaudio-ctl
 local/ruby-bundler
 local/trash-cli
 local/ttf-mplus
-local/ttf-tamil
 local/udftools
 local/unzip-iconv
 local/vim-custom
