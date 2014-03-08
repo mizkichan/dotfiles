@@ -33,5 +33,6 @@ bindkey "^[[3~" delete-char
 
 alias ls="ls -A -b -h -p -X --color=auto --group-directories-first"
 alias pacman="yaourt"
+alias xargs="xargs "
 alias rm="trash"
 alias _rm="/usr/bin/rm"
