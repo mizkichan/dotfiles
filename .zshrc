@@ -21,18 +21,18 @@ PATH=$HOME/.local/bin:$PATH
 PATH=$PATH:$HOME/.gem/ruby/2.1.0/bin	# RubyGems も ~/.local/ に入れられないだろうか？
 export PATH
 
-PROMPT="%n@%m%% "
-PROMPT2="%_%% "
-RPROMPT="%(?..:( )%~"
+PROMPT='%n@%m%% '
+PROMPT2='%_%% '
+RPROMPT='%(?..:( )%~'
 
 setopt share_history
 
-bindkey "^[[7~" beginning-of-line
-bindkey "^[[8~" end-of-line
-bindkey "^[[3~" delete-char
+bindkey '^[[7~' beginning-of-line
+bindkey '^[[8~' end-of-line
+bindkey '^[[3~' delete-char
 
-alias ls="ls -A -b -h -p -X --color=auto --group-directories-first"
-alias pacman="yaourt"
-alias xargs="xargs "
-alias rm="trash"
-alias _rm="/usr/bin/rm"
+alias ls='ls -A -b -h -p -X --color=auto --group-directories-first'
+alias pacman='yaourt'
+alias xargs='xargs '
+alias rm='trash'
+alias _rm='/usr/bin/rm'
