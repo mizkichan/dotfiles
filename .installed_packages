@@ -21,6 +21,7 @@ community/otf-ipafont
 community/rxvt-unicode
 community/scrot
 community/skk-jisyo
+community/ttf-symbola
 community/xbindkeys
 community/xcursor-neutral
 core/dosfstools
@@ -88,11 +89,11 @@ extra/xorg-xev
 extra/xorg-xinit
 extra/xorg-xkill
 extra/xorg-xmodmap
+extra/xorg-xprop
 extra/zip
 extra/zsh
 local/atomicparsley
 local/aurvote
-local/jd
 local/lostfiles
 local/lzip
 local/mcpatcher
