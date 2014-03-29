@@ -34,6 +34,10 @@ NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'rhysd/inazuma.vim'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
@@ -326,9 +330,8 @@ nnoremap <silent> <Space>w :setlocal wrap!<CR>
 " Gundo
 nnoremap <silent> <Space>u :GundoToggle<CR>
 
-" 日付挿入
-nnoremap <silent> <Space>d "=strftime('%F')<CR>p
-inoremap <silent> <C-Space>d <C-r>=strftime('%F')<CR>
+" VimFiler
+nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 " }}}
 
 filetype plugin indent on
