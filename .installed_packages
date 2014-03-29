@@ -31,6 +31,7 @@ core/gummiboot
 core/iw
 core/openssh
 core/wpa_actiond
+extra/abs
 extra/alsa-utils
 extra/archlinux-themes-slim
 extra/archlinux-wallpaper
@@ -45,6 +46,7 @@ extra/faad2
 extra/gdb
 extra/gimp
 extra/git
+extra/glu
 extra/gnu-netcat
 extra/gnumeric
 extra/gptfdisk
@@ -53,13 +55,16 @@ extra/gsettings-desktop-schemas
 extra/gutenprint
 extra/gv
 extra/imagemagick
+extra/lame
 extra/libcanberra
 extra/libmtp
 extra/libnotify
 extra/mercurial
+extra/mpg123
 extra/namcap
 extra/ntfs-3g
 extra/ntp
+extra/ovmf
 extra/p7zip
 extra/parted
 extra/pkgfile
@@ -81,6 +86,7 @@ extra/uim
 extra/unrar
 extra/w3m
 extra/xclip
+extra/xf86-input-mouse
 extra/xf86-input-synaptics
 extra/xf86-video-intel
 extra/xorg-server
@@ -99,7 +105,6 @@ local/lzip
 local/mcpatcher
 local/mikutter-custom
 local/minecraft
-local/ovmf-svn
 local/pulseaudio-ctl
 local/ruby-bundler
 local/trash-cli
