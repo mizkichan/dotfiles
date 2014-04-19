@@ -7,5 +7,8 @@
 "pulseaudio-ctl down"
 	XF86AudioLowerVolume
 
-"scrot -m ~/pic/screenshot/%y%m%d%H%M%S.png"
+"import -window root ~/pic/screenshot/%y%m%d%-%H%M%S.png"
 	Print
+
+"import ~/pic/screenshot/%y%m%d%-%H%M%S.png"
+	Alt + Print
