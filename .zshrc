@@ -27,8 +27,10 @@ bindkey '^[[7~' beginning-of-line
 bindkey '^[[8~' end-of-line
 bindkey '^[[3~' delete-char
 
-alias ls='ls -A -b -h -p -X --color=auto --group-directories-first'
+alias ls='ls -AbFhv --color --group-directories-first'
 alias pacman='yaourt'
 alias xargs='xargs '
 alias rm='trash'
 alias _rm='/usr/bin/rm'
+
+eval `dircolors -b ~/.dir_colors`
