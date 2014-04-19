@@ -1,6 +1,6 @@
 # Maintainer: Mizki SUZUMORI <mizki9577@gmail.com>
 pkgname=vim-custom
-pkgver=7.4.225
+pkgver=7.4.258
 pkgrel=1
 pkgdesc="Vi Improved, a highly configurable, improved version of the vi text editor"
 arch=("i686" "x86_64")
