@@ -21,6 +21,6 @@ display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplybl
 
 uim-xim &
 uim-toolbar-gtk-systray &
-~/.local/bin/batmeter &
+~/.local/bin/batterymeter &
 
 exec $1
