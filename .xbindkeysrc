@@ -7,8 +7,8 @@
 "pulseaudio-ctl down"
 	XF86AudioLowerVolume
 
-"import -window root ~/pic/screenshot/%y%m%d%-%H%M%S.png"
+"import -window root ~/pic/screenshot/$(date +%y%m%d%H%M%S).png"
 	Print
 
-"import ~/pic/screenshot/%y%m%d%-%H%M%S.png"
+"import -window $(xdotool getwindowfocus -f) ~/pic/screenshot/$(date +%y%m%d%H%M%S).png"
 	Alt + Print
