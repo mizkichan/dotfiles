@@ -6,7 +6,7 @@ if has('vim_starting')
 endif
 call neobundle#rc(expand('~/.vim/bundle'))
 
-NeoBundle 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
+NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 
 NeoBundle 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 let g:unite_data_directory = '~/.vim/misc/unite'
@@ -27,6 +27,8 @@ NeoBundleLazy 'ehamberg/vim-cute-python',	{ 'autoload' : { 'filetypes' : [ 'pyth
 
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundleLazy 'mintplant/vim-literate-coffeescript',	{ 'autoload' : { 'filetypes' : [ 'coffee' ] } }
+
+NeoBundle 'groenewege/vim-less'
 
 NeoBundleLazy 'othree/html5.vim',		{ 'autoload' : { 'filetypes' : [ 'html' ] } }
 
@@ -336,4 +338,4 @@ nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 
 filetype plugin indent on
 
-" vim: fdm=marker
+" vim: fdm=marker ts=4 sw=4
