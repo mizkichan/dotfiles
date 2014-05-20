@@ -4,51 +4,43 @@
 if has('vim_starting')
 	setglobal runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-call neobundle#rc(expand('~/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
-
-NeoBundle 'Shougo/unite.vim', { 'depends' : [ 'Shougo/vimproc' ] }
-let g:unite_data_directory = '~/.vim/misc/unite'
-NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
-
-NeoBundleLazy 'nvie/vim-flake8', {
-\	'autoload' : {
-\		'filetypes' : [ 'python' ]
-\	},
-\	'build' : {
-\		'unix' : 'pip install --user flake8'
-\	}
-\}
-
-NeoBundleLazy 'davidhalter/jedi-vim',		{ 'autoload' : { 'filetypes' : [ 'python' ] } }
-NeoBundleLazy 'ehamberg/vim-cute-python',	{ 'autoload' : { 'filetypes' : [ 'python' ] } }
-
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundleLazy 'mintplant/vim-literate-coffeescript',	{ 'autoload' : { 'filetypes' : [ 'coffee' ] } }
-
-NeoBundle 'groenewege/vim-less'
-
-NeoBundleLazy 'othree/html5.vim',		{ 'autoload' : { 'filetypes' : [ 'html' ] } }
-
 NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
-NeoBundle 'chrisbra/SudoEdit.vim'
-NeoBundle 'Shougo/vimshell.vim'
+
+NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'chrisbra/SudoEdit.vim'
+NeoBundle 'groenewege/vim-less'
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'rhysd/inazuma.vim'
+NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'thinca/vim-quickrun', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'thinca/vim-ref'
-let g:ref_cache_dir = '~/.vim/misc/vim_ref_cache'
-NeoBundle 'tyru/restart.vim'
-NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'tomasr/molokai'
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tyru/restart.vim'
+NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'vim-jp/vimdoc-ja'
+
+" Filetype plugins
+NeoBundleLazy 'davidhalter/jedi-vim',  { 'autoload' : { 'filetypes' : [ 'python' ] } }
+NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
+NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user flake8' } }
+NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
+NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
+
+call neobundle#end()
+
+let g:ref_cache_dir = '~/.vim/misc/vim_ref_cache'
+let g:unite_data_directory = '~/.vim/misc/unite'
 "}}}
 " Options {{{
 	" GUI {{{
@@ -252,14 +244,7 @@ NeoBundle 'tyru/open-browser.vim'
 " Terminal {{{
 	set t_Co=256
 " }}}
-" Color {{{
-	NeoBundle 'tomasr/molokai'
-	colorscheme molokai
-	syntax on
-" }}}
 " Completion {{{
-	NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
-
 	" neocomplete 有効
 	let g:neocomplete#enable_at_startup = 1
 
@@ -336,6 +321,8 @@ nnoremap <silent> <Space>u :GundoToggle<CR>
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 " }}}
 
+colorscheme molokai
+syntax on
 filetype plugin indent on
 
 " vim: fdm=marker ts=4 sw=4
