@@ -46,7 +46,7 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 	" GUI {{{
 	if has('gui_running')
 		" フォント
-		set guifont=M+\ 1mn\ medium\ 10
+		set guifont=M+\ 1mn\ regular\ 10
 
 		" GUI オプションはだいたい無効
 		set guioptions&
