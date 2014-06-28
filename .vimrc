@@ -39,8 +39,8 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
-NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user flake8' } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
+NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user flake8' } }
 NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
 
 call neobundle#end()
@@ -341,9 +341,6 @@ nnoremap <silent> <Space>u :GundoToggle<CR>
 
 " VimFiler
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
-
-" Tagbar
-nnoremap <silent> <Space>t :TagbarToggle<CR>
 " }}}
 
 colorscheme molokai
