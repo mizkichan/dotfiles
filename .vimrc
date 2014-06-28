@@ -11,6 +11,7 @@ NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
 
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'airblade/vim-gitgutter'
@@ -18,20 +19,25 @@ NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'klen/unite-radio.vim'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
+NeoBundle 'mattn/unite-gist', { 'depends' : [ 'mattn/gist-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'thinca/vim-quickrun', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'tomasr/molokai'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
+NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'vim-jp/vimdoc-ja'
 
 " Filetype plugins
-NeoBundleLazy 'davidhalter/jedi-vim',  { 'autoload' : { 'filetypes' : [ 'python' ] } }
+NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
+NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user flake8' } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
@@ -254,6 +260,22 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 	" 'iminsert' が 非0 のときに自動補完をロック
 	let g:neocomplete#lock_iminsert = 1
 
+	" for jedi.vim
+	autocmd FileType python setlocal omnifunc=jedi#completions
+	let g:jedi#completions_enabled = 0
+	let g:jedi#auto_vim_configuration = 0
+	let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+	" for clang_complete
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	let g:neocomplete#force_overwrite_completefunc = 1
+	let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	let g:clang_complete_auto = 0
+	let g:clang_auto_select = 0
+
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
 " }}}
@@ -319,6 +341,9 @@ nnoremap <silent> <Space>u :GundoToggle<CR>
 
 " VimFiler
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
+
+" Tagbar
+nnoremap <silent> <Space>t :TagbarToggle<CR>
 " }}}
 
 colorscheme molokai
