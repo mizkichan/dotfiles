@@ -11,29 +11,32 @@ NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
 
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'klen/unite-radio.vim'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
-NeoBundle 'mattn/unite-gist', { 'depends' : [ 'mattn/gist-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'thinca/vim-quickrun', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'tomasr/molokai'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
-NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'vim-jp/vimdoc-ja'
+
+" Unite sources
+NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'klen/unite-radio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'mattn/unite-gist', { 'depends' : [ 'mattn/gist-vim'. 'Shougo/unite.vim' ] }
+NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 " Filetype plugins
 NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
@@ -186,6 +189,9 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 	" インデント"{{{
 		" シンプルな自動インデントを使う
 		set autoindent	" local
+
+		" 折り返された行頭をインデントに合わせる
+		set breakindent	"local
 	"}}}
 	
 	" マウスは使わない
@@ -259,6 +265,10 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 
 	" 'iminsert' が 非0 のときに自動補完をロック
 	let g:neocomplete#lock_iminsert = 1
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
 
 	" for jedi.vim
 	autocmd FileType python setlocal omnifunc=jedi#completions
