@@ -1,6 +1,28 @@
 # インストール済みパッケージのうち、自分で明示的にインストールしたものの一覧
 # 生成方法:
-# 	% ( pacman -Qqe && pacman -Qqeg base base-devel ) | sort | uniq -u
+# % ( pacman -Qqe && pacman -Qqeg base base-devel ) | sort | uniq -u
+#
+# 用途がすぐに思い出せないパッケージのためのメモ
+#  acpid                        : 自動ハイバネートなどに使用
+#  alsa-utils                   : alsamixer
+#  boost                        : C++
+#  cdrkit                       : cdrecord, mkisofs
+#  clang                        : clang-complete.vim
+#  ctags                        : unite-outline.vim
+#  dosfstools                   : mkfs.fat, fsck.fat
+#  exfat-utils                  : mkfs.exfat, fsck.exfat
+#  fltk                         : C++
+#  fuse-exfat                   : mount.exfat
+#  libcanberra                  : これがないとGTKに警告吐かれてウザい
+#  libnotify                    : notify-send
+#  libxkbcommon-x11             : QtがXCBで使うらしい
+#  luajit                       : vim
+#  ntfs-3g                      : mount.ntfs, mkfs.ntfs, fsck.ntfs
+#  opencv                       : C++
+#  ovmf                         : QEMU で UEFI 環境を作るためのファームウェアイメージ
+#  pkgbuild-introspection       : mkaurball
+#  python-pyqt5                 : Python
+#  wpa_actiond                  : netctl
 #
 abs
 acpid
@@ -8,7 +30,6 @@ alsa-utils
 archlinux-themes-slim
 archlinux-wallpaper
 aurvote
-bdf-unifont
 boost
 burp
 cabextract
@@ -16,10 +37,8 @@ cdrkit
 clang
 cronie
 ctags
-cups
 dmenu
 dosfstools
-dvd+rw-tools
 efibootmgr
 exfat-utils
 fbterm
@@ -33,15 +52,11 @@ git
 gnu-netcat
 gptfdisk
 graphviz
-groff
 grub
-gutenprint
 i3-wm
-i3lock
 i3status
 imagemagick
 ipython
-iw
 libcanberra
 libnotify
 libreoffice-calc
@@ -50,13 +65,11 @@ libxkbcommon-x11
 lostfiles
 luajit
 lzip
-markdown
 mercurial
 mikutter-custom
 mplayer
 namcap
 nmap
-nodejs
 notify-osd
 ntfs-3g
 ntp
@@ -77,10 +90,7 @@ python-pyqt5
 python2-pip
 qemu
 qpdfview
-rsync
-ruby-bundler
 rxvt-unicode
-sane
 skk-jisyo
 slim
 subversion
@@ -88,7 +98,6 @@ trash-cli
 tree
 ttf-mplus
 ttf-symbola
-udftools
 uim
 unrar
 unzip-iconv
@@ -104,11 +113,8 @@ xf86-video-intel
 xorg-server
 xorg-server-utils
 xorg-server-xephyr
-xorg-xev
 xorg-xinit
 xorg-xkill
-xorg-xmodmap
-xorg-xprop
 yaourt
 zip
 zsh
