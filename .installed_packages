@@ -21,6 +21,7 @@
 #  opencv                       : C++
 #  ovmf                         : QEMU で UEFI 環境を作るためのファームウェアイメージ
 #  pkgbuild-introspection       : mkaurball
+#  poppler-data                 : TeX で吐いた文書が表示できなかったりする対策
 #  python-pyqt5                 : Python
 #  wpa_actiond                  : netctl
 #
@@ -53,6 +54,7 @@ gnu-netcat
 gptfdisk
 graphviz
 grub
+gtk2fontsel
 i3-wm
 i3status
 imagemagick
@@ -82,6 +84,7 @@ parted
 pkgbuild-introspection
 pkgfile
 pkgstats
+poppler-data
 pulseaudio
 pulseaudio-alsa
 pulseaudio-ctl
@@ -94,6 +97,8 @@ rxvt-unicode
 skk-jisyo
 slim
 subversion
+texlive-core
+texlive-langcjk
 trash-cli
 tree
 ttf-mplus
