@@ -1,10 +1,16 @@
 " .vimrc
 
+if has('unix')
+	let $MYVIMDIR = expand('$HOME/.vim')
+elseif has('win32')
+	let $MYVIMDIR = expand('$HOME/vimfiles')
+endif
+
 " NeoBundle {{{
 if has('vim_starting')
-	setglobal runtimepath+=~/.vim/bundle/neobundle.vim
+	setglobal runtimepath+=$MYVIMDIR/bundle/neobundle.vim
 endif
-call neobundle#begin(expand('~/.vim/bundle'))
+call neobundle#begin(expand($MYVIMDIR . '/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
@@ -48,8 +54,8 @@ NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
 
 call neobundle#end()
 
-let g:ref_cache_dir = '~/.vim/misc/vim_ref_cache'
-let g:unite_data_directory = '~/.vim/misc/unite'
+let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
+let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 "}}}
 " Options {{{
 	" GUI {{{
@@ -58,12 +64,13 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 		set guifont=M+\ 1mn\ regular\ 10
 
 		" GUI オプションはだいたい無効
+		" icM になるはず
 		set guioptions&
 		set go-=a go-=e go-=g go-=m go-=r go-=L go-=t go-=T
 		set go+=c go+=M
 	endif
 	" }}}
-	" GじゃないUI {{{
+	" UI {{{
 		" カーソルのある行を強調
 		set cursorline	" local
 
@@ -84,7 +91,7 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 		set ruler
 
 		" ルーラの書式
-		set rulerformat=
+		set rulerformat&	" いつかやる
 
 		" 短縮表示するメッセージのリスト
 		" a : 基本的なもの全て
@@ -95,7 +102,7 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 		set shm+=a shm-=o shm-=O shm-=T shm+=I shm+=s
 
 		" 折り返された行の先頭に表示する文字列
-		set showbreak=>
+		set showbreak&	"いつかやる
 
 		" 未解決コマンドを表示する
 		set showcmd
@@ -104,13 +111,13 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 		set showtabline=2
 
 		" ステータス行の書式
-		set statusline=
+		set statusline&	" いつかやる
 
 		" タブバーの書式
-		set tabline=
+		set tabline&	" いつかやる
 
 		" タイトルバーの書式
-		set titlestring=
+		set titlestring& "いつかやる
 	" }}}
 	" 国際化 {{{
 		" 迷ったら半角
@@ -132,23 +139,20 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 		" 永続的アンドゥ履歴を有効
 		set undofile	" local
 		
-		" バックアップ関係はプラットフォーム依存な部分がけっこうある
-		if has('unix')
-			" 属性やリンクの維持のため、UNIX系ではバックアップはコピーによって行う
-			set backupcopy=yes
+		" バックアップの属性維持
+		set backupcopy=yes
 
-			" バックアップの保存先
-			set backupdir=~/.vim/backup
+		" バックアップの保存先
+		set backupdir=$MYVIMDIR/backup
 
-			" アンドゥファイルの保存先
-			set undodir=~/.vim/undo
+		" アンドゥファイルの保存先
+		set undodir=$MYVIMDIR/undo
 
-			" ビューの保存先
-			set viewdir=~/.vim/view
+		" ビューの保存先
+		set viewdir=$MYVIMDIR/view
 
-			" スワップの保存先
-			set directory=./,~/.vim/swap
-		endif
+		" スワップの保存先
+		set directory=./,$MYVIMDIR/swap
 	"}}}
 	" キー {{{
 		" コマンドラインウィンドウを開くためのキーを無効
@@ -203,7 +207,7 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 	" vi 互換オプション
 	" c : 既にマッチしている範囲内からでも検索を開始する
 	" / : 置換において置換後文字列を '%' で再利用できる
-	set cpo-=c cpo+=/ 
+	set cpo-=c cpo+=/
 
 	" diff モードのオプション
 	set diffopt=filler,context:5,vertical
@@ -261,7 +265,7 @@ let g:unite_data_directory = '~/.vim/misc/unite'
 	let g:neocomplete#enable_at_startup = 1
 
 	" データディレクトリ
-	let g:neocomplete#data_directory = '~/.vim/misc/neocomplete'
+	let g:neocomplete#data_directory = $MYVIMDIR . '/misc/neocomplete'
 
 	" 'iminsert' が 非0 のときに自動補完をロック
 	let g:neocomplete#lock_iminsert = 1
@@ -295,8 +299,8 @@ augroup vimrc_autocmd
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
 	" テンプレ。プラギンにありそう
-	autocmd BufNewFile *.py 0r ~/.vim/template/python.txt
-	autocmd BufNewFile *.html 0r ~/.vim/template/html.txt
+	autocmd BufNewFile *.py 0r $MYVIMDIR/template/python.txt
+	autocmd BufNewFile *.html 0r $MYVIMDIR/template/html.txt
 augroup END
 " }}}
 " Mapping {{{
@@ -351,6 +355,19 @@ nnoremap <silent> <Space>u :GundoToggle<CR>
 
 " VimFiler
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
+
+" スクロールオフセットの切り替え
+nnoremap <silent> <Space>s :call ToggleScrollOffset()<CR>
+function! ToggleScrollOffset()
+	let l:tmp = s:so
+	let s:so = &scrolloff
+	let &scrolloff = l:tmp
+	let l:tmp = s:siso
+	let s:siso = &sidescrolloff
+	let &sidescrolloff = l:tmp
+endfunction
+let s:so = 0
+let s:siso = 0
 " }}}
 
 colorscheme molokai
