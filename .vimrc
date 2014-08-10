@@ -1,4 +1,4 @@
-" .vimrc
+﻿" .vimrc
 
 if has('unix')
 	let $MYVIMDIR = expand('$HOME/.vim')
@@ -61,7 +61,11 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	" GUI {{{
 	if has('gui_running')
 		" フォント
-		set guifont=M+\ 1mn\ regular\ 10
+		if has('x11')
+			set guifont=M+\ 1mn\ regular\ 10
+		elseif has('gui_win32')
+			set guifont=M+\ 1mn\ regular:h10:cSHIFTJIS
+		endif
 
 		" GUI オプションはだいたい無効
 		" icM になるはず
@@ -82,7 +86,11 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" 見えない文字の可視化
 		set list	" local
-		set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:«,conceal:\ ,nbsp:␣
+		if has('unix')
+			set listchars=eol:?,tab:>\ ,trail:?,extends:≫,precedes:≪,conceal:\ ,nbsp:?
+		elseif has('win32')
+			set listchars=tab:>\ 
+		endif
 		
 		" 行番号を表示
 		set number	" local
@@ -97,7 +105,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		" a : 基本的なもの全て
 		" o, O, T : メッセージは上書きしない
 		" I : 起動時のウェルカムメッセージ
-		" s : 〜まで検索したので〜に戻ります (vim-anzu が echo するので)
+		" s : ?まで検索したので?に戻ります (vim-anzu が echo するので)
 		set shortmess&
 		set shm+=a shm-=o shm-=O shm-=T shm+=I shm+=s
 
@@ -124,7 +132,11 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		set ambiwidth=single
 
 		" 内部エンコーディング
-		set encoding=utf-8
+		if has('unix')
+			set encoding=utf-8
+		elseif has('win32')
+			set encoding=cp932
+		endif
 
 		" 想定される文字エンコーディングのリスト
 		set fileencodings=ucs-bom,utf-8,cp932,euc-jp
