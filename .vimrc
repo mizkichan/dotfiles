@@ -40,16 +40,17 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " Unite sources
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'klen/unite-radio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'mattn/unite-gist', { 'depends' : [ 'mattn/gist-vim'. 'Shougo/unite.vim' ] }
+NeoBundle 'mattn/unite-gist', { 'depends' : [ 'Shougo/unite.vim', 'mattn/gist-vim' ] }
 NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim' ] }
 
 " Filetype plugins
 NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
-NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user flake8' } }
+NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user --upgrade flake8' } }
 NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
 
 call neobundle#end()
@@ -87,9 +88,9 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		" 見えない文字の可視化
 		set list	" local
 		if has('unix')
-			set listchars=eol:?,tab:>\ ,trail:?,extends:≫,precedes:≪,conceal:\ ,nbsp:?
+			set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:«,conceal:\ ,nbsp:␣
 		elseif has('win32')
-			set listchars=tab:>\ 
+			set listchars=eol:;,tab:>\ ,trail:$,extends:>,precedes:<,conceal:\ ,nbsp:$
 		endif
 		
 		" 行番号を表示
@@ -380,6 +381,102 @@ function! ToggleScrollOffset()
 endfunction
 let s:so = 0
 let s:siso = 0
+
+" チルダコマンド上書き
+nnoremap <silent> ~ :call Tilde()<CR>
+function! Tilde()
+	let l:from = ''
+		\.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		\.'abcdefghijklmnopqrstuvwxyz'
+		\.'?!-+*/"'')(][}{><:;'
+		\.'!?+-/*''"()[]{}<>;:'
+		\.'あいうえお'
+		\.'かきくけこ'
+		\.'がぎぐげご'
+		\.'さしすせそ'
+		\.'ざじずぜぞ'
+		\.'たちつてと'
+		\.'だぢづでど'
+		\.'なにぬねの'
+		\.'はひふへほ'
+		\.'ばびぶべぼ'
+		\.'ぱぴぷぺぽ'
+		\.'まみむめも'
+		\.'らりるれろ'
+		\.'やゆよわをん'
+		\.'ぁぃぅぇぉゃゅょゎ'
+		\.'アイウエオ'
+		\.'カキクケコ'
+		\.'ガギグゲゴ'
+		\.'サシスセソ'
+		\.'ザジズゼゾ'
+		\.'タチツテト'
+		\.'ダヂヅデド'
+		\.'ナニヌネノ'
+		\.'ハヒフヘホ'
+		\.'バビブベボ'
+		\.'パピプペポ'
+		\.'マミムメモ'
+		\.'ラリルレロ'
+		\.'ヤユヨワヲン'
+		\.'ァィゥェォャュョヮ'
+		\.'上下左右縦横'
+		\.'下上右左横縦'
+		\.'←↓↑→'
+		\.'→↑↓←'
+	let l:to = ''
+		\.'abcdefghijklmnopqrstuvwxyz'
+		\.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		\.'!?+-/*''"()[]{}<>;:'
+		\.'?!-+*/"'')(][}{><:;'
+		\.'アイウエオ'
+		\.'カキクケコ'
+		\.'ガギグゲゴ'
+		\.'サシスセソ'
+		\.'ザジズゼゾ'
+		\.'タチツテト'
+		\.'ダヂヅデド'
+		\.'ナニヌネノ'
+		\.'ハヒフヘホ'
+		\.'バビブベボ'
+		\.'パピプペポ'
+		\.'マミムメモ'
+		\.'ラリルレロ'
+		\.'ヤユヨワヲン'
+		\.'ァィゥェォャュョヮ'
+		\.'あいうえお'
+		\.'かきくけこ'
+		\.'がぎぐげご'
+		\.'さしすせそ'
+		\.'ざじずぜぞ'
+		\.'たちつてと'
+		\.'だぢづでど'
+		\.'なにぬねの'
+		\.'はひふへほ'
+		\.'ばびぶべぼ'
+		\.'ぱぴぷぺぽ'
+		\.'まみむめも'
+		\.'らりるれろ'
+		\.'やゆよわをん'
+		\.'ぁぃぅぇぉゃゅょゎ'
+		\.'下上右左横縦'
+		\.'上下左右縦横'
+		\.'→↑↓←'
+		\.'←↓↑→'
+
+	let l:current_line = getline('.')
+	let l:current_line_num = line('.')
+	let l:current_column_num = col('.')
+	let l:cursor_char = matchstr(l:current_line, '.', l:current_column_num - 1)
+	let l:charbytes = strlen(l:cursor_char)
+	let l:split_index = match(l:current_line, '.', l:current_column_num - 1)
+	let l:head = l:current_line[:l:split_index - 1]
+	let l:tail = l:current_line[l:split_index + l:charbytes :]
+	let l:newchar = tr(l:cursor_char, l:from, l:to)
+
+	call setline(line('.'), l:head . l:newchar . l:tail)
+	call cursor(l:current_line_num, l:current_column_num + l:charbytes)
+endfunction
 " }}}
 
 colorscheme molokai
