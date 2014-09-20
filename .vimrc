@@ -46,7 +46,7 @@ NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim' ] }
 
 " Filetype plugins
-NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
+NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
@@ -284,15 +284,11 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	let g:jedi#auto_vim_configuration = 0
 	let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
-	" for clang_complete
-	if !exists('g:neocomplete#force_omni_input_patterns')
-		let g:neocomplete#force_omni_input_patterns = {}
-	endif
-	let g:neocomplete#force_overwrite_completefunc = 1
-	let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-	let g:clang_complete_auto = 0
-	let g:clang_auto_select = 0
+	" for marching.vim
+	let g:marching#clang_command#options = {
+	\	'cpp' : '-std=c++1y'
+	\}
+	let g:marching_enable_neocomplete = 1
 
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
