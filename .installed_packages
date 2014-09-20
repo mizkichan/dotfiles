@@ -39,10 +39,11 @@ cabextract
 cdrkit
 cgdb
 clang
+cmake
 cpp-netlib
 cronie
 ctags
-dmenu
+dmenu-xft
 dosfstools
 efibootmgr
 exfat-utils
@@ -63,6 +64,7 @@ grub
 i3-wm
 imagemagick
 ipython
+irssi
 libcanberra
 libnotify
 libreoffice-fresh
