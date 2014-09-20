@@ -6,7 +6,7 @@ elseif has('win32')
 	let $MYVIMDIR = expand('$HOME/vimfiles')
 endif
 
-" NeoBundle {{{
+" NeoBundle {{{1
 if has('vim_starting')
 	setglobal runtimepath+=$MYVIMDIR/bundle/neobundle.vim
 endif
@@ -57,9 +57,9 @@ call neobundle#end()
 
 let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
 let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
-"}}}
-" Options {{{
-	" GUI {{{
+
+" Options {{{1
+	" GUI {{{2
 	if has('gui_running')
 		" フォント
 		if has('x11')
@@ -74,8 +74,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		set go-=a go-=e go-=g go-=m go-=r go-=L go-=t go-=T
 		set go+=c go+=M
 	endif
-	" }}}
-	" UI {{{
+	" UI {{{2
 		" カーソルのある行を強調
 		set cursorline	" local
 
@@ -127,8 +126,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" タイトルバーの書式
 		set titlestring& "いつかやる
-	" }}}
-	" 国際化 {{{
+	" 国際化 {{{2
 		" 迷ったら半角
 		set ambiwidth=single
 
@@ -144,8 +142,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" なんかよくわからんけどSKK動く
 		set iminsert=2
-	" }}}
-	" バックアップ、セッション、ビュー、アンドゥ、スワップ {{{
+	" バックアップ、セッション、ビュー、アンドゥ、スワップ {{{2
 		" バックアップを有効化
 		set backup
 
@@ -166,8 +163,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" スワップの保存先
 		set directory=./,$MYVIMDIR/swap
-	"}}}
-	" キー {{{
+	" キー {{{2
 		" コマンドラインウィンドウを開くためのキーを無効
 		set cedit=
 
@@ -176,8 +172,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" Alt をメニューは使わない
 		set winaltkeys=no
-	" }}}
-	" 検索・置換 {{{
+	" 検索・置換 {{{2
 		" 置換フラグ 'g' の効果を反転させる
 		set gdefault
 
@@ -195,21 +190,19 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" 大文字が含まれるときは大文字を区別する
 		set smartcase
-	"}}}
-	" コマンドライン {{{
+	" コマンドライン {{{2
 		" コマンドライン補完の拡張モード
 		set wildmenu
 
 		" コマンドライン補完のタブキーの挙動
 		set wildmode=longest,full
-	"}}}
-	" インデント"{{{
+	" インデント"{{{2
 		" シンプルな自動インデントを使う
 		set autoindent	" local
 
 		" 折り返された行頭をインデントに合わせる
 		set breakindent	"local
-	"}}}
+	"}}}2
 	
 	" マウスは使わない
 	set mouse=
@@ -269,11 +262,9 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 	" 矩形選択でタブの内側も移動できる
 	set virtualedit=block
-" }}}
 " Terminal {{{
 	set t_Co=256
-" }}}
-" Completion {{{
+" Completion {{{1
 	" neocomplete 有効
 	let g:neocomplete#enable_at_startup = 1
 
@@ -305,8 +296,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
-" }}}
-" Auto Commands {{{
+" Auto Commands {{{1
 augroup vimrc_autocmd
 	autocmd!
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
@@ -315,8 +305,7 @@ augroup vimrc_autocmd
 	autocmd BufNewFile *.py 0r $MYVIMDIR/template/python.txt
 	autocmd BufNewFile *.html 0r $MYVIMDIR/template/html.txt
 augroup END
-" }}}
-" Mapping {{{
+" Mapping {{{1
 " Unite
 nnoremap <Space><Space> :Unite<Space>
 
@@ -477,7 +466,7 @@ function! Tilde()
 	call setline(line('.'), l:head . l:newchar . l:tail)
 	call cursor(l:current_line_num, l:current_column_num + l:charbytes)
 endfunction
-" }}}
+" }}}1
 
 colorscheme molokai
 syntax on
