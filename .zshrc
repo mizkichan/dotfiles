@@ -1,36 +1,57 @@
 # .zshrc
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
-setopt nomatch notify
-unsetopt appendhistory autocd beep extendedglob
-bindkey -e
-# End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-PROMPT='%n@%m%% '
-PROMPT2='%_%% '
-RPROMPT='%(?..:( )%~'
+################
+# Options
+################
 
-setopt share_history
+# Changing Directories
+setopt AUTO_PUSHD  # 自動で pushd する
+# Completion
+setopt COMPLETE_IN_WORD  # 単語の途中から補完できるようにする
+# History
+setopt EXTENDED_HISTORY  # 日時情報を付加して履歴を保存する
+setopt HIST_IGNORE_SPACE  # 空白で始まる履歴を保存しない
+setopt HIST_VERIFY  # 履歴呼び出しを直接実行しない
+# I/O
+unsetopt CLOBBER  # リダイレクト時に既存ファイルを上書きできないようにする
+setopt CORRECT  # コマンドのスペルミス訂正をする
+setopt CORRECT_ALL  # 引数のスペルミス訂正をする
+setopt IGNORE_EOF  # Ctrl-D で終了しない
+setopt INTERACTIVE_COMMENTS  # 対話モードでもコメントを有効にする
+setopt PRINT_EXIT_VALUE  # 終了コードを表示する
+# Line Editor
+[ $TERM = "rxvt-unicode-256color" ] && setopt COMBINING_CHARS
 
-bindkey '^[[7~' beginning-of-line
-bindkey '^[[8~' end-of-line
-bindkey '^[[3~' delete-char
+################
+# Prompt
+################
+autoload -U colors && colors
+PROMPT="%n@%m%# "
+PROMPT2="%_%# "
+RPROMPT="%(?..%{$fg[red]%}:(%{$reset_color%} )%~ [%D{%y/%m/%d %H:%M:%S}]"
+PROMPT_EOL_MARK="%B%S$%s%b"
 
-alias ls='ls -AbFhv --color --group-directories-first'
-alias pacman='yaourt'
-alias xargs='xargs '
-alias rm='trash'
-alias _rm='/usr/bin/rm'
+################
+# Aliases
+################
+alias ls="ls -AbFhv --color --group-directories-first"
+alias pacman="yaourt"
+alias xargs="xargs "
+alias rm="trash"
+alias _rm="/usr/bin/rm"
+
+################
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=100000
+bindkey -e
 
 eval `dircolors -b ~/.dir_colors`
