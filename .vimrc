@@ -1,5 +1,6 @@
 ﻿" .vimrc
 
+set encoding=utf-8
 if has('unix')
 	let $MYVIMDIR = expand('$HOME/.vim')
 elseif has('win32')
@@ -13,7 +14,9 @@ endif
 call neobundle#begin(expand($MYVIMDIR . '/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
-NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak' } }
+NeoBundle 'Shougo/vimproc', { 'build' : {
+	\'unix' : 'make -f make_unix.mak',
+\}}
 
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
@@ -23,14 +26,12 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'groenewege/vim-less'
-NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'thinca/vim-quickrun', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'tomasr/molokai'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
@@ -39,7 +40,6 @@ NeoBundle 'vim-jp/vimdoc-ja'
 
 " Unite sources
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'klen/unite-radio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'mattn/unite-gist', { 'depends' : [ 'Shougo/unite.vim', 'mattn/gist-vim' ] }
 NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -53,14 +53,17 @@ NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes
 NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user --upgrade flake8' } }
 NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
 
+" Color Schemes
+NeoBundle 'tomasr/molokai'
+NeoBundle 'vim-scripts/dw_colors'
+
 call neobundle#end()
 
 let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
 let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 " Options {{{1
-	" GUI {{{2
-	if has('gui_running')
+	" UI {{{2
 		" フォント
 		if has('x11')
 			set guifont=M+\ 1mn\ regular\ 10
@@ -73,10 +76,6 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		set guioptions&
 		set go-=a go-=e go-=g go-=m go-=r go-=L go-=t go-=T
 		set go+=c go+=M
-	endif
-	" UI {{{2
-		" カーソルのある行を強調
-		set cursorline	" local
 
 		" UI の区切り部品に使われる文字
 		set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:\ 
@@ -86,11 +85,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" 見えない文字の可視化
 		set list	" local
-		if has('unix')
-			set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:«,conceal:\ ,nbsp:␣
-		elseif has('win32')
-			set listchars=eol:;,tab:>\ ,trail:$,extends:>,precedes:<,conceal:\ ,nbsp:$
-		endif
+		set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:«
 		
 		" 行番号を表示
 		set number	" local
@@ -98,19 +93,21 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		" ルーラを表示
 		set ruler
 
-		" ルーラの書式
-		set rulerformat&	" いつかやる
-
 		" 短縮表示するメッセージのリスト
-		" a : 基本的なもの全て
-		" o, O, T : メッセージは上書きしない
-		" I : 起動時のウェルカムメッセージ
+		" a : ファイル状態の短縮表示
+		" I : 起動時のウェルカムメッセージ省略
 		" s : ?まで検索したので?に戻ります (vim-anzu が echo するので)
 		set shortmess&
-		set shm+=a shm-=o shm-=O shm-=T shm+=I shm+=s
+		set shm+=a shm-=f shm-=i shm-=l shm-=n shm-=x shm-=o shm-=O shm-=t shm-=T shm+=I shm+=s
 
 		" 折り返された行の先頭に表示する文字列
-		set showbreak&	"いつかやる
+		set showbreak=+++
+
+		" 折り返された行の行頭のインデントを合わせる
+		set breakindent
+
+		" breakindent が適用されたとき, showbreak の文字を折り返された行頭に表示する
+		set breakindentopt=sbr
 
 		" 未解決コマンドを表示する
 		set showcmd
@@ -118,31 +115,27 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		" タブバーを常に表示する
 		set showtabline=2
 
+		" 折り返された見掛け上の1行をウィンドウの最後の行でも表示する
+		set display=lastline
+	" 書式系 {{{2
 		" ステータス行の書式
 		set statusline&	" いつかやる
-
+		" ルーラの書式
+		set rulerformat&	" いつかやる
 		" タブバーの書式
 		set tabline&	" いつかやる
-
 		" タイトルバーの書式
 		set titlestring& "いつかやる
-	" 国際化 {{{2
+	" i18n {{{2
 		" 迷ったら半角
 		set ambiwidth=single
-
-		" 内部エンコーディング
-		if has('unix')
-			set encoding=utf-8
-		elseif has('win32')
-			set encoding=cp932
-		endif
 
 		" 想定される文字エンコーディングのリスト
 		set fileencodings=ucs-bom,utf-8,cp932,euc-jp
 
 		" なんかよくわからんけどSKK動く
 		set iminsert=2
-	" バックアップ、セッション、ビュー、アンドゥ、スワップ {{{2
+	" Backup, Session, View, Undo, Swap {{{2
 		" バックアップを有効化
 		set backup
 
@@ -163,16 +156,19 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" スワップの保存先
 		set directory=./,$MYVIMDIR/swap
-	" キー {{{2
-		" コマンドラインウィンドウを開くためのキーを無効
+	" キー無効化 {{{2
+		" コマンドラインウィンドウ
 		set cedit=
 
-		" 行末から行頭に移動できるキー
+		" 行末から行頭に移動
 		set whichwrap=
 
-		" Alt をメニューは使わない
+		" Alt メニュー
 		set winaltkeys=no
-	" 検索・置換 {{{2
+
+		" マウス
+		set mouse=
+	" Search / Replace {{{2
 		" 置換フラグ 'g' の効果を反転させる
 		set gdefault
 
@@ -196,30 +192,17 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 		" コマンドライン補完のタブキーの挙動
 		set wildmode=longest,full
-	" インデント"{{{2
-		" シンプルな自動インデントを使う
-		set autoindent	" local
-
-		" 折り返された行頭をインデントに合わせる
-		set breakindent	"local
-	"}}}2
-	
-	" マウスは使わない
-	set mouse=
-
+	" Scrolling {{{2
+		" スクロール同期のオプション
+		set scrollopt=ver,hor,jump
+		" 水平スクロールも1文字単位で行う
+		set sidescroll=1
+	" }}}
 	" クリップボード
 	set clipboard=
 
-	" vi 互換オプション
-	" c : 既にマッチしている範囲内からでも検索を開始する
-	" / : 置換において置換後文字列を '%' で再利用できる
-	set cpo-=c cpo+=/
-
 	" diff モードのオプション
 	set diffopt=filler,context:5,vertical
-
-	" 折り返された見掛け上の1行をウィンドウの最後の行でも表示する。
-	set display=lastline
 
 	" コマンド履歴の数
 	set history=100
@@ -233,20 +216,8 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	" 行変更報告は必ずしてほしい
 	set report=0
 
-	" カーソルの上下オフセット
-	set scrolloff=9999
-
-	" スクロール同期のオプション
-	set scrollopt=ver,hor,jump
-
 	" インデントを 'shiftwidth' の倍数の丸める
 	set shiftround
-
-	" 水平スクロールも1文字単位で行う
-	set sidescroll=1
-
-	" カーソルの左右オフセット
-	set sidescrolloff=9999
 
 	" 賢いタブ
 	set smarttab
@@ -262,7 +233,8 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 	" 矩形選択でタブの内側も移動できる
 	set virtualedit=block
-" Terminal {{{
+
+	" Terminal
 	set t_Co=256
 " Completion {{{1
 	" neocomplete 有効
@@ -285,34 +257,47 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 	" for marching.vim
+	let g:marching_enable_neocomplete = 1
 	let g:marching#clang_command#options = {
 	\	'cpp' : '-std=c++1y'
 	\}
-	let g:marching_enable_neocomplete = 1
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
 " Auto Commands {{{1
 augroup vimrc_autocmd
 	autocmd!
+
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
-	" テンプレ。プラギンにありそう
-	autocmd BufNewFile *.py 0r $MYVIMDIR/template/python.txt
-	autocmd BufNewFile *.html 0r $MYVIMDIR/template/html.txt
+
+	" ウィンドウを切り替えたときに 'cursorline' を切り替える
+	autocmd WinEnter * setlocal cursorline
+	autocmd WinLeave * setlocal nocursorline
 augroup END
 " Mapping {{{1
 " Unite
 nnoremap <Space><Space> :Unite<Space>
+nnoremap <silent> <Space><Enter> :Unite source<CR>
 
 " カーソル移動に gj を使用する
 noremap <silent> j gj
 noremap <silent> k gk
+noremap <silent> $ g$
+noremap <silent> 0 g0
+noremap <silent> ^ g^
 noremap <silent> gj j
 noremap <silent> gk k
+noremap <silent> g$ $
+noremap <silent> g0 0
+noremap <silent> g^ ^
 
 " ハイライトのトグル
-nnoremap <silent> <Esc> :setlocal hlsearch!<CR>
+nnoremap <silent> <Esc> <Esc>:setlocal hlsearch!<CR>
 
 " 検索開始時に 'hlsearch' を入
 nnoremap / :setlocal hlsearch<CR>/
@@ -357,17 +342,13 @@ nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 " スクロールオフセットの切り替え
 nnoremap <silent> <Space>s :call ToggleScrollOffset()<CR>
 function! ToggleScrollOffset()
-	let l:tmp = s:so
-	let s:so = &scrolloff
-	let &scrolloff = l:tmp
-	let l:tmp = s:siso
-	let s:siso = &sidescrolloff
-	let &sidescrolloff = l:tmp
+	let &scrolloff = &scrolloff ? 0 : 9999
+	let &sidescrolloff = &sidescrolloff ? 0 : 9999
 endfunction
-let s:so = 0
-let s:siso = 0
+set scrolloff=9999
+set sidescrolloff=9999
 
-" チルダコマンド上書き
+" チルダコマンド上書き {{{3
 nnoremap <silent> ~ :call Tilde()<CR>
 function! Tilde()
 	let l:from = ''
@@ -462,9 +443,10 @@ function! Tilde()
 	call setline(line('.'), l:head . l:newchar . l:tail)
 	call cursor(l:current_line_num, l:current_column_num + l:charbytes)
 endfunction
-" }}}1
+" }}}
+" }}}
 
-colorscheme molokai
+colorscheme dw_red
 syntax on
 filetype plugin indent on
 
