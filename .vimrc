@@ -15,7 +15,7 @@ call neobundle#begin(expand($MYVIMDIR . '/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/vimproc', { 'build' : {
-	\'unix' : 'make -f make_unix.mak',
+	\ 'unix' : 'make -f make_unix.mak',
 \}}
 
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
@@ -46,12 +46,18 @@ NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim' ] }
 
 " Filetype plugins
-NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': ['c', 'cpp' ] } }
+NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
 NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user --upgrade flake8' } }
 NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
+NeoBundleLazy 'OmniSharp/Omnisharp', {
+	\ 'autoload' : { 'filetypes' : [ 'cs' ] },
+	\ 'build' : {
+		\ 'unix' : 'xbuild server/OmniSharp.sln',
+	\ }
+\}
 
 " Color Schemes
 NeoBundle 'tomasr/molokai'
@@ -101,7 +107,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		set shm+=a shm-=f shm-=i shm-=l shm-=n shm-=x shm-=o shm-=O shm-=t shm-=T shm+=I shm+=s
 
 		" 折り返された行の先頭に表示する文字列
-		set showbreak=+++
+		set showbreak=»
 
 		" 折り返された行の行頭のインデントを合わせる
 		set breakindent
@@ -237,6 +243,9 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	" Terminal
 	set t_Co=256
 " Completion {{{1
+	" 補完オプション
+	set completeopt=menu,menuone,longest,preview
+
 	" neocomplete 有効
 	let g:neocomplete#enable_at_startup = 1
 
@@ -250,27 +259,27 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 		let g:neocomplete#force_omni_input_patterns = {}
 	endif
 
-	" for jedi.vim
+	" for jedi.vim {{{2
 	autocmd FileType python setlocal omnifunc=jedi#completions
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
+	let g:jedi#force_py_version = 3
 	let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
-	" for marching.vim
+	" for marching.vim {{{2
 	let g:marching_enable_neocomplete = 1
 	let g:marching#clang_command#options = {
 	\	'cpp' : '-std=c++1y'
 	\}
-	if !exists('g:neocomplete#force_omni_input_patterns')
-		let g:neocomplete#force_omni_input_patterns = {}
-	endif
 	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
-	" 補完オプション
-	set completeopt=menu,menuone,longest,preview
+	" for OmniSharp {{{2
+	let g:acp_enableAtStartup = 0
+	let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
 " Auto Commands {{{1
 augroup vimrc_autocmd
 	autocmd!
+	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
@@ -284,17 +293,14 @@ augroup END
 nnoremap <Space><Space> :Unite<Space>
 nnoremap <silent> <Space><Enter> :Unite source<CR>
 
+" Edit .vimrc
+nnoremap <silent> <Space><BS> :tabe $MYVIMRC<CR>
+
 " カーソル移動に gj を使用する
 noremap <silent> j gj
 noremap <silent> k gk
-noremap <silent> $ g$
-noremap <silent> 0 g0
-noremap <silent> ^ g^
 noremap <silent> gj j
 noremap <silent> gk k
-noremap <silent> g$ $
-noremap <silent> g0 0
-noremap <silent> g^ ^
 
 " ハイライトのトグル
 nnoremap <silent> <Esc> <Esc>:setlocal hlsearch!<CR>
@@ -310,18 +316,38 @@ nmap <silent> * <Plug>(anzu-star-with-echo)zv:setlocal hlsearch<CR>
 nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:setlocal hlsearch<CR>
 
 " 行番号相対表示のトグル
-nnoremap <silent> <Space>n :setlocal relativenumber!<CR>
+nnoremap <silent> <Space>n :call ToggleRelativeNumber()<CR>
+function! ToggleRelativeNumber()
+	" 'number' が切のときは何もしない
+	if &l:number
+		setlocal relativenumber!
+	endif
+endfunction
+
+" 行番号表示のトグル
+nnoremap <silent> <Space>N :call ToggleShowNumber()<CR>
+function! ToggleShowNumber()
+	setlocal norelativenumber
+	if &l:number || &l:relativenumber
+		setlocal nonumber
+	else
+		setlocal number
+	endif
+endfunction
 
 " 'colorcolumn' に追加
-nnoremap <silent> <Space>c :call ToggleColorColumn(virtcol('.'))<CR>
-function! ToggleColorColumn(column)
+nnoremap <silent> <Space>c :call ToggleColorColumn()<CR>
+function! ToggleColorColumn()
 	" a:column を 'colorcolumn' に追加または削除
-	" exec 使うのアレだよね
-	if match(split(&l:colorcolumn, ","), a:column) == -1
-		execute 'setlocal colorcolumn+=' . a:column
+	let l:column = virtcol('.')
+	let l:columnlist = split(&l:colorcolumn, ",")
+	let l:index = index(l:columnlist, string(l:column))
+	if l:index == -1
+		call add(l:columnlist, l:column)
 	else
-		execute 'setlocal colorcolumn-=' . a:column
+		call remove(l:columnlist, l:index)
 	endif
+	let &l:colorcolumn = join(l:columnlist, ',')
 endfunction
 
 " 'colorcolumn' をクリア
@@ -331,7 +357,19 @@ nnoremap <silent> <Space>C :setlocal colorcolumn=<CR>
 nnoremap <silent> <Space>b :setlocal cursorbind!<CR>
 
 " 'wrap' の切り換え
-nnoremap <silent> <Space>w :setlocal wrap!<CR>
+nnoremap <silent> <Space>w :call ToggleWrap()<CR>
+function! ToggleWrap()
+	if &l:wrap
+		if stridx(&l:cpoptions, 'n') == -1
+			setlocal cpoptions+=n
+			setlocal nowrap
+		else
+			setlocal cpoptions-=n
+		endif
+	else
+		setlocal wrap
+	endif
+endfunction
 
 " Gundo
 nnoremap <silent> <Space>u :GundoToggle<CR>
@@ -351,84 +389,8 @@ set sidescrolloff=9999
 " チルダコマンド上書き {{{3
 nnoremap <silent> ~ :call Tilde()<CR>
 function! Tilde()
-	let l:from = ''
-		\.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-		\.'abcdefghijklmnopqrstuvwxyz'
-		\.'?!-+*/"'')(][}{><:;'
-		\.'!?+-/*''"()[]{}<>;:'
-		\.'あいうえお'
-		\.'かきくけこ'
-		\.'がぎぐげご'
-		\.'さしすせそ'
-		\.'ざじずぜぞ'
-		\.'たちつてと'
-		\.'だぢづでど'
-		\.'なにぬねの'
-		\.'はひふへほ'
-		\.'ばびぶべぼ'
-		\.'ぱぴぷぺぽ'
-		\.'まみむめも'
-		\.'らりるれろ'
-		\.'やゆよわをん'
-		\.'ぁぃぅぇぉゃゅょゎ'
-		\.'アイウエオ'
-		\.'カキクケコ'
-		\.'ガギグゲゴ'
-		\.'サシスセソ'
-		\.'ザジズゼゾ'
-		\.'タチツテト'
-		\.'ダヂヅデド'
-		\.'ナニヌネノ'
-		\.'ハヒフヘホ'
-		\.'バビブベボ'
-		\.'パピプペポ'
-		\.'マミムメモ'
-		\.'ラリルレロ'
-		\.'ヤユヨワヲン'
-		\.'ァィゥェォャュョヮ'
-		\.'上下左右縦横'
-		\.'下上右左横縦'
-		\.'←↓↑→'
-		\.'→↑↓←'
-	let l:to = ''
-		\.'abcdefghijklmnopqrstuvwxyz'
-		\.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-		\.'!?+-/*''"()[]{}<>;:'
-		\.'?!-+*/"'')(][}{><:;'
-		\.'アイウエオ'
-		\.'カキクケコ'
-		\.'ガギグゲゴ'
-		\.'サシスセソ'
-		\.'ザジズゼゾ'
-		\.'タチツテト'
-		\.'ダヂヅデド'
-		\.'ナニヌネノ'
-		\.'ハヒフヘホ'
-		\.'バビブベボ'
-		\.'パピプペポ'
-		\.'マミムメモ'
-		\.'ラリルレロ'
-		\.'ヤユヨワヲン'
-		\.'ァィゥェォャュョヮ'
-		\.'あいうえお'
-		\.'かきくけこ'
-		\.'がぎぐげご'
-		\.'さしすせそ'
-		\.'ざじずぜぞ'
-		\.'たちつてと'
-		\.'だぢづでど'
-		\.'なにぬねの'
-		\.'はひふへほ'
-		\.'ばびぶべぼ'
-		\.'ぱぴぷぺぽ'
-		\.'まみむめも'
-		\.'らりるれろ'
-		\.'やゆよわをん'
-		\.'ぁぃぅぇぉゃゅょゎ'
-		\.'下上右左横縦'
-		\.'上下左右縦横'
-		\.'→↑↓←'
-		\.'←↓↑→'
+	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+	let l:to   = '=''#$%|"[]/_,+.\0123456789:;(!)?@abcdefghijklmnopqrstuvwxyz{*}^-`ABCDEFGHIJKLMNOPQRSTUVWXYZ<&>~'
 
 	let l:current_line = getline('.')
 	let l:current_line_num = line('.')
@@ -436,12 +398,12 @@ function! Tilde()
 	let l:cursor_char = matchstr(l:current_line, '.', l:current_column_num - 1)
 	let l:charbytes = strlen(l:cursor_char)
 	let l:split_index = match(l:current_line, '.', l:current_column_num - 1)
-	let l:head = l:current_line[:l:split_index - 1]
+	let l:head = l:current_line[: l:split_index - 1]
 	let l:tail = l:current_line[l:split_index + l:charbytes :]
 	let l:newchar = tr(l:cursor_char, l:from, l:to)
 
 	call setline(line('.'), l:head . l:newchar . l:tail)
-	call cursor(l:current_line_num, l:current_column_num + l:charbytes)
+	"call cursor(l:current_line_num, l:current_column_num + l:charbytes)
 endfunction
 " }}}
 " }}}

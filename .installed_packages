@@ -17,6 +17,7 @@
 #  libxkbcommon-x11             : QtがXCBで使うらしい
 #  luajit                       : vim
 #  ntfs-3g                      : mount.ntfs, mkfs.ntfs, fsck.ntfs
+#  otf-saabfont                 : 何語だっけ
 #  opencv                       : 2014高専プロコン
 #  ovmf                         : QEMU で UEFI 環境を作るためのファームウェアイメージ
 #  pkgbuild-introspection       : mkaurball
@@ -25,13 +26,16 @@
 #  ruby-bundler                 : mikutter
 #  tk                           : gitk
 #  ttf-hannom                   : ベトナム語フォント
+#  ttf-tamil                    : タミル語フォント
 #  wpa_actiond                  : netctl
 #
 abs
 acpid
+alsa-oss
 alsa-utils
 archlinux-themes-slim
 archlinux-wallpaper
+audacity
 aurvote
 boost
 burp
@@ -45,12 +49,14 @@ cronie
 ctags
 dmenu-xft
 dosfstools
+eagle
 efibootmgr
 exfat-utils
 fbterm
 firefox
 firefox-i18n-ja
 fltk
+freemind
 fuse-exfat
 gdb
 gimp
@@ -62,9 +68,13 @@ gptfdisk
 graphviz
 grub
 i3-wm
+ifplugd
 imagemagick
+inotify-tools
+intel-ucode
 ipython
 irssi
+keepass
 libcanberra
 libnotify
 libreoffice-fresh
@@ -72,10 +82,14 @@ libreoffice-fresh-ja
 libxkbcommon-x11
 lostfiles
 luajit
+lynx
 lzip
+markdown
 mercurial
 mikutter-custom
+mono
 namcap
+net-tools
 nmap
 notify-osd
 ntfs-3g
@@ -83,6 +97,7 @@ ntp
 opencv
 openssh
 otf-ipafont
+otf-saabfont
 ovmf
 p7zip
 parted
@@ -97,7 +112,9 @@ python-pip
 python-pyqt5
 python2-pip
 qemu
+qemu-launcher
 qpdfview
+qtcreator
 ruby-bundler
 rxvt-unicode
 skk-jisyo
@@ -111,9 +128,11 @@ tree
 ttf-hannom
 ttf-mplus
 ttf-symbola
+ttf-tamil
 uim
 unrar
 unzip-iconv
+valgrind
 vim-custom
 w3m
 wpa_actiond
@@ -128,5 +147,6 @@ xorg-server-xephyr
 xorg-xinit
 xorg-xkill
 yaourt
+zenity
 zip
 zsh
