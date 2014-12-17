@@ -386,7 +386,7 @@ endfunction
 set scrolloff=9999
 set sidescrolloff=9999
 
-" チルダコマンド上書き {{{3
+" チルダコマンド上書き {{{2
 nnoremap <silent> ~ :call Tilde()<CR>
 function! Tilde()
 	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
