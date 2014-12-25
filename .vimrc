@@ -371,6 +371,16 @@ function! ToggleWrap()
 	endif
 endfunction
 
+" 'ambiwidth' の切り換え
+nnoremap <silent> <Space>a :call ToggleAmbiguousWidth()<CR>
+function! ToggleAmbiguousWidth()
+	if &l:ambiwidth == 'single'
+		setlocal ambiwidth=double
+	else
+		setlocal ambiwidth=single
+	endif
+endfunction
+
 " Gundo
 nnoremap <silent> <Space>u :GundoToggle<CR>
 
@@ -380,8 +390,8 @@ nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 " スクロールオフセットの切り替え
 nnoremap <silent> <Space>s :call ToggleScrollOffset()<CR>
 function! ToggleScrollOffset()
-	let &scrolloff = &scrolloff ? 0 : 9999
-	let &sidescrolloff = &sidescrolloff ? 0 : 9999
+	let &l:scrolloff = &l:scrolloff ? 0 : 9999
+	let &l:sidescrolloff = &l:sidescrolloff ? 0 : 9999
 endfunction
 set scrolloff=9999
 set sidescrolloff=9999
