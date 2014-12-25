@@ -260,7 +260,6 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	endif
 
 	" for jedi.vim {{{2
-	autocmd FileType python setlocal omnifunc=jedi#completions
 	let g:jedi#completions_enabled = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#force_py_version = 3
@@ -277,7 +276,7 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 	let g:acp_enableAtStartup = 0
 	let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
 " Auto Commands {{{1
-augroup vimrc_autocmd
+augroup vimrc
 	autocmd!
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
@@ -287,6 +286,9 @@ augroup vimrc_autocmd
 	" ウィンドウを切り替えたときに 'cursorline' を切り替える
 	autocmd WinEnter * setlocal cursorline
 	autocmd WinLeave * setlocal nocursorline
+
+	" for jedi.vim
+	autocmd FileType python setlocal omnifunc=jedi#completions
 augroup END
 " Mapping {{{1
 " Unite
@@ -316,7 +318,7 @@ nmap <silent> * <Plug>(anzu-star-with-echo)zv:setlocal hlsearch<CR>
 nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:setlocal hlsearch<CR>
 
 " 行番号相対表示のトグル
-nnoremap <silent> <Space>n :call ToggleRelativeNumber()<CR>
+nnoremap <expr> <silent> <Space>n ToggleRelativeNumber()
 function! ToggleRelativeNumber()
 	" 'number' が切のときは何もしない
 	if &l:number
@@ -325,7 +327,7 @@ function! ToggleRelativeNumber()
 endfunction
 
 " 行番号表示のトグル
-nnoremap <silent> <Space>N :call ToggleShowNumber()<CR>
+nnoremap <expr> <silent> <Space>N ToggleShowNumber()
 function! ToggleShowNumber()
 	setlocal norelativenumber
 	if &l:number || &l:relativenumber
@@ -336,7 +338,7 @@ function! ToggleShowNumber()
 endfunction
 
 " 'colorcolumn' に追加
-nnoremap <silent> <Space>c :call ToggleColorColumn()<CR>
+nnoremap <expr> <silent> <Space>c ToggleColorColumn()
 function! ToggleColorColumn()
 	" a:column を 'colorcolumn' に追加または削除
 	let l:column = virtcol('.')
@@ -357,7 +359,7 @@ nnoremap <silent> <Space>C :setlocal colorcolumn=<CR>
 nnoremap <silent> <Space>b :setlocal cursorbind!<CR>
 
 " 'wrap' の切り換え
-nnoremap <silent> <Space>w :call ToggleWrap()<CR>
+nnoremap <expr> <silent> <Space>w ToggleWrap()
 function! ToggleWrap()
 	if &l:wrap
 		if stridx(&l:cpoptions, 'n') == -1
@@ -372,7 +374,7 @@ function! ToggleWrap()
 endfunction
 
 " 'ambiwidth' の切り換え
-nnoremap <silent> <Space>a :call ToggleAmbiguousWidth()<CR>
+nnoremap <expr> <silent> <Space>a ToggleAmbiguousWidth()
 function! ToggleAmbiguousWidth()
 	if &l:ambiwidth == 'single'
 		setlocal ambiwidth=double
@@ -388,7 +390,7 @@ nnoremap <silent> <Space>u :GundoToggle<CR>
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
 
 " スクロールオフセットの切り替え
-nnoremap <silent> <Space>s :call ToggleScrollOffset()<CR>
+nnoremap <expr> <silent> <Space>s ToggleScrollOffset()
 function! ToggleScrollOffset()
 	let &l:scrolloff = &l:scrolloff ? 0 : 9999
 	let &l:sidescrolloff = &l:sidescrolloff ? 0 : 9999
@@ -397,7 +399,7 @@ set scrolloff=9999
 set sidescrolloff=9999
 
 " チルダコマンド上書き {{{2
-nnoremap <silent> ~ :call Tilde()<CR>
+nnoremap <expr> <silent> ~ Tilde()
 function! Tilde()
 	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 	let l:to   = '=''#$%|"[]/_,+.\0123456789:;(!)?@abcdefghijklmnopqrstuvwxyz{*}^-`ABCDEFGHIJKLMNOPQRSTUVWXYZ<&>~'
