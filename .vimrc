@@ -293,10 +293,10 @@ augroup END
 " Mapping {{{1
 " Unite
 nnoremap <Space><Space> :Unite<Space>
-nnoremap <silent> <Space><Enter> :Unite source<CR>
+nnoremap <silent> <Space><Enter> :Unite source<Enter>
 
 " Edit .vimrc
-nnoremap <silent> <Space><BS> :tabe $MYVIMRC<CR>
+nnoremap <silent> <Space><BS> :tabe $MYVIMRC<Enter>
 
 " カーソル移動に gj を使用する
 noremap <silent> j gj
@@ -305,17 +305,17 @@ noremap <silent> gj j
 noremap <silent> gk k
 
 " ハイライトのトグル
-nnoremap <silent> <Esc> <Esc>:setlocal hlsearch!<CR>
+nnoremap <silent> <Esc> <Esc>:setlocal hlsearch!<Enter>
 
 " 検索開始時に 'hlsearch' を入
-nnoremap / :setlocal hlsearch<CR>/
-nnoremap ? :setlocal hlsearch<CR>?
+nnoremap / :setlocal hlsearch<Enter>/
+nnoremap ? :setlocal hlsearch<Enter>?
 
 " anzu
-nmap <silent> n <Plug>(anzu-n-with-echo)zv:setlocal hlsearch<CR>
-nmap <silent> N <Plug>(anzu-N-with-echo)zv:setlocal hlsearch<CR>
-nmap <silent> * <Plug>(anzu-star-with-echo)zv:setlocal hlsearch<CR>
-nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:setlocal hlsearch<CR>
+nmap <silent> n <Plug>(anzu-n-with-echo)zv:setlocal hlsearch<Enter>
+nmap <silent> N <Plug>(anzu-N-with-echo)zv:setlocal hlsearch<Enter>
+nmap <silent> * <Plug>(anzu-star-with-echo)zv:setlocal hlsearch<Enter>
+nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:setlocal hlsearch<Enter>
 
 " 行番号相対表示のトグル
 nnoremap <expr> <silent> <Space>n ToggleRelativeNumber()
@@ -353,10 +353,10 @@ function! ToggleColorColumn()
 endfunction
 
 " 'colorcolumn' をクリア
-nnoremap <silent> <Space>C :setlocal colorcolumn=<CR>
+nnoremap <silent> <Space>C :setlocal colorcolumn=<Enter>
 
 " スクロール同期の切り換え
-nnoremap <silent> <Space>b :setlocal cursorbind!<CR>
+nnoremap <silent> <Space>b :setlocal cursorbind!<Enter>
 
 " 'wrap' の切り換え
 nnoremap <expr> <silent> <Space>w ToggleWrap()
@@ -384,10 +384,10 @@ function! ToggleAmbiguousWidth()
 endfunction
 
 " Gundo
-nnoremap <silent> <Space>u :GundoToggle<CR>
+nnoremap <silent> <Space>u :GundoToggle<Enter>
 
 " VimFiler
-nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<CR>
+nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<Enter>
 
 " スクロールオフセットの切り替え
 nnoremap <expr> <silent> <Space>s ToggleScrollOffset()
