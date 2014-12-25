@@ -20,9 +20,10 @@ NeoBundle 'Shougo/vimproc', { 'build' : {
 
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'groenewege/vim-less'
@@ -46,11 +47,10 @@ NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim' ] }
 
 " Filetype plugins
-NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
-NeoBundleLazy 'ehamberg/vim-cute-python', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
 NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user --upgrade flake8' } }
+NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
 NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'OmniSharp/Omnisharp', {
 	\ 'autoload' : { 'filetypes' : [ 'cs' ] },

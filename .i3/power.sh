@@ -1,10 +1,10 @@
 #!/bin/sh
-target=$(zenity --list --radiolist --hide-column 2 --hide-header --column= --column= --column=\
-	false restart "Restart i3"\
-	false reboot Reboot\
-	false poweroff Shutdown\
-	false suspend Suspend\
-	false hibernate Hibernate)
+target=$(zenity --list --hide-column 1 --hide-header --column= --column=\
+	restart "Restart i3"\
+	reboot Reboot\
+	poweroff Shutdown\
+	suspend Suspend\
+	hibernate Hibernate)
 if [ $? -eq 0 ]; then
 	case $target in
 		restart)
