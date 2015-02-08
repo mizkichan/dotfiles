@@ -1,6 +1,8 @@
 ﻿" .vimrc
 
 set encoding=utf-8
+scriptencoding utf-8
+
 if has('unix')
 	let $MYVIMDIR = expand('$HOME/.vim')
 elseif has('win32')
