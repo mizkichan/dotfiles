@@ -13,12 +13,11 @@ if has('vim_starting')
 endif
 call neobundle#begin(expand($MYVIMDIR . '/bundle'))
 
+" Global plugins {{{2
 NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/vimproc', { 'build' : {
 	\ 'unix' : 'make -f make_unix.mak',
 \}}
-
-" Global plugins {{{2
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -46,8 +45,7 @@ NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 " Lazy load plugins {{{2
-NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
-NeoBundleLazy 'osyo-manga/vim-snowdrop', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
+NeoBundleLazy 'osyo-manga/vim-marching'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundleLazy 'nvie/vim-flake8'
@@ -56,7 +54,6 @@ NeoBundleLazy 'nvie/vim-flake8'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/dw_colors'
 " }}}
-
 " Plugin settings {{{2
 " neocomplete {{{3
 if neobundle#tap('neocomplete')
@@ -76,6 +73,22 @@ if neobundle#tap('neocomplete')
 		let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 		let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 		let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
+	endfunction
+	call neobundle#untap()
+endif
+
+" marching.vim {{{3
+if neobundle#tap('marching.vim')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetype': ['c', 'cpp']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		let g:marching_enable_neocomplete = 1
+		let g:marching#clang_command#options = {
+		\	'cpp' : '-std=c++1z'
+		\}
 	endfunction
 	call neobundle#untap()
 endif
@@ -292,15 +305,6 @@ call neobundle#end()
 
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
-" Completion {{{1
-	" for marching.vim {{{2
-	let g:marching_enable_neocomplete = 1
-	let g:marching#clang_command#options = {
-	\	'cpp' : '-std=c++1z'
-	\}
-
-	" for OmniSharp {{{2
-	let g:acp_enableAtStartup = 0
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
