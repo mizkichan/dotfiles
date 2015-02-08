@@ -38,6 +38,8 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'JuliaLang/julia-vim'
+NeoBundle 'leafgarland/typescript-vim'
 
 " Unite sources
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -49,9 +51,21 @@ NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim'
 " Filetype plugins
 NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
 NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
-NeoBundleLazy 'nvie/vim-flake8', { 'autoload' : { 'filetypes' : [ 'python' ] }, 'build' : { 'unix' : 'pip install --user --upgrade flake8' } }
 NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
-NeoBundleLazy 'othree/html5.vim',  { 'autoload' : { 'filetypes' : [ 'html' ] } }
+NeoBundleLazy 'osyo-manga/vim-snowdrop', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
+NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
+NeoBundleLazy 'nvie/vim-flake8', {
+	\ 'autoload' : { 'filetypes' : [ 'python' ] },
+	\ 'build' : {
+		\ 'unix' : 'pip install --user --upgrade flake8',
+	\}
+\}
+NeoBundleLazy 'clausreinke/typescript-tools', {
+	\ 'autoload' : { 'filetypes' : [ 'typescript' ] },
+	\ 'build' : {
+		\ 'unix' : 'npm install -g typescript-tools',
+	\}
+\}
 NeoBundleLazy 'OmniSharp/Omnisharp', {
 	\ 'autoload' : { 'filetypes' : [ 'cs' ] },
 	\ 'build' : {
@@ -279,6 +293,8 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 augroup vimrc
 	autocmd!
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+	autocmd FileType cpp call s:cpp()
+	autocmd FileType python call s:python()
 
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
@@ -399,7 +415,7 @@ set scrolloff=9999
 set sidescrolloff=9999
 
 " チルダコマンド上書き {{{2
-nnoremap <expr> <silent> ~ Tilde()
+nnoremap <silent> ~ :call Tilde()<CR>
 function! Tilde()
 	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 	let l:to   = '=''#$%|"[]/_,+.\0123456789:;(!)?@abcdefghijklmnopqrstuvwxyz{*}^-`ABCDEFGHIJKLMNOPQRSTUVWXYZ<&>~'
@@ -418,6 +434,18 @@ function! Tilde()
 	"call cursor(l:current_line_num, l:current_column_num + l:charbytes)
 endfunction
 " }}}
+" Filetype {{{1
+" C++ {{{2
+function! s:cpp()
+	setlocal ts=4 sw=4 et
+	setlocal matchpairs+=<:>
+endfunction
+
+" Python {{{2
+function s:python()
+	setlocal ts=4 sw=4 et
+endfunction
+
 " }}}
 
 colorscheme dw_red

@@ -11,13 +11,14 @@ if [ $? -eq 0 ]; then
 			i3-msg restart
 		;;
 		*)
-			password=$(zenity --password)
-			if [ $? -eq 0 ]; then
+			# password=$(zenity --password)
+			# if [ $? -eq 0 ]; then
 				if [ $target == hibernate ]; then
 					slimlock &
 				fi
-				echo $password | sudo -S systemctl $target
-			fi
+				# echo $password | sudo -S systemctl $target
+				systemctl $target
+			# fi
 		;;
 	esac
 fi
