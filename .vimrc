@@ -18,6 +18,7 @@ NeoBundle 'Shougo/vimproc', { 'build' : {
 	\ 'unix' : 'make -f make_unix.mak',
 \}}
 
+" Global plugins {{{2
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -26,8 +27,6 @@ NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
@@ -39,48 +38,82 @@ NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'JuliaLang/julia-vim'
-NeoBundle 'leafgarland/typescript-vim'
 
-" Unite sources
+" Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'mattn/unite-gist', { 'depends' : [ 'Shougo/unite.vim', 'mattn/gist-vim' ] }
 NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'mopp/AOJ.vim', { 'depends' : [ 'Shougo/unite.vim', 'mattn/webapi-vim' ] }
 
-" Filetype plugins
-NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : { 'filetypes' : [ 'python' ] } }
-NeoBundleLazy 'mintplant/vim-literate-coffeescript', { 'autoload' : { 'filetypes' : [ 'coffee' ] } }
+" Lazy load plugins {{{2
 NeoBundleLazy 'osyo-manga/vim-marching', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
 NeoBundleLazy 'osyo-manga/vim-snowdrop', { 'autoload' : { 'filetypes': [ 'c', 'cpp' ] } }
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
-NeoBundleLazy 'nvie/vim-flake8', {
-	\ 'autoload' : { 'filetypes' : [ 'python' ] },
-	\ 'build' : {
-		\ 'unix' : 'pip install --user --upgrade flake8',
-	\}
-\}
-NeoBundleLazy 'clausreinke/typescript-tools', {
-	\ 'autoload' : { 'filetypes' : [ 'typescript' ] },
-	\ 'build' : {
-		\ 'unix' : 'npm install -g typescript-tools',
-	\}
-\}
-NeoBundleLazy 'OmniSharp/Omnisharp', {
-	\ 'autoload' : { 'filetypes' : [ 'cs' ] },
-	\ 'build' : {
-		\ 'unix' : 'xbuild server/OmniSharp.sln',
-	\ }
-\}
+NeoBundleLazy 'davidhalter/jedi-vim'
+NeoBundleLazy 'nvie/vim-flake8'
 
-" Color Schemes
+" Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/dw_colors'
+" }}}
 
-call neobundle#end()
+" Plugin settings {{{2
+" neocomplete {{{3
+if neobundle#tap('neocomplete')
+	function! neobundle#hooks.on_source(bundle)
+		" neocomplete 有効
+		let g:neocomplete#enable_at_startup = 1
+
+		" データディレクトリ
+		let g:neocomplete#data_directory = $MYVIMDIR . '/misc/neocomplete'
+
+		" 'iminsert' が 非0 のときに自動補完をロック
+		let g:neocomplete#lock_iminsert = 1
+
+		if !exists('g:neocomplete#force_omni_input_patterns')
+			let g:neocomplete#force_omni_input_patterns = {}
+		endif
+		let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+		let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+		let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
+	endfunction
+	call neobundle#untap()
+endif
+
+" jedi.vim {{{3
+if neobundle#tap('jedi.vim')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetype': ['python']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		let g:jedi#completions_enabled = 0
+		let g:jedi#auto_vim_configuration = 0
+		let g:jedi#force_py_version = 3
+		autocmd FileType python setlocal omnifunc=jedi#completions
+	endfunction
+	call neobundle#untap()
+endif
+
+" vim-flake8 {{{3
+if neobundle#tap('vim-flake8')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes' : [ 'python' ]
+		\ },
+		\ 'build': {
+			\ 'unix': 'pip install --user --upgrade flake8',
+		\}
+	\})
+	call neobundle#untap()
+endif
+
+" }}}
 
 let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
 let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
+call neobundle#end()
 
 " Options {{{1
 	" UI {{{2
@@ -256,39 +289,18 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 	" Terminal
 	set t_Co=256
-" Completion {{{1
+
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
-
-	" neocomplete 有効
-	let g:neocomplete#enable_at_startup = 1
-
-	" データディレクトリ
-	let g:neocomplete#data_directory = $MYVIMDIR . '/misc/neocomplete'
-
-	" 'iminsert' が 非0 のときに自動補完をロック
-	let g:neocomplete#lock_iminsert = 1
-
-	if !exists('g:neocomplete#force_omni_input_patterns')
-		let g:neocomplete#force_omni_input_patterns = {}
-	endif
-
-	" for jedi.vim {{{2
-	let g:jedi#completions_enabled = 0
-	let g:jedi#auto_vim_configuration = 0
-	let g:jedi#force_py_version = 3
-	let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-
+" Completion {{{1
 	" for marching.vim {{{2
 	let g:marching_enable_neocomplete = 1
 	let g:marching#clang_command#options = {
-	\	'cpp' : '-std=c++1y'
+	\	'cpp' : '-std=c++1z'
 	\}
-	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 	" for OmniSharp {{{2
 	let g:acp_enableAtStartup = 0
-	let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
@@ -302,9 +314,6 @@ augroup vimrc
 	" ウィンドウを切り替えたときに 'cursorline' を切り替える
 	autocmd WinEnter * setlocal cursorline
 	autocmd WinLeave * setlocal nocursorline
-
-	" for jedi.vim
-	autocmd FileType python setlocal omnifunc=jedi#completions
 augroup END
 " Mapping {{{1
 " Unite
@@ -442,7 +451,7 @@ function! s:cpp()
 endfunction
 
 " Python {{{2
-function s:python()
+function! s:python()
 	setlocal ts=4 sw=4 et
 endfunction
 
