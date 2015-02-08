@@ -122,10 +122,23 @@ if neobundle#tap('vim-flake8')
 	call neobundle#untap()
 endif
 
-" }}}
+" vim-ref {{{3
+if neobundle#tap('vim-ref')
+	function! neobundle#hooks.on_source(bundle)
+		let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
+	endfunction
+	call neobundle#untap()
+endif
 
-let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
-let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
+" unite.vim {{{3
+if neobundle#tap('unite.vim')
+	function! neobundle#hooks.on_source(bundle)
+		let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
+	endfunction
+	call neobundle#untap()
+endif
+
+" {{{3
 call neobundle#end()
 
 " Options {{{1
