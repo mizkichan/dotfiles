@@ -39,6 +39,7 @@ NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'JuliaLang/julia-vim'
+NeoBundle 'jceb/vim-hier'
 
 " Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -48,6 +49,7 @@ NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 " Lazy load plugins {{{2
 NeoBundleLazy 'osyo-manga/vim-marching'
+NeoBundleLazy 'osyo-manga/vim-watchdogs'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundleLazy 'nvie/vim-flake8'
@@ -79,12 +81,22 @@ if neobundle#tap('neocomplete')
 	call neobundle#untap()
 endif
 
-" marching.vim {{{3
-if neobundle#tap('marching.vim')
+" neosnippet.vim {{{3
+if neobundle#tap('neosnippet.vim')
+	function! neobundle#hooks.on_source(bundle)
+		let g:neosnippet#snippets_directory = $MYVIMDIR . '/snippets'
+		imap <C-k> <Plug>(neosnippet_jump_or_expand)
+		smap <C-k> <Plug>(neosnippet_jump_or_expand)
+	endfunction
+	call neobundle#untap()
+endif
+
+" vim-marching {{{3
+if neobundle#tap('vim-marching')
 	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetype': ['c', 'cpp']
-		\ }
+	\	'autoload': {
+	\		'filetypes': ['c', 'cpp']
+	\	}
 	\})
 	function! neobundle#hooks.on_source(bundle)
 		let g:marching_enable_neocomplete = 1
@@ -95,11 +107,35 @@ if neobundle#tap('marching.vim')
 	call neobundle#untap()
 endif
 
-" jedi.vim {{{3
-if neobundle#tap('jedi.vim')
+" vim-watchdogs {{{3
+if neobundle#tap('vim-watchdogs')
+	call neobundle#config({
+	\	'autoload': {
+	\		'filetypes': ['c', 'cpp', 'python']
+	\	}
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		if !exists('g:quickrun_config')
+			let g:quickrun_config = {}
+		endif
+		let g:quickrun_config['cpp/watchdogs_checker'] = {
+		\	'type': 'watchdogs_checker/clang++',
+		\	'cmdopt': '-W -Wall -std=c++14',
+		\}
+		let g:watchdogs_check_BufWritePost_enables = {
+		\	'c': 1,
+		\	'cpp': 1,
+		\	'python': 1,
+		\}
+	endfunction
+	call neobundle#untap()
+endif
+
+" jedi-vim {{{3
+if neobundle#tap('jedi-vim')
 	call neobundle#config({
 		\ 'autoload': {
-			\ 'filetype': ['python']
+			\ 'filetypes': ['python']
 		\ }
 	\})
 	function! neobundle#hooks.on_source(bundle)
@@ -149,7 +185,7 @@ call neobundle#end()
 		if has('x11')
 			set guifont=M+\ 1mn\ regular\ 10
 		elseif has('gui_win32')
-			set guifont=M+\ 1mn\ regular:h10:cSHIFTJIS
+			set guifont=M+\ 1mn\ regular:h10:cDEFAULT
 		endif
 
 		" GUI オプションはだいたい無効
@@ -181,6 +217,9 @@ call neobundle#end()
 		set shortmess&
 		set shm+=a shm-=f shm-=i shm-=l shm-=n shm-=x shm-=o shm-=O shm-=t shm-=T shm+=I shm+=s
 
+		" 行変更報告は必ずしてほしい
+		set report=0
+
 		" 折り返された行の先頭に表示する文字列
 		set showbreak=»
 
@@ -198,7 +237,7 @@ call neobundle#end()
 
 		" 折り返された見掛け上の1行をウィンドウの最後の行でも表示する
 		set display=lastline
-	" 書式系 {{{2
+	" UI Format {{{2
 		" ステータス行の書式
 		set statusline&	" いつかやる
 		" ルーラの書式
@@ -208,8 +247,8 @@ call neobundle#end()
 		" タイトルバーの書式
 		set titlestring& "いつかやる
 	" i18n {{{2
-		" 迷ったら半角
-		set ambiwidth=single
+		" 迷ったら全角
+		set ambiwidth=double
 
 		" 想定される文字エンコーディングのリスト
 		set fileencodings=ucs-bom,utf-8,cp932,euc-jp
@@ -237,7 +276,7 @@ call neobundle#end()
 
 		" スワップの保存先
 		set directory=./,$MYVIMDIR/swap
-	" キー無効化 {{{2
+	" Disabled keys {{{2
 		" コマンドラインウィンドウ
 		set cedit=
 
@@ -267,12 +306,15 @@ call neobundle#end()
 
 		" 大文字が含まれるときは大文字を区別する
 		set smartcase
-	" コマンドライン {{{2
+	" Command line {{{2
 		" コマンドライン補完の拡張モード
 		set wildmenu
 
 		" コマンドライン補完のタブキーの挙動
 		set wildmode=longest,full
+
+		" コマンド履歴の数
+		set history=100
 	" Scrolling {{{2
 		" スクロール同期のオプション
 		set scrollopt=ver,hor,jump
@@ -285,17 +327,11 @@ call neobundle#end()
 	" diff モードのオプション
 	set diffopt=filler,context:5,vertical
 
-	" コマンド履歴の数
-	set history=100
-
 	" 行連結の空白は常に1個
 	set nojoinspaces
 
 	" <C-a> や <C-x> で増減させる文字の種類
 	set nrformats=alpha,octal,hex
-
-	" 行変更報告は必ずしてほしい
-	set report=0
 
 	" インデントを 'shiftwidth' の倍数の丸める
 	set shiftround
@@ -315,11 +351,11 @@ call neobundle#end()
 	" 矩形選択でタブの内側も移動できる
 	set virtualedit=block
 
-	" Terminal
-	set t_Co=256
-
 	" 補完オプション
 	set completeopt=menu,menuone,longest,preview
+
+	" Terminal
+	set t_Co=256
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
@@ -347,6 +383,9 @@ noremap <silent> j gj
 noremap <silent> k gk
 noremap <silent> gj j
 noremap <silent> gk k
+
+" Y で末尾までヤンク
+nmap Y y$
 
 " ハイライトのトグル
 nnoremap <silent> <Esc> <Esc>:setlocal hlsearch!<Enter>
@@ -382,7 +421,7 @@ function! ToggleShowNumber()
 endfunction
 
 " 'colorcolumn' に追加
-nnoremap <expr> <silent> <Space>c ToggleColorColumn()
+nnoremap <silent> <Space>c :call ToggleColorColumn()<CR>
 function! ToggleColorColumn()
 	" a:column を 'colorcolumn' に追加または削除
 	let l:column = virtcol('.')
@@ -461,6 +500,16 @@ function! Tilde()
 	call setline(line('.'), l:head . l:newchar . l:tail)
 	"call cursor(l:current_line_num, l:current_column_num + l:charbytes)
 endfunction
+
+" コマンドラインモード {{{2
+" Emacs 風
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
 " }}}
 " Filetype {{{1
 " C++ {{{2

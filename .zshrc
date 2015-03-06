@@ -18,7 +18,9 @@ setopt COMPLETE_IN_WORD  # 単語の途中から補完できるようにする
 # History
 setopt EXTENDED_HISTORY  # 日時情報を付加して履歴を保存する
 setopt HIST_IGNORE_SPACE  # 空白で始まる履歴を保存しない
+setopt HIST_IGNORE_DUPS  # 重複する履歴を保存しない
 setopt HIST_VERIFY  # 履歴呼び出しを直接実行しない
+setopt SHARE_HISTORY  # 異るシェルインスタンス間で履歴を共有する
 # I/O
 unsetopt CLOBBER  # リダイレクト時に既存ファイルを上書きできないようにする
 setopt CORRECT  # コマンドのスペルミス訂正をする
@@ -54,4 +56,6 @@ HISTSIZE=1000
 SAVEHIST=100000
 bindkey -e
 
+source /usr/share/doc/pkgfile/command-not-found.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval `dircolors -b ~/.dir_colors`
