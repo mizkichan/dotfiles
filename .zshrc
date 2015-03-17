@@ -28,8 +28,6 @@ setopt CORRECT_ALL  # 引数のスペルミス訂正をする
 setopt IGNORE_EOF  # Ctrl-D で終了しない
 setopt INTERACTIVE_COMMENTS  # 対話モードでもコメントを有効にする
 setopt PRINT_EXIT_VALUE  # 終了コードを表示する
-# Line Editor
-[ $TERM = "rxvt-unicode-256color" ] && setopt COMBINING_CHARS
 
 ################
 # Prompt
@@ -55,6 +53,10 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=100000
 bindkey -e
+
+if [ $TERM != "linux" ]; then
+	export LANG=ja_JP.UTF-8
+fi
 
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

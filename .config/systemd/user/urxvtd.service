@@ -1,9 +1,0 @@
-[Unit]
-Description=rxvt-unicode
-
-[Service]
-ExecStart=/usr/bin/urxvtd
-Restart=always
-
-[Install]
-WantedBy=default.target

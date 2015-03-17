@@ -362,6 +362,7 @@ augroup vimrc
 	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType cpp call s:cpp()
 	autocmd FileType python call s:python()
+	autocmd FileType markdown call s:markdown()
 
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
@@ -522,6 +523,15 @@ endfunction
 function! s:python()
 	setlocal ts=4 sw=4 et
 endfunction
+
+" markdown {{{2
+function! s:markdown()
+	setlocal ts=4 sw=4 et
+	augroup vimrc
+
+	augroup END
+endfunction
+
 
 " }}}
 
