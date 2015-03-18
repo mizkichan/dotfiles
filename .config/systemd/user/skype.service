@@ -1,0 +1,12 @@
+[Unit]
+Description=P2P software for high-quality voice communication
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/skype
+Environment=DISPLAY=:0
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+

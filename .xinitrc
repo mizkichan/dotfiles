@@ -19,8 +19,6 @@ setxkbmap -layout jp
 [ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
 display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplyblack.png
 
-uim-xim &
-uim-toolbar-gtk-systray &
 ~/.local/bin/batterymeter &
 
 exec $1
