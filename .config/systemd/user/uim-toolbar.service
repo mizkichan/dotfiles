@@ -1,5 +1,6 @@
 [Unit]
 Description=Multilingual input method library
+PartOf=uim.service
 
 [Service]
 Type=simple
@@ -8,5 +9,5 @@ Environment=DISPLAY=:0
 Restart=on-failure
 
 [Install]
-WantedBy=default.target
+WantedBy=uim.service
 

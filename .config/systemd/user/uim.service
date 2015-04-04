@@ -1,5 +1,6 @@
 [Unit]
 Description=Multilingual input method library
+Wants=uim-env.service
 
 [Service]
 Type=simple
