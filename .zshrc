@@ -61,3 +61,11 @@ fi
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval `dircolors -b ~/.dir_colors`
+
+if [ -z $TMUX ]; then
+	if [ -z "$(pidof tmux)" ]; then
+		exec tmux
+	else
+		exec tmux attach
+	fi
+fi
