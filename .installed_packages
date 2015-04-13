@@ -12,85 +12,88 @@
 #  exfat-utils                  : mkfs.exfat, fsck.exfat
 #  fltk                         : C++
 #  fuse-exfat                   : mount.exfat
-#  libcanberra                  : これがないとGTKに警告吐かれてウザい
-#  libnotify                    : notify-send
-#  libxkbcommon-x11             : QtがXCBで使うらしい
-#  luajit                       : vim
 #  ntfs-3g                      : mount.ntfs, mkfs.ntfs, fsck.ntfs
 #  otf-saabfont                 : 何語だっけ
 #  opencv                       : 2014高専プロコン
 #  ovmf                         : QEMU で UEFI 環境を作るためのファームウェアイメージ
 #  pkgbuild-introspection       : mkaurball
-#  poppler-data                 : TeX で吐いた文書が表示できなかったりする対策
 #  python-pyqt5                 : 自作バッテリアイコン
 #  ruby-bundler                 : mikutter
-#  tk                           : gitk
 #  ttf-hannom                   : ベトナム語フォント
 #  ttf-tamil                    : タミル語フォント
-#  wpa_actiond                  : netctl
 #
 abs
 acpid
-alsa-oss
 alsa-utils
+arch-wiki-lite
 archlinux-themes-slim
 archlinux-wallpaper
+at
 audacity
 aurvote
+bdf-unifont
+bluez
+bluez-utils
 boost
 burp
 cabextract
 cdrkit
 cgdb
 clang
+clang-analyzer
 cmake
 cpp-netlib
 cronie
 ctags
+cups
+darkhttpd
 dmenu-xft
 dosfstools
-eagle
+dropbox
 efibootmgr
+espeak
 exfat-utils
-fbterm
 firefox
 firefox-i18n-ja
 fltk
-freemind
 fuse-exfat
 gdb
 gimp
 git
-gnome-font-viewer
-gnu-netcat
+google-chrome-dev
 gprolog
 gptfdisk
 graphviz
 grub
+gutenprint
+htop
 i3-wm
 ifplugd
+iftop
 imagemagick
 inotify-tools
 intel-ucode
+iotop
 ipython
 irssi
+julia
 keepass
-libcanberra
-libnotify
+libmtp
 libreoffice-fresh
 libreoffice-fresh-ja
-libxkbcommon-x11
 lostfiles
-luajit
-lynx
 lzip
 markdown
 mercurial
 mikutter-custom
+minecraft
 mono
 namcap
 net-tools
+nethogs
+nfs-utils
 nmap
+nodejs
 notify-osd
 ntfs-3g
 ntp
@@ -101,29 +104,31 @@ otf-saabfont
 ovmf
 p7zip
 parted
+peco-git
 pkgbuild-introspection
 pkgfile
 pkgstats
-poppler-data
 pulseaudio
 pulseaudio-alsa
 pulseaudio-ctl
+pypy3
 python-pip
 python-pyqt5
 python2-pip
 qemu
-qemu-launcher
 qpdfview
 qtcreator
+reptyr
+roxterm
 ruby-bundler
-rxvt-unicode
 skk-jisyo
+skype
 slim
 subversion
-texlive-core
-texlive-langcjk
-tk
+testdisk
+tmux
 trash-cli
+trayer
 tree
 ttf-hannom
 ttf-mplus
@@ -134,11 +139,14 @@ unrar
 unzip-iconv
 valgrind
 vim-custom
+virt-manager
+vlc
 w3m
-wpa_actiond
+wireless_tools
 xbindkeys
 xclip
 xcursor-neutral
+xdotool
 xf86-input-synaptics
 xf86-video-intel
 xorg-server
@@ -146,7 +154,10 @@ xorg-server-utils
 xorg-server-xephyr
 xorg-xinit
 xorg-xkill
+xorg-xlsfonts
 yaourt
 zenity
 zip
 zsh
+zsh-completions
+zsh-syntax-highlighting
