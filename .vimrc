@@ -53,6 +53,7 @@ NeoBundleLazy 'osyo-manga/vim-watchdogs'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundleLazy 'nvie/vim-flake8'
+NeoBundleLazy 'wookiehangover/jshint.vim'
 
 " Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
@@ -143,6 +144,18 @@ if neobundle#tap('jedi-vim')
 		let g:jedi#auto_vim_configuration = 0
 		let g:jedi#force_py_version = 3
 		autocmd FileType python setlocal omnifunc=jedi#completions
+	endfunction
+	call neobundle#untap()
+endif
+
+" jshint.vim {{{3
+if neobundle#tap('jshint.vim')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['javascript']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
 	endfunction
 	call neobundle#untap()
 endif
