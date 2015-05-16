@@ -58,11 +58,11 @@ if [ $TERM != "linux" ]; then
 	export LANG=ja_JP.UTF-8
 fi
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-eval `dircolors -b ~/.dir_colors`
+[ -f /usr/share/doc/pkgfile/command-not-found.zsh ] && source /usr/share/doc/pkgfile/command-not-found.zsh
+[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f dircolors -b ~/.dir_colors ] && eval `dircolors -b ~/.dir_colors`
 
-if [ -z $TMUX ]; then
+if [ (-f /usr/bin/tmux) -a (-z $TMUX) ]; then
 	if [ -z "$(pidof tmux)" ]; then
 		exec tmux
 	else
