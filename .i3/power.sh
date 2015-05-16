@@ -8,4 +8,4 @@ sh -c "$(
            "systemctl reboot" "Reboot" \
            "systemctl poweroff" "Shutdown" \
            "systemctl suspend" "Suspend" \
-           "slimlock & systemctl hibernate" "Hibernate")"
+           "i3lock ; systemctl hibernate" "Hibernate")"

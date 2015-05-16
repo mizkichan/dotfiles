@@ -74,7 +74,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # lock
-bindsym $mod+q exec slimlock
+bindsym $mod+q exec i3lock
 
 # logout
 bindsym $mod+Shift+q exec ~/.i3/power.sh

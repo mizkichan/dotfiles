@@ -21,4 +21,4 @@ display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplybl
 
 ~/.local/bin/batterymeter &
 
-exec $1
+exec i3
