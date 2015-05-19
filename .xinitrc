@@ -15,7 +15,6 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.crossplatformlaf=
 
 setxkbmap -layout jp
 [ -f ~/.Xresources ]	&& xrdb ~/.Xresources
-[ -f ~/.xbindkeysrc ]	&& xbindkeys
 [ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
 display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplyblack.png
 

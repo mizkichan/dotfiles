@@ -92,6 +92,15 @@ mode "resize" {
 
 bindsym $mod+w mode "resize"
 
+# volume control
+bindsym XF86AudioMute exec pulseaudio-ctl mute
+bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
+bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
+
+# take a screen shot
+bindsym Print exec import -window root ~/pic/screenshot/$(date +%y%m%d%H%M%S).png
+bindsym Alt+Print exec import -window $(xdotool getwindowfocus -f) ~/pic/screenshot/$(date +%y%m%d%H%M%S).png
+
 bar {
 	status_command ~/.i3/statusbar.py
 	position top
