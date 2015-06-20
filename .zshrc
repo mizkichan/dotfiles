@@ -62,10 +62,32 @@ fi
 [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.dir_colors ] && eval `dircolors -b ~/.dir_colors`
 
-if [ -f /usr/bin/tmux -a -z $TMUX ]; then
+# tmux menu
+if [ -z $TMUX ]; then
 	if [ -z "$(pidof tmux)" ]; then
 		exec tmux
 	else
-		exec tmux attach
+		entries=()
+		tmux list-session | while read session; do
+			session_num=$(sed 's/:.*$//' <<< "$session")
+			entries+=($session_num $session)
+		done
+		entries+=("new" "start new session")
+		entries+=("no" "no tmux")
+
+		tmpfile=/tmp/zsh-tmux-menu-$$
+		dialog --menu tmux 0 0 0 "${entries[@]}" 2>!$tmpfile
+		selected=$(cat $tmpfile)
+		rm $tmpfile
+
+		if [ ! -z $selected ]; then
+			if [ $selected = "new" ]; then
+				exec tmux new-session
+			elif [ $selected != "no" ]; then
+				exec tmux attach -t $selected
+			fi
+		fi
 	fi
 fi
+
+# vim: ts=4 sw=4
