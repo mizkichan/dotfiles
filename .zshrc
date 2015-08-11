@@ -42,10 +42,10 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 # Aliases
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
+alias ll="ls -l"
 alias pacman="yaourt"
 alias xargs="xargs "
-alias rm="trash"
-alias _rm="/usr/bin/rm"
+alias rm="rm -I"
 
 ################
 

@@ -11,8 +11,10 @@ while True:
     ip_addrs = list()
     for iface in netifaces.interfaces():
         addrs = netifaces.ifaddresses(iface)
+        if iface == 'lo':
+            continue
         for family in addrs:
-            if family is netifaces.AF_INET and 'peer' not in addrs[family][0]:
+            if family in (netifaces.AF_INET, netifaces.AF_INET6):
                 ip_addrs.append('{}: {}'.format(iface, addrs[family][0]['addr']))  # NOTE: 0 じゃまずいかも
     items.append(', '.join(ip_addrs))
 
