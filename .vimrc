@@ -20,6 +20,7 @@ NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/vimproc', { 'build' : {
 	\ 'unix' : 'make -f make_unix.mak',
 \}}
+NeoBundle 'JuliaLang/julia-vim'
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -28,6 +29,8 @@ NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
+NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'jceb/vim-hier'
 NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'sjl/gundo.vim'
@@ -38,8 +41,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'JuliaLang/julia-vim'
-NeoBundle 'jceb/vim-hier'
 
 " Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -48,11 +49,14 @@ NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 " Lazy load plugins {{{2
+NeoBundleLazy 'elzr/vim-json'
+NeoBundleLazy 'davidhalter/jedi-vim'
+NeoBundleLazy 'jmcantrell/vim-virtualenv'
+NeoBundleLazy 'marijnh/tern_for_vim'
+NeoBundleLazy 'nvie/vim-flake8'
 NeoBundleLazy 'osyo-manga/vim-marching'
 NeoBundleLazy 'osyo-manga/vim-watchdogs'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
-NeoBundleLazy 'davidhalter/jedi-vim'
-NeoBundleLazy 'nvie/vim-flake8'
 NeoBundleLazy 'wookiehangover/jshint.vim'
 
 " Color Schemes {{{2
@@ -148,6 +152,18 @@ if neobundle#tap('jedi-vim')
 	call neobundle#untap()
 endif
 
+" vim-virtualenv {{{3
+if neobundle#tap('vim-virtualenv')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['python']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+	endfunction
+	call neobundle#untap()
+endif
+
 " jshint.vim {{{3
 if neobundle#tap('jshint.vim')
 	call neobundle#config({
@@ -156,6 +172,35 @@ if neobundle#tap('jshint.vim')
 		\ }
 	\})
 	function! neobundle#hooks.on_source(bundle)
+	endfunction
+	call neobundle#untap()
+endif
+
+" vim-json {{{3
+if neobundle#tap('vim-json')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['javascript']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		let g:vim_json_syntax_conceal = 0
+	endfunction
+	call neobundle#untap()
+endif
+
+" tern_for_vim {{{3
+if neobundle#tap('tern_for_vim')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['javascript']
+		\ },
+		\ 'build': {
+			\ 'unix': 'npm install'
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		setlocal omnifunc=tern#Complete
 	endfunction
 	call neobundle#untap()
 endif
@@ -196,9 +241,9 @@ call neobundle#end()
 	" UI {{{2
 		" フォント
 		if has('x11')
-			set guifont=M+\ 1mn\ regular\ 10
+			set guifont=M+\ 1mn\ medium\ 10
 		elseif has('gui_win32')
-			set guifont=M+\ 1mn\ regular:h10:cDEFAULT
+			set guifont=M+\ 1mn\ medium:h10:cDEFAULT
 		endif
 
 		" GUI オプションはだいたい無効
@@ -372,7 +417,6 @@ call neobundle#end()
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
-	autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	autocmd FileType cpp call s:cpp()
 	autocmd FileType python call s:python()
 	autocmd FileType markdown call s:markdown()
@@ -540,15 +584,16 @@ endfunction
 " markdown {{{2
 function! s:markdown()
 	setlocal ts=4 sw=4 et
-	augroup vimrc
-
-	augroup END
 endfunction
-
 
 " }}}
 
-colorscheme dw_red
+" Misc {{{1
+if has('gui_running')
+	colorscheme molokai
+else
+	colorscheme default
+endif
 syntax on
 filetype plugin indent on
 

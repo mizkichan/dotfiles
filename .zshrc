@@ -12,22 +12,22 @@ compinit
 ################
 
 # Changing Directories
-setopt AUTO_PUSHD  # 自動で pushd する
+setopt AUTO_PUSHD           # 自動で pushd する
 # Completion
-setopt COMPLETE_IN_WORD  # 単語の途中から補完できるようにする
+setopt COMPLETE_IN_WORD     # 単語の途中から補完できるようにする
 # History
-setopt EXTENDED_HISTORY  # 日時情報を付加して履歴を保存する
-setopt HIST_IGNORE_SPACE  # 空白で始まる履歴を保存しない
-setopt HIST_IGNORE_DUPS  # 重複する履歴を保存しない
-setopt HIST_VERIFY  # 履歴呼び出しを直接実行しない
-setopt SHARE_HISTORY  # 異るシェルインスタンス間で履歴を共有する
+setopt EXTENDED_HISTORY     # 日時情報を付加して履歴を保存する
+setopt HIST_IGNORE_SPACE    # 空白で始まる履歴を保存しない
+setopt HIST_IGNORE_DUPS     # 重複する履歴を保存しない
+setopt HIST_VERIFY          # 履歴呼び出しを直接実行しない
+setopt SHARE_HISTORY        # 異るシェルインスタンス間で履歴を共有する
 # I/O
-unsetopt CLOBBER  # リダイレクト時に既存ファイルを上書きできないようにする
-setopt CORRECT  # コマンドのスペルミス訂正をする
-setopt CORRECT_ALL  # 引数のスペルミス訂正をする
-setopt IGNORE_EOF  # Ctrl-D で終了しない
-setopt INTERACTIVE_COMMENTS  # 対話モードでもコメントを有効にする
-setopt PRINT_EXIT_VALUE  # 終了コードを表示する
+unsetopt CLOBBER            # リダイレクト時に既存ファイルを上書きできないようにする
+setopt CORRECT              # コマンドのスペルミス訂正をする
+setopt CORRECT_ALL          # 引数のスペルミス訂正をする
+setopt IGNORE_EOF           # Ctrl-D で終了しない
+setopt INTERACTIVE_COMMENTS # 対話モードでもコメントを有効にする
+setopt PRINT_EXIT_VALUE     # 終了コードを表示する
 
 ################
 # Prompt
@@ -65,7 +65,7 @@ fi
 # tmux menu
 if [ -z $TMUX ]; then
 	if [ -z "$(pidof tmux)" ]; then
-		exec tmux
+		exec tmux -2
 	else
 		entries=()
 		tmux list-session | while read session; do
@@ -82,9 +82,9 @@ if [ -z $TMUX ]; then
 
 		if [ ! -z $selected ]; then
 			if [ $selected = "new" ]; then
-				exec tmux new-session
+				exec tmux -2 new-session
 			elif [ $selected != "no" ]; then
-				exec tmux attach -t $selected
+				exec tmux -2 attach -t $selected
 			fi
 		fi
 	fi
