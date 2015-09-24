@@ -116,7 +116,7 @@ endif
 if neobundle#tap('vim-watchdogs')
 	call neobundle#config({
 	\	'autoload': {
-	\		'filetypes': ['c', 'cpp', 'python']
+	\		'filetypes': ['c', 'cpp', 'python', 'php']
 	\	}
 	\})
 	function! neobundle#hooks.on_source(bundle)
@@ -131,6 +131,7 @@ if neobundle#tap('vim-watchdogs')
 		\	'c': 1,
 		\	'cpp': 1,
 		\	'python': 1,
+		\	'php': 1,
 		\}
 	endfunction
 	call neobundle#untap()
@@ -569,6 +570,16 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-d> <Del>
 " }}}
+" Commands {{{1
+command! -nargs=+ -complete=file -bar Tabedit call Tabedit(<f-args>)
+function! Tabedit(...)
+    for l:arg in a:000
+        for l:filename in glob(l:arg, 0, 1)
+            execute 'tabedit' l:filename
+        endfor
+    endfor
+endfunction
+
 " Filetype {{{1
 " C++ {{{2
 function! s:cpp()
