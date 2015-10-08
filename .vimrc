@@ -58,6 +58,7 @@ NeoBundleLazy 'osyo-manga/vim-marching'
 NeoBundleLazy 'osyo-manga/vim-watchdogs'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'wookiehangover/jshint.vim'
+NeoBundleLazy 'kannokanno/previm'
 
 " Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
@@ -187,6 +188,16 @@ if neobundle#tap('vim-json')
 	function! neobundle#hooks.on_source(bundle)
 		let g:vim_json_syntax_conceal = 0
 	endfunction
+	call neobundle#untap()
+endif
+
+" previm {{{3
+if neobundle#tap('previm')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['markdown']
+		\ }
+	\})
 	call neobundle#untap()
 endif
 
