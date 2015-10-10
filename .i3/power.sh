@@ -8,5 +8,5 @@ sh -c "$(
            "systemctl reboot" "Reboot" \
            "systemctl poweroff" "Shutdown" \
            "systemctl suspend" "Suspend" \
-           "slock ; systemctl hibernate" "Hibernate" \
+           "slock & systemctl hibernate" "Hibernate" \
            "mpv --fs --mute --loop inf --start 16.0 --ab-loop-a 16.0 --ab-loop-b 22.2 $HOME/video/panda_office.mkv" "Panda!!!")"
