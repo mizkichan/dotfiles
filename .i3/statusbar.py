@@ -6,22 +6,29 @@ import time
 import netifaces
 
 while True:
-    items = list()
+    items = []
 
-    ip_addrs = list()
-    for iface in netifaces.interfaces():
-        addrs = netifaces.ifaddresses(iface)
-        if iface == 'lo':
-            continue
-        for family in addrs:
-            if family in (netifaces.AF_INET, netifaces.AF_INET6):
-                ip_addrs.append('{}: {}'.format(iface, addrs[family][0]['addr']))  # NOTE: 0 じゃまずいかも
-    items.append(', '.join(ip_addrs))
+    interfaces = {}
+    for ifname in netifaces.interfaces():
+        ifaddresses = netifaces.ifaddresses(ifname)
+        addresses = []
+        for family, interface in ifaddresses.items():
+            if family not in (netifaces.AF_INET, netifaces.AF_INET6):
+                continue
+            for address in interface:
+                if 'broadcast' not in address:
+                    continue
+                addresses.append(address['addr'])
+        if len(addresses) > 0:
+            interfaces[ifname] = addresses
+
+    ipaddrs = ', '.join(k + ' [' + ', '.join(v) + ']' for k, v in interfaces.items())
+    items.append(ipaddrs)
 
     date = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     items.append(date)
 
-    sys.stdout.write(' | '.join(items) + '\n')
+    sys.stdout.write(' | '.join(items) + ' | \n')
     sys.stdout.flush()
 
     time.sleep(1)
