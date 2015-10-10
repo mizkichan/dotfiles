@@ -64,7 +64,7 @@ fi
 
 # tmux menu
 if [ -z $TMUX ]; then
-	if [ -z "$(pidof tmux)" ]; then
+	if [ -z "$(pidof tmux)" -a $TERM != 'linux' ]; then
 		exec tmux -2
 	else
 		entries=()
