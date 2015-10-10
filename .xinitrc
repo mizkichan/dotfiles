@@ -13,14 +13,14 @@ export GTK_IM_MODULE=uim
 export QT_IM_MODULE=uim
 export XMODIFIERS=@im=uim
 
-export XCURSOR_THEME="Neutral"
-export GTK2_RC_FILES=/usr/share/themes/Orion/gtk-2.0/gtkrc
-export GTK_THEME=Orion
+export GTK2_RC_FILES=/usr/share/themes/HighContrast/gtk-2.0/gtkrc
+export GTK_THEME=HighContrast
 
-setxkbmap -layout jp
-[ -f ~/.Xresources ]	&& xrdb ~/.Xresources
-[ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
-display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplyblack.png
+setxkbmap -layout jp &
+[ -f ~/.Xresources ]	&& xrdb ~/.Xresources &
+[ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc &
+display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplyblack.png &
+wait
 
 uim-xim &
 uim-toolbar-gtk-systray &
