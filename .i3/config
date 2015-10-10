@@ -110,7 +110,7 @@ bindsym XF86MonBrightnessUp   exec xbacklight -steps 1 +10
 bindsym XF86MonBrightnessDown exec xbacklight -steps 1 -10
 
 # take a screen shot
-bindsym Print exec import -window root ~/pic/screenshot/$(date +%y%m%d%H%M%S).png
+bindsym Print exec import -window root ~/picture/screenshot/$(date +%y%m%d%H%M%S).png
 bindsym Alt+Print exec import -window $(xdotool getwindowfocus -f) ~/pic/screenshot/$(date +%y%m%d%H%M%S).png
 
 bar {
