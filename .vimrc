@@ -57,7 +57,6 @@ NeoBundleLazy 'nvie/vim-flake8'
 NeoBundleLazy 'osyo-manga/vim-marching'
 NeoBundleLazy 'osyo-manga/vim-watchdogs'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
-NeoBundleLazy 'wookiehangover/jshint.vim'
 NeoBundleLazy 'kannokanno/previm'
 
 " Color Schemes {{{2
@@ -159,18 +158,6 @@ if neobundle#tap('vim-virtualenv')
 	call neobundle#config({
 		\ 'autoload': {
 			\ 'filetypes': ['python']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-	endfunction
-	call neobundle#untap()
-endif
-
-" jshint.vim {{{3
-if neobundle#tap('jshint.vim')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['javascript']
 		\ }
 	\})
 	function! neobundle#hooks.on_source(bundle)
