@@ -127,11 +127,15 @@ if neobundle#tap('vim-watchdogs')
 		\	'type': 'watchdogs_checker/clang++',
 		\	'cmdopt': '-W -Wall -std=c++14',
 		\}
+		let g:quickrun_config['javascript/watchdogs_checker'] = {
+		\	'type': 'watchdogs_checker/eslint',
+		\}
 		let g:watchdogs_check_BufWritePost_enables = {
 		\	'c': 1,
 		\	'cpp': 1,
 		\	'python': 1,
 		\	'php': 1,
+		\   'javascript': 1,
 		\}
 	endfunction
 	call neobundle#untap()
