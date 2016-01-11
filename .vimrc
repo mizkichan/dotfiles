@@ -41,6 +41,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'osyo-manga/vim-watchdogs'
 
 " Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -53,11 +54,8 @@ NeoBundleLazy 'elzr/vim-json'
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundleLazy 'jmcantrell/vim-virtualenv'
 NeoBundleLazy 'marijnh/tern_for_vim'
-NeoBundleLazy 'nvie/vim-flake8'
-NeoBundleLazy 'osyo-manga/vim-marching'
-NeoBundleLazy 'osyo-manga/vim-watchdogs'
+NeoBundleLazy 'justmao945/vim-clang'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
-NeoBundleLazy 'wookiehangover/jshint.vim'
 NeoBundleLazy 'kannokanno/previm'
 
 " Color Schemes {{{2
@@ -81,6 +79,7 @@ if neobundle#tap('neocomplete')
 			let g:neocomplete#force_omni_input_patterns = {}
 		endif
 		let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+		let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 		let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 		let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
 	endfunction
@@ -97,15 +96,19 @@ if neobundle#tap('neosnippet.vim')
 	call neobundle#untap()
 endif
 
-" vim-marching {{{3
-if neobundle#tap('vim-marching')
+" vim-clang {{{3
+if neobundle#tap('vim-clang')
 	call neobundle#config({
 	\	'autoload': {
 	\		'filetypes': ['c', 'cpp']
 	\	}
 	\})
 	function! neobundle#hooks.on_source(bundle)
-		let g:marching_enable_neocomplete = 1
+		let g:clang_auto = 0
+		let g:clang_c_completeopt = 'menuone,preview'
+		let g:clang_cpp_completeopt = 'menuone,preview'
+		let g:clang_cpp_options = '-std=c++1z'
+		let g:clang_diagsopt = ''
 		let g:marching#clang_command#options = {
 		\	'cpp' : '-std=c++1z'
 		\}
@@ -115,24 +118,25 @@ endif
 
 " vim-watchdogs {{{3
 if neobundle#tap('vim-watchdogs')
-	call neobundle#config({
-	\	'autoload': {
-	\		'filetypes': ['c', 'cpp', 'python', 'php']
-	\	}
-	\})
 	function! neobundle#hooks.on_source(bundle)
+		let g:watchdogs_check_BufWritePost_enable = 1
+
 		if !exists('g:quickrun_config')
 			let g:quickrun_config = {}
 		endif
+		let g:quickrun_config['c/watchdogs_checker'] = {
+		\	'type': 'watchdogs_checker/clang',
+		\	'cmdopt': '-W -Wall',
+		\}
 		let g:quickrun_config['cpp/watchdogs_checker'] = {
 		\	'type': 'watchdogs_checker/clang++',
-		\	'cmdopt': '-W -Wall -std=c++14',
+		\	'cmdopt': '-W -Wall -std=c++1z',
 		\}
-		let g:watchdogs_check_BufWritePost_enables = {
-		\	'c': 1,
-		\	'cpp': 1,
-		\	'python': 1,
-		\	'php': 1,
+		let g:quickrun_config['python/watchdogs_checker'] = {
+		\	'type': 'watchdogs_checker/flake8',
+		\}
+		let g:quickrun_config['javascript/watchdogs_checker'] = {
+		\	'type': 'watchdogs_checker/eslint',
 		\}
 	endfunction
 	call neobundle#untap()
@@ -149,7 +153,7 @@ if neobundle#tap('jedi-vim')
 		let g:jedi#completions_enabled = 0
 		let g:jedi#auto_vim_configuration = 0
 		let g:jedi#force_py_version = 3
-		autocmd FileType python setlocal omnifunc=jedi#completions
+		autocmd vimrc FileType python setlocal omnifunc=jedi#completions
 	endfunction
 	call neobundle#untap()
 endif
@@ -159,18 +163,6 @@ if neobundle#tap('vim-virtualenv')
 	call neobundle#config({
 		\ 'autoload': {
 			\ 'filetypes': ['python']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-	endfunction
-	call neobundle#untap()
-endif
-
-" jshint.vim {{{3
-if neobundle#tap('jshint.vim')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['javascript']
 		\ }
 	\})
 	function! neobundle#hooks.on_source(bundle)
@@ -214,19 +206,6 @@ if neobundle#tap('tern_for_vim')
 	function! neobundle#hooks.on_source(bundle)
 		setlocal omnifunc=tern#Complete
 	endfunction
-	call neobundle#untap()
-endif
-
-" vim-flake8 {{{3
-if neobundle#tap('vim-flake8')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes' : [ 'python' ]
-		\ },
-		\ 'build': {
-			\ 'unix': 'pip install --user --upgrade flake8',
-		\}
-	\})
 	call neobundle#untap()
 endif
 
@@ -422,10 +401,8 @@ call neobundle#end()
 	set virtualedit=block
 
 	" 補完オプション
-	set completeopt=menu,menuone,longest,preview
+	set completeopt=menuone,preview
 
-	" Terminal
-	set t_Co=256
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
@@ -491,7 +468,7 @@ function! ToggleShowNumber()
 endfunction
 
 " 'colorcolumn' に追加
-nnoremap <silent> <Space>c :call ToggleColorColumn()<CR>
+nnoremap <silent> <Space>c :call ToggleColorColumn()<Enter>
 function! ToggleColorColumn()
 	" a:column を 'colorcolumn' に追加または削除
 	let l:column = virtcol('.')
@@ -552,7 +529,7 @@ set scrolloff=9999
 set sidescrolloff=9999
 
 " チルダコマンド上書き {{{2
-nnoremap <silent> ~ :call Tilde()<CR>
+nnoremap <silent> ~ :call Tilde()<Enter>
 function! Tilde()
 	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 	let l:to   = '=''#$%|"[]/_,+.\0123456789:;(!)?@abcdefghijklmnopqrstuvwxyz{*}^-`ABCDEFGHIJKLMNOPQRSTUVWXYZ<&>~'
@@ -611,11 +588,7 @@ endfunction
 " }}}
 
 " Misc {{{1
-if has('gui_running')
-	colorscheme molokai
-else
-	colorscheme default
-endif
+colorscheme molokai
 syntax on
 filetype plugin indent on
 
