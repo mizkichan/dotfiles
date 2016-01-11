@@ -80,7 +80,7 @@ if [ -z $TMUX ]; then
 		selected=$(cat $tmpfile)
 		rm $tmpfile
 
-		if [ ! -z $selected ]; then
+		if [ $selected ]; then
 			if [ $selected = "new" ]; then
 				exec tmux -2 new-session
 			elif [ $selected != "no" ]; then
