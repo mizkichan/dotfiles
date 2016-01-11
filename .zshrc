@@ -86,6 +86,8 @@ if [ -z $TMUX ]; then
 			elif [ $selected != "no" ]; then
 				exec tmux -2 attach -t $selected
 			fi
+		else
+			exit
 		fi
 	fi
 fi
