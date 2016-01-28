@@ -533,6 +533,9 @@ nnoremap <silent> <Space>u :GundoToggle<Enter>
 " VimFiler
 nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<Enter>
 
+" Unite outline
+nnoremap <silent> <Space>o :Unite outline -no-quit -vertical -toggle -winwidth=48<Enter>
+
 " スクロールオフセットの切り替え
 nnoremap <expr> <silent> <Space>s ToggleScrollOffset()
 function! ToggleScrollOffset()
