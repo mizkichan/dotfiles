@@ -138,6 +138,13 @@ if neobundle#tap('vim-watchdogs')
 		let g:quickrun_config['javascript/watchdogs_checker'] = {
 		\	'type': 'watchdogs_checker/eslint',
 		\}
+		let g:watchdogs_check_BufWritePost_enables = {
+		\	'c': 1,
+		\	'cpp': 1,
+		\	'python': 1,
+		\	'php': 1,
+		\   'javascript': 1,
+		\}
 	endfunction
 	call neobundle#untap()
 endif
@@ -517,7 +524,10 @@ endfunction
 nnoremap <silent> <Space>u :GundoToggle<Enter>
 
 " VimFiler
-nnoremap <silent> <Space>f :VimFilerSplit -winwidth=32 -toggle -explorer<Enter>
+nnoremap <silent> <Space>f :VimFilerSplit -winwidth=48 -toggle -explorer<Enter>
+
+" Unite outline
+nnoremap <silent> <Space>o :Unite outline -no-quit -vertical -toggle -winwidth=48<Enter>
 
 " スクロールオフセットの切り替え
 nnoremap <expr> <silent> <Space>s ToggleScrollOffset()
