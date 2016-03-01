@@ -413,9 +413,6 @@ call neobundle#end()
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!
-	autocmd FileType cpp call s:cpp()
-	autocmd FileType python call s:python()
-	autocmd FileType markdown call s:markdown()
 
 	" 世代バックアップ。バックアップファイルの拡張子を日付にすることで上書きを回避する
 	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
@@ -577,25 +574,6 @@ function! Tabedit(...)
         endfor
     endfor
 endfunction
-
-" Filetype {{{1
-" C++ {{{2
-function! s:cpp()
-	setlocal ts=4 sw=4 et
-	setlocal matchpairs+=<:>
-endfunction
-
-" Python {{{2
-function! s:python()
-	setlocal ts=4 sw=4 et
-endfunction
-
-" markdown {{{2
-function! s:markdown()
-	setlocal ts=4 sw=4 et
-endfunction
-
-" }}}
 
 " Misc {{{1
 colorscheme molokai
