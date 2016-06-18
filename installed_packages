@@ -16,13 +16,13 @@ dmenu-xft
 dosfstools
 dropbox
 dunst
-faac
 firefox
 firefox-i18n-ja
 gdb
 gimp
 git
 gnome-themes-standard
+gogglesmm
 gptfdisk
 htop
 hunspell-en
@@ -32,7 +32,8 @@ iftop
 imagemagick
 ipython
 julia
-keepass
+keepassx2
+lsof
 mpv
 namcap
 ncdu
@@ -59,6 +60,7 @@ skk-jisyo
 slock
 taffy
 tmux
+translate-shell-git
 ttf-mplus
 udevil
 uefi-python-git

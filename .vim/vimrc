@@ -53,9 +53,12 @@ NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundleLazy 'elzr/vim-json'
 NeoBundleLazy 'davidhalter/jedi-vim'
 NeoBundleLazy 'jmcantrell/vim-virtualenv'
-NeoBundleLazy 'marijnh/tern_for_vim'
+NeoBundleLazy 'marijnh/tern_for_vim', { 'build' : {
+	\ 'unix' : 'npm install',
+\}}
 NeoBundleLazy 'justmao945/vim-clang'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
+NeoBundleLazy 'othree/yajs.vim', { 'autoload' : { 'filetypes' : [ 'javascript' ] } }
 NeoBundleLazy 'kannokanno/previm'
 
 " Color Schemes {{{2
@@ -181,7 +184,7 @@ endif
 if neobundle#tap('vim-json')
 	call neobundle#config({
 		\ 'autoload': {
-			\ 'filetypes': ['javascript']
+			\ 'filetypes': ['json']
 		\ }
 	\})
 	function! neobundle#hooks.on_source(bundle)
@@ -239,7 +242,7 @@ call neobundle#end()
 	" UI {{{2
 		" フォント
 		if has('x11')
-			set guifont=M+\ 1mn\ medium\ 10
+			set guifont=M+\ 1mn\ regular\ 12
 		elseif has('gui_win32')
 			set guifont=M+\ 1mn\ medium:h10:cDEFAULT
 		endif
@@ -331,7 +334,7 @@ call neobundle#end()
 		set viewdir=$MYVIMDIR/view
 
 		" スワップの保存先
-		set directory=./,$MYVIMDIR/swap
+		set directory=.,$MYVIMDIR/swap
 	" Disabled keys {{{2
 		" コマンドラインウィンドウ
 		set cedit=
@@ -376,6 +379,9 @@ call neobundle#end()
 		set scrollopt=ver,hor,jump
 		" 水平スクロールも1文字単位で行う
 		set sidescroll=1
+
+		" 水平スクロールのオフセット
+		set sidescrolloff=8
 	" }}}
 	" クリップボード
 	set clipboard=
@@ -530,10 +536,30 @@ nnoremap <silent> <Space>o :Unite outline -no-quit -vertical -toggle -winwidth=4
 nnoremap <expr> <silent> <Space>s ToggleScrollOffset()
 function! ToggleScrollOffset()
 	let &l:scrolloff = &l:scrolloff ? 0 : 9999
-	let &l:sidescrolloff = &l:sidescrolloff ? 0 : 9999
 endfunction
 set scrolloff=9999
-set sidescrolloff=9999
+
+" 括弧
+"inoremap <expr> <CR> CloseParenthesByEnter()
+"function! CloseParenthesByEnter() abort
+"	let l:parenthes = {'(': ')', '[': ']', '{': '}', '''': '''', '"': '"'}
+"
+"	let [l:lnum, l:col] = getpos('.')[1:2]
+"	let l:line = getline(l:lnum)
+"
+"	let l:prev_char = matchstr(l:line, '.', l:col - 2)
+"	if has_key(l:parenthes, l:prev_char)
+"		return l:parenthes[l:prev_char] . "\<Left>\<CR>\<Esc>O"
+"	endif
+"
+"	return "\<CR>"
+"endfunction
+"
+"inoremap <expr> ) CloseParenthesByCloser(')')
+"inoremap <expr> ] CloseParenthesByCloser(']')
+"inoremap <expr> } CloseParenthesByCloser('}')
+"function! CloseParenthesByCloser(closer) abort
+"endfunction
 
 " チルダコマンド上書き {{{2
 nnoremap <silent> ~ :call Tilde()<Enter>

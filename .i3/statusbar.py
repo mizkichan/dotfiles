@@ -2,8 +2,30 @@
 import datetime
 import sys
 import time
+import random
 
 import netifaces
+
+spinner_chars = {
+    ' ': '▖▗▘▝',
+    '▀': '▘▛▜▝',
+    '▄': '▖▗▙▟',
+    '█': '▙▛▜▟',
+    '▌': '▖▘▙▛',
+    '▐': '▗▜▝▟',
+    '▖': ' ▄▌▞',
+    '▗': ' ▄▐▚',
+    '▘': ' ▀▌▚',
+    '▙': '▄█▌▚',
+    '▚': '▗▘▙▜',
+    '▛': '▀█▌▞',
+    '▜': '▀█▐▚',
+    '▝': ' ▀▐▞',
+    '▞': '▖▛▝▟',
+    '▟': '▄█▐▞',
+}
+
+spinner = ' '
 
 while True:
     items = []
@@ -28,7 +50,9 @@ while True:
     date = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     items.append(date)
 
-    sys.stdout.write(' | '.join(items) + ' | \n')
+    spinner = random.choice(spinner_chars[spinner])
+
+    sys.stdout.write(' | '.join(items) + ' {}\n'.format(spinner))
     sys.stdout.flush()
 
     time.sleep(1)

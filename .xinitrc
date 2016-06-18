@@ -25,7 +25,6 @@ wait
 uim-xim &
 uim-toolbar-gtk-systray &
 dropbox &
-syndaemon -i 1 -t -k &
 ibamtray &
 volumeicon &
 
