@@ -1,0 +1,134 @@
+# sway configures
+
+# color settings
+# colorclass		border	back	text	indica	childb
+client.focused		#CC0000 #CC0000 #FFFFFF #FFFFFF #CC0000
+client.focused_inactive	#CC0000 #000000 #FFFFFF #FFFFFF #CC0000
+client.unfocused 	#CC0000 #000000 #FFFFFF #FFFFFF #CC0000
+client.urgent		#CCCC00 #CCCC00 #CC0000 #CC0000 #CCCC00
+client.placeholder	#CCCC00 #CCCC00 #CC0000 #CC0000 #CCCC00
+
+# modifier key
+set $mod Muhenkan
+
+# font
+font pango:M+ 1mn medium 10
+
+# modifier key in floating mode
+floating_modifier $mod normal
+
+# hide edge border
+hide_edge_borders both
+
+# do not follow focus to mouse
+focus_follows_mouse no
+
+# kill focused window
+bindsym $mod+x kill
+
+# start dmenu
+bindsym $mod+space exec dmenu_run -l 20 -fn 'xft:M+ 2m medium:pixelsize=12'
+
+# move focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# toggle fullscreen mode
+bindsym $mod+m fullscreen
+
+# toggle floating mode
+bindsym $mod+Shift+f floating toggle
+
+# move focus between floating / tiling windows
+bindsym $mod+f focus mode_toggle
+
+# default layout
+bindsym $mod+i layout default
+# tabbed layout
+bindsym $mod+o layout tabbed
+# split horizontally
+bindsym $mod+b splith
+# split vertically
+bindsym $mod+v splitv
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
+bindsym $mod+minus scratchpad show
+
+# move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+minus move scratchpad
+
+# lock
+bindsym $mod+q exec slock
+
+# logout
+bindsym $mod+Shift+q exec ~/.i3/power.sh
+
+# resize mode
+mode "resize" {
+	bindsym $mod+h resize shrink width 1 px or 1 ppt
+	bindsym $mod+j resize grow height 1 px or 1 ppt
+	bindsym $mod+k resize shrink height 1 px or 1 ppt
+	bindsym $mod+l resize grow width 1 px or 1 ppt
+
+	# back to normal
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+w mode "resize"
+
+# volume control
+bindsym XF86AudioMute exec pulseaudio-ctl mute
+bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
+bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
+
+# brightness control
+bindsym XF86MonBrightnessUp   exec xbacklight -steps 1 +10
+bindsym XF86MonBrightnessDown exec xbacklight -steps 1 -10
+
+# take a screen shot
+bindsym Print exec import -window root ~/picture/screenshot/$(date +%y%m%d%H%M%S).png
+bindsym Alt+Print exec import -window $(xdotool getwindowfocus -f) ~/pic/screenshot/$(date +%y%m%d%H%M%S).png
+
+bar {
+	status_command ~/.i3/statusbar.py
+	position top
+	binding_mode_indicator yes
+	font pango:M+ 1mn medium 10
+
+	colors {
+		focused_workspace  #CC0000 #CC0000 #FFFFFF
+		active_workspace   #CC0000 #000000 #FFFFFF
+		inactive_workspace #000000 #000000 #777777
+		urgent_workspace   #CCCC00 #CCCC00 #CC0000
+	}
+}
