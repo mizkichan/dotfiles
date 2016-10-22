@@ -2,11 +2,11 @@
 
 # color settings
 # colorclass		border	back	text	indicator
-client.focused		#000077 #000077 #FFFFFF #FFFFFF
-client.focused_inactive	#000077 #000000 #FFFFFF #FFFFFF
+client.focused		#CC0000 #CC0000 #FFFFFF #FFFFFF
+client.focused_inactive	#000000 #000000 #FFFFFF #FFFFFF
 client.unfocused 	#000000 #000000 #FFFFFF #FFFFFF
-client.urgent		#770000 #77F000 #FFFFFF #FFFFFF
-client.placeholder	#770000 #77F000 #FFFFFF #FFFFFF
+client.urgent		#CCCC00 #CCCC00 #CC0000 #CC0000
+client.placeholder	#CCCC00 #CCCC00 #CC0000 #CC0000
 
 # modifier key
 set $mod Mod4
@@ -27,7 +27,7 @@ focus_follows_mouse no
 bindsym $mod+x kill
 
 # start dmenu
-bindsym $mod+space exec dmenu_run -fn 'xft:M+ 1mn:style=bold:pixelsize=12'
+bindsym $mod+space exec dmenu_run -l 20 -fn 'xft:M+ 2m medium:pixelsize=12'
 
 # move focus
 bindsym $mod+h focus left
@@ -118,4 +118,11 @@ bar {
 	position top
 	binding_mode_indicator yes
 	font pango:M+ 1mn medium 10
+
+	colors {
+		focused_workspace  #CC0000 #CC0000 #FFFFFF
+		active_workspace   #CC0000 #000000 #FFFFFF
+		inactive_workspace #000000 #000000 #777777
+		urgent_workspace   #CCCC00 #CCCC00 #CC0000
+	}
 }

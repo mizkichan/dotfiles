@@ -146,7 +146,7 @@ if neobundle#tap('vim-watchdogs')
 		\	'cpp': 1,
 		\	'python': 1,
 		\	'php': 1,
-		\   'javascript': 1,
+		\   'javascript': 0,
 		\}
 	endfunction
 	call neobundle#untap()
@@ -426,6 +426,9 @@ augroup vimrc
 	" ウィンドウを切り替えたときに 'cursorline' を切り替える
 	autocmd WinEnter * setlocal cursorline
 	autocmd WinLeave * setlocal nocursorline
+
+	" 'filetype' が空だったら syntax off
+	autocmd BufEnter * execute 'syntax' strlen(&l:filetype) ? 'on' : 'off'
 augroup END
 " Mapping {{{1
 " Unite
@@ -512,6 +515,7 @@ function! ToggleWrap()
 		setlocal wrap
 	endif
 endfunction
+setlocal cpoptions+=n
 
 " 'ambiwidth' の切り換え
 nnoremap <expr> <silent> <Space>a ToggleAmbiguousWidth()
@@ -531,6 +535,9 @@ nnoremap <silent> <Space>f :VimFilerSplit -winwidth=48 -toggle -explorer<Enter>
 
 " Unite outline
 nnoremap <silent> <Space>o :Unite outline -no-quit -vertical -toggle -winwidth=48<Enter>
+
+" Unite tabs
+nnoremap <silent> <Space>t :Unite tab -no-quit -vertical -toggle -winwidth=48<Enter>
 
 " スクロールオフセットの切り替え
 nnoremap <expr> <silent> <Space>s ToggleScrollOffset()

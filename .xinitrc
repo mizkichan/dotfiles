@@ -14,12 +14,13 @@ export XMODIFIERS=@im=uim
 export QT_IM_MODULE=uim
 
 export GTK_OVERLAY_SCROLLING=0
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
 setxkbmap -layout jp
 [ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
 
 [ -f ~/.Xresources ]	&& xrdb ~/.Xresources &
-display -window root -backdrop /usr/share/archlinux/wallpaper/archlinux-simplyblack.png &
+display -window root -backdrop ~/picture/soviet.png
 wait
 
 uim-xim &
