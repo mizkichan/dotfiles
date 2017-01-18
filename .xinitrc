@@ -18,14 +18,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
 setxkbmap -layout jp
 [ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
-
-[ -f ~/.Xresources ]	&& xrdb ~/.Xresources &
-display -window root -backdrop ~/picture/soviet.png
-wait
+[ -f ~/.Xresources ]	&& xrdb ~/.Xresources
 
 uim-xim &
 uim-toolbar-gtk-systray &
-dropbox &
 ibamtray &
 volumeicon &
 

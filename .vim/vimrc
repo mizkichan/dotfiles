@@ -63,7 +63,7 @@ NeoBundleLazy 'kannokanno/previm'
 
 " Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
-NeoBundle 'vim-scripts/dw_colors'
+NeoBundle 'reedes/vim-colors-pencil'
 " }}}
 " Plugin settings {{{2
 " neocomplete {{{3
@@ -266,8 +266,8 @@ call neobundle#end()
 		" 行番号を表示
 		set number	" local
 
-		" ルーラを表示
-		set ruler
+		" ルーラを表示しない
+		set noruler
 
 		" 短縮表示するメッセージのリスト
 		" a : ファイル状態の短縮表示
@@ -296,18 +296,20 @@ call neobundle#end()
 
 		" 折り返された見掛け上の1行をウィンドウの最後の行でも表示する
 		set display=lastline
+
+		" 背景は黒
+		set background=dark
 	" UI Format {{{2
 		" ステータス行の書式
-		set statusline&	" いつかやる
-		" ルーラの書式
-		set rulerformat&	" いつかやる
+		set statusline=%f\ %m%r%h%w%q%=[Line\ %3l\ /\ %3L]\ [Col\ %3c\ (%3v)]\ [At\ %5{strchars(join(getline(1,line('.')-1),''))+strchars(getline('.')[:col('.')-1])}\ /\ %5{strchars(join(getline(1,'$'),''))}]
+		
 		" タブバーの書式
 		set tabline&	" いつかやる
 		" タイトルバーの書式
 		set titlestring& "いつかやる
 	" i18n {{{2
-		" 迷ったら全角
-		set ambiwidth=double
+		" 迷ったら半角
+		set ambiwidth=single
 
 		" 想定される文字エンコーディングのリスト
 		set fileencodings=ucs-bom,utf-8,cp932,euc-jp
@@ -404,8 +406,8 @@ call neobundle#end()
 	" 新しいウィンドウは下に
 	set splitbelow
 
-	" 新しいウィンドウは左に
-	set nosplitright
+	" 新しいウィンドウは右に
+	set splitright
 
 	" ジャンプ系コマンドで空白文字でもそこにジャンプする
 	set nostartofline
@@ -428,7 +430,7 @@ augroup vimrc
 	autocmd WinLeave * setlocal nocursorline
 
 	" 'filetype' が空だったら syntax off
-	autocmd BufEnter * execute 'syntax' strlen(&l:filetype) ? 'on' : 'off'
+	"autocmd WinEnter * execute 'syntax' !&l:filetype ? 'on' : 'off'
 augroup END
 " Mapping {{{1
 " Unite
@@ -609,7 +611,7 @@ function! Tabedit(...)
 endfunction
 
 " Misc {{{1
-colorscheme molokai
+colorscheme pencil
 syntax on
 filetype plugin indent on
 

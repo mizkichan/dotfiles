@@ -1,6 +1,5 @@
 #!/bin/sh
 result=$(dmenu -l 20 <<EOI
-
 hibernate
 lock
 logout
@@ -15,16 +14,16 @@ EOI
 
 case $result in
 	lock)
-		swaylock
+		slock
 		;;
 	logout)
-		swaymsg exit
+		i3-msg exit
 		;;
 	restart)
-		swaymsg restart
+		i3-msg restart
 		;;
 	hibernate | suspend)
-		slock systemctl $result
+		slock systemctl $result -i
 		;;
 	"boot windows")
 		sudo -A efibootmgr -n 0000

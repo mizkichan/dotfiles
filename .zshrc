@@ -43,7 +43,7 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
-alias pacman="yaourt"
+alias pacman="pacaur --color=auto"
 alias xargs="xargs "
 alias rm="rm -I"
 
@@ -58,9 +58,9 @@ if [ $TERM != "linux" ]; then
 	export LANG=ja_JP.UTF-8
 fi
 
-[ -f /usr/share/doc/pkgfile/command-not-found.zsh ] && source /usr/share/doc/pkgfile/command-not-found.zsh
-[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f ~/.dir_colors ] && eval `dircolors -b ~/.dir_colors`
+source /usr/share/doc/pkgfile/command-not-found.zsh || true
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh || true
+#eval `dircolors -b ~/.dir_colors` || true
 
 # tmux menu
 if [ -z $TMUX ]; then

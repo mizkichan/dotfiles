@@ -27,7 +27,7 @@ focus_follows_mouse no
 bindsym $mod+x kill
 
 # start dmenu
-bindsym $mod+space exec dmenu_run -l 20 -fn 'xft:M+ 2m medium:pixelsize=12'
+bindsym $mod+space exec dmenu_run -l 20 -fn 'xft:M+ 1mn regular:pixelsize=12'
 
 # move focus
 bindsym $mod+h focus left
@@ -106,8 +106,8 @@ bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
 bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
 
 # brightness control
-bindsym XF86MonBrightnessUp   exec xbacklight -steps 1 +10
-bindsym XF86MonBrightnessDown exec xbacklight -steps 1 -10
+bindsym XF86MonBrightnessUp   exec backlight up
+bindsym XF86MonBrightnessDown exec backlight down
 
 # take a screen shot
 bindsym Print exec import -window root ~/picture/screenshot/$(date +%y%m%d%H%M%S).png
