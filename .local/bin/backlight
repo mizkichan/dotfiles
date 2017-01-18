@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+current=$(light -Gbr)
+min=$(light -Gcr)
+max=$(light -Gmr)
+case $1 in
+	up)
+		value=$(($current * 2))
+		light -Sr $value
+		;;
+	down)
+		value=$(($current / 2))
+		light -Sr $value
+		;;
+	*)
+		exit
+		;;
+esac
+notify-send backlight "`light -Gb` %"
