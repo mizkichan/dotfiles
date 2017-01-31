@@ -301,7 +301,8 @@ call neobundle#end()
 		set background=dark
 	" UI Format {{{2
 		" ステータス行の書式
-		set statusline=%f\ %m%r%h%w%q%=[Line\ %3l\ /\ %3L]\ [Col\ %3c\ (%3v)]\ [At\ %5{strchars(join(getline(1,line('.')-1),''))+strchars(getline('.')[:col('.')-1])}\ /\ %5{strchars(join(getline(1,'$'),''))}]
+		"set statusline=%f\ %m%r%h%w%q%=[Line\ %3l\ /\ %3L]\ [Col\ %3c\ (%3v)]\ [At\ %5{strchars(join(getline(1,line('.')-1),''))+strchars(getline('.')[:col('.')-1])}\ /\ %5{strchars(join(getline(1,'$'),''))}]
+		set statusline=%f\ %m%r%h%w%q%=[Line\ %3l\ /\ %3L]\ [Col\ %3c\ (%3v)]\ [Total:\ %5{strchars(join(getline(1,'$'),''))}]
 		
 		" タブバーの書式
 		set tabline&	" いつかやる
