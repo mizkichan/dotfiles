@@ -42,6 +42,7 @@ NeoBundle 'tyru/restart.vim'
 NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundle 'PProvost/vim-ps1'
 
 " Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -60,6 +61,7 @@ NeoBundleLazy 'justmao945/vim-clang'
 NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'othree/yajs.vim', { 'autoload' : { 'filetypes' : [ 'javascript' ] } }
 NeoBundleLazy 'kannokanno/previm'
+NeoBundleLazy 'cd01/poshcomplete-vim'
 
 " Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
@@ -235,6 +237,19 @@ if neobundle#tap('unite.vim')
 	call neobundle#untap()
 endif
 
+" poshcomplete-vim {{{3
+if neobundle#tap('poshcomplete-vim')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['ps1']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
+		autocmd vimrc FileType ps1 setlocal omnifunc=poshcomplete#CompleteCommand
+	endfunction
+	call neobundle#untap()
+endif
+
 " {{{3
 call neobundle#end()
 
@@ -244,7 +259,7 @@ call neobundle#end()
 		if has('x11')
 			set guifont=M+\ 1mn\ regular\ 12
 		elseif has('gui_win32')
-			set guifont=M+\ 1mn\ medium:h10:cDEFAULT
+			set guifont=M+\ 1mn\ regular:h10:cDEFAULT
 		endif
 
 		" GUI オプションはだいたい無効
@@ -418,6 +433,9 @@ call neobundle#end()
 
 	" 補完オプション
 	set completeopt=menuone,preview
+
+	" read modeline! fuck debian!
+	set modeline
 
 " Auto Commands {{{1
 augroup vimrc
