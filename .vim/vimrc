@@ -26,7 +26,6 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'chrisbra/SudoEdit.vim'
 NeoBundle 'h1mesuke/vim-alignta'
@@ -62,6 +61,7 @@ NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
 NeoBundleLazy 'othree/yajs.vim', { 'autoload' : { 'filetypes' : [ 'javascript' ] } }
 NeoBundleLazy 'kannokanno/previm'
 NeoBundleLazy 'cd01/poshcomplete-vim'
+NeoBundleLazy 'Yggdroot/indentLine'
 
 " Color Schemes {{{2
 NeoBundle 'tomasr/molokai'
@@ -246,6 +246,18 @@ if neobundle#tap('poshcomplete-vim')
 	\})
 	function! neobundle#hooks.on_source(bundle)
 		autocmd vimrc FileType ps1 setlocal omnifunc=poshcomplete#CompleteCommand
+	endfunction
+	call neobundle#untap()
+endif
+
+" indentLine {{{3
+if neobundle#tap('indentLine')
+	call neobundle#config({
+		\ 'autoload': {
+			\ 'filetypes': ['python', 'javascript', 'c', 'c++']
+		\ }
+	\})
+	function! neobundle#hooks.on_source(bundle)
 	endfunction
 	call neobundle#untap()
 endif
