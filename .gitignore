@@ -1,0 +1,8 @@
+*.sw?
+.vim/.netrwhist
+.vim/backup/
+.vim/bundle/
+.vim/misc/
+.vim/swap/
+.vim/undo/
+.vim/view/
