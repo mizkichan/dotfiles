@@ -259,7 +259,7 @@ call neobundle#end()
 		if has('x11')
 			set guifont=M+\ 1mn\ regular\ 12
 		elseif has('gui_win32')
-			set guifont=M+\ 1mn\ regular:h10:cDEFAULT
+			set guifont=M+_1mn_regular:h10:cSHIFTJIS
 		endif
 
 		" GUI オプションはだいたい無効
@@ -331,7 +331,9 @@ call neobundle#end()
 		set fileencodings=ucs-bom,utf-8,cp932,euc-jp
 
 		" なんかよくわからんけどSKK動く
-		set iminsert=2
+		if has('xim')
+			set iminsert=2
+		endif
 	" Backup, Session, View, Undo, Swap {{{2
 		" バックアップを有効化
 		set backup
