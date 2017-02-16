@@ -631,6 +631,8 @@ function! Tabedit(...)
     endfor
 endfunction
 
+command! -nargs=* -complete=help -bar Tabhelp tabnew | <mods> help <args> | only
+
 " Misc {{{1
 colorscheme pencil
 syntax on
