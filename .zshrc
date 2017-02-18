@@ -58,9 +58,9 @@ if [ $TERM != "linux" ]; then
 	export LANG=ja_JP.UTF-8
 fi
 
-source /usr/share/doc/pkgfile/command-not-found.zsh || true
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh || true
-#eval `dircolors -b ~/.dir_colors` || true
+[ -e "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
+[ -e "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#[ -e "~/.dir_colors" ] && eval `dircolors -b ~/.dir_colors`
 
 # tmux menu
 if type tmux > /dev/null && [ -z $TMUX ]; then
