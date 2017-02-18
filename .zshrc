@@ -63,7 +63,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 #eval `dircolors -b ~/.dir_colors` || true
 
 # tmux menu
-if [ -z $TMUX ]; then
+if type tmux > /dev/null && [ -z $TMUX ]; then
 	if [ -z "$(pidof tmux)" -a $TERM != 'linux' ]; then
 		exec tmux -2
 	else
