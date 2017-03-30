@@ -41,6 +41,8 @@ NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'osyo-manga/vim-watchdogs'
 NeoBundle 'PProvost/vim-ps1'
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'cespare/vim-toml'
 
 " Unite sources {{{2
 NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
