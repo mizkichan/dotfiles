@@ -20,7 +20,6 @@ NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/vimproc', { 'build' : {
 	\ 'unix' : 'make -f make_unix.mak',
 \}}
-NeoBundle 'JuliaLang/julia-vim'
 NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/unite.vim'
