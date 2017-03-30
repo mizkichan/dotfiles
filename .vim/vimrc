@@ -9,252 +9,19 @@ elseif has('win32')
 	let $MYVIMDIR = expand('$HOME/vimfiles')
 endif
 
-" NeoBundle {{{1
-if has('vim_starting')
-	setglobal runtimepath+=$MYVIMDIR/bundle/neobundle.vim
+" Dein {{{1
+let g:dein#types#git#clone_depth = 1
+set runtimepath+=$MYVIMDIR/dein/repos/github.com/Shougo/dein.vim
+let s:dein_dir = expand('$MYVIMDIR/dein')
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
+
+	call dein#load_toml(expand('$MYVIMDIR/dein.toml'),      { 'lazy': 0 })
+	call dein#load_toml(expand('$MYVIMDIR/dein_lazy.toml'), { 'lazy': 1 })
+
+	call dein#end()
+	call dein#save_state()
 endif
-call neobundle#begin(expand($MYVIMDIR . '/bundle'))
-
-" Global plugins {{{2
-NeoBundleFetch 'Shougo/neobundle.vim', { 'depends' : [ 'Shougo/vimproc' ] }
-NeoBundle 'Shougo/vimproc', { 'build' : {
-	\ 'unix' : 'make -f make_unix.mak',
-\}}
-NeoBundle 'Shougo/neocomplete', { 'depends' : [ 'Shougo/vimproc' ] }
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'chrisbra/SudoEdit.vim'
-NeoBundle 'h1mesuke/vim-alignta'
-NeoBundle 'jceb/vim-hier'
-NeoBundle 'mattn/gist-vim', { 'depends' : [ 'mattn/webapi-vim' ] }
-NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'thinca/vim-quickrun', { 'depends' : [ 'Shougo/vimproc' ] }
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'tyru/restart.vim'
-NeoBundle 'ujihisa/quicklearn'
-NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'osyo-manga/vim-watchdogs'
-NeoBundle 'PProvost/vim-ps1'
-NeoBundle 'rust-lang/rust.vim'
-NeoBundle 'cespare/vim-toml'
-
-" Unite sources {{{2
-NeoBundle 'Shougo/unite-outline', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'mattn/unite-gist', { 'depends' : [ 'Shougo/unite.vim', 'mattn/gist-vim' ] }
-NeoBundle 'thinca/vim-unite-history', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : [ 'Shougo/unite.vim' ] }
-
-" Lazy load plugins {{{2
-NeoBundleLazy 'elzr/vim-json'
-NeoBundleLazy 'davidhalter/jedi-vim'
-NeoBundleLazy 'jmcantrell/vim-virtualenv'
-NeoBundleLazy 'marijnh/tern_for_vim', { 'build' : {
-	\ 'unix' : 'npm install',
-\}}
-NeoBundleLazy 'justmao945/vim-clang'
-NeoBundleLazy 'othree/html5.vim', { 'autoload' : { 'filetypes' : [ 'html' ] } }
-NeoBundleLazy 'othree/yajs.vim', { 'autoload' : { 'filetypes' : [ 'javascript' ] } }
-NeoBundleLazy 'kannokanno/previm'
-NeoBundleLazy 'cd01/poshcomplete-vim'
-NeoBundleLazy 'Yggdroot/indentLine'
-
-" Color Schemes {{{2
-NeoBundle 'tomasr/molokai'
-NeoBundle 'reedes/vim-colors-pencil'
-" }}}
-" Plugin settings {{{2
-" neocomplete {{{3
-if neobundle#tap('neocomplete')
-	function! neobundle#hooks.on_source(bundle)
-		" neocomplete 有効
-		let g:neocomplete#enable_at_startup = 1
-
-		" データディレクトリ
-		let g:neocomplete#data_directory = $MYVIMDIR . '/misc/neocomplete'
-
-		" 'iminsert' が 非0 のときに自動補完をロック
-		let g:neocomplete#lock_iminsert = 1
-
-		if !exists('g:neocomplete#force_omni_input_patterns')
-			let g:neocomplete#force_omni_input_patterns = {}
-		endif
-		let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-		let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-		let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-		let g:neocomplete#force_omni_input_patterns.cs = '.*[^=\);]'
-	endfunction
-	call neobundle#untap()
-endif
-
-" vim-clang {{{3
-if neobundle#tap('vim-clang')
-	call neobundle#config({
-	\	'autoload': {
-	\		'filetypes': ['c', 'cpp']
-	\	}
-	\})
-	function! neobundle#hooks.on_source(bundle)
-		let g:clang_auto = 0
-		let g:clang_c_completeopt = 'menuone,preview'
-		let g:clang_cpp_completeopt = 'menuone,preview'
-		let g:clang_cpp_options = '-std=c++1z'
-		let g:clang_diagsopt = ''
-		let g:marching#clang_command#options = {
-		\	'cpp' : '-std=c++1z'
-		\}
-	endfunction
-	call neobundle#untap()
-endif
-
-" vim-watchdogs {{{3
-if neobundle#tap('vim-watchdogs')
-	function! neobundle#hooks.on_source(bundle)
-		let g:watchdogs_check_BufWritePost_enable = 1
-
-		if !exists('g:quickrun_config')
-			let g:quickrun_config = {}
-		endif
-		let g:quickrun_config['c/watchdogs_checker'] = {
-		\	'type': 'watchdogs_checker/clang',
-		\	'cmdopt': '-W -Wall',
-		\}
-		let g:quickrun_config['cpp/watchdogs_checker'] = {
-		\	'type': 'watchdogs_checker/clang++',
-		\	'cmdopt': '-W -Wall -std=c++1z',
-		\}
-		let g:quickrun_config['python/watchdogs_checker'] = {
-		\	'type': 'watchdogs_checker/flake8',
-		\}
-		let g:quickrun_config['javascript/watchdogs_checker'] = {
-		\	'type': 'watchdogs_checker/eslint',
-		\}
-		let g:watchdogs_check_BufWritePost_enables = {
-		\	'c': 1,
-		\	'cpp': 1,
-		\	'python': 1,
-		\	'php': 1,
-		\   'javascript': 0,
-		\}
-	endfunction
-	call neobundle#untap()
-endif
-
-" jedi-vim {{{3
-if neobundle#tap('jedi-vim')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['python']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-		let g:jedi#completions_enabled = 0
-		let g:jedi#auto_vim_configuration = 0
-		let g:jedi#force_py_version = 3
-		autocmd vimrc FileType python setlocal omnifunc=jedi#completions
-	endfunction
-	call neobundle#untap()
-endif
-
-" vim-virtualenv {{{3
-if neobundle#tap('vim-virtualenv')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['python']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-	endfunction
-	call neobundle#untap()
-endif
-
-" vim-json {{{3
-if neobundle#tap('vim-json')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['json']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-		let g:vim_json_syntax_conceal = 0
-	endfunction
-	call neobundle#untap()
-endif
-
-" previm {{{3
-if neobundle#tap('previm')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['markdown']
-		\ }
-	\})
-	call neobundle#untap()
-endif
-
-" tern_for_vim {{{3
-if neobundle#tap('tern_for_vim')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['javascript']
-		\ },
-		\ 'build': {
-			\ 'unix': 'npm install'
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-		setlocal omnifunc=tern#Complete
-	endfunction
-	call neobundle#untap()
-endif
-
-" vim-ref {{{3
-if neobundle#tap('vim-ref')
-	function! neobundle#hooks.on_source(bundle)
-		let g:ref_cache_dir = $MYVIMDIR . '/misc/vim_ref_cache'
-	endfunction
-	call neobundle#untap()
-endif
-
-" unite.vim {{{3
-if neobundle#tap('unite.vim')
-	function! neobundle#hooks.on_source(bundle)
-		let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
-	endfunction
-	call neobundle#untap()
-endif
-
-" poshcomplete-vim {{{3
-if neobundle#tap('poshcomplete-vim')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['ps1']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-		autocmd vimrc FileType ps1 setlocal omnifunc=poshcomplete#CompleteCommand
-	endfunction
-	call neobundle#untap()
-endif
-
-" indentLine {{{3
-if neobundle#tap('indentLine')
-	call neobundle#config({
-		\ 'autoload': {
-			\ 'filetypes': ['python', 'javascript', 'c', 'c++']
-		\ }
-	\})
-	function! neobundle#hooks.on_source(bundle)
-	endfunction
-	call neobundle#untap()
-endif
-
-" {{{3
-call neobundle#end()
 
 " Options {{{1
 	" UI {{{2
@@ -640,5 +407,9 @@ command! -nargs=* -complete=help -bar Tabhelp tabnew | <mods> help <args> | only
 colorscheme pencil
 syntax on
 filetype plugin indent on
+
+if dein#check_install()
+	call dein#install()
+endif
 
 " vim: fdm=marker ts=4 sw=4
