@@ -92,16 +92,6 @@ if neobundle#tap('neocomplete')
 	call neobundle#untap()
 endif
 
-" neosnippet.vim {{{3
-if neobundle#tap('neosnippet.vim')
-	function! neobundle#hooks.on_source(bundle)
-		let g:neosnippet#snippets_directory = $MYVIMDIR . '/snippets'
-		imap <C-k> <Plug>(neosnippet_jump_or_expand)
-		smap <C-k> <Plug>(neosnippet_jump_or_expand)
-	endfunction
-	call neobundle#untap()
-endif
-
 " vim-clang {{{3
 if neobundle#tap('vim-clang')
 	call neobundle#config({
