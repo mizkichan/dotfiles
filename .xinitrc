@@ -16,7 +16,7 @@ export QT_IM_MODULE=uim
 export GTK_OVERLAY_SCROLLING=0
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
-[ -f ~/.xmodmaprc ]	&& xmodmap ~/.xmodmaprc
+[ -f ~/.xkeymap.xkb ]	&& xkbcomp ~/.xkeymap.xkb $DISPLAY
 [ -f ~/.Xresources ]	&& xrdb ~/.Xresources
 
 uim-xim &
