@@ -9,7 +9,7 @@ client.urgent		#CCCC00 #CCCC00 #CC0000 #CC0000
 client.placeholder	#CCCC00 #CCCC00 #CC0000 #CC0000
 
 # modifier key
-set $mod Mod4
+set $mod Mod5
 
 # font
 font pango:M+ 1mn medium 10
