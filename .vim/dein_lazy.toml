@@ -115,11 +115,8 @@ let g:clang_diagsopt = ''
 '''
 
 [[plugins]]
-repo = 'marijnh/tern_for_vim'
+repo = 'flowtype/vim-flow'
 on_ft = 'javascript'
 hook_post_update = '''
-!npm install
-'''
-hook_source = '''
-setl omnifunc=tern#Complete
+!npm install -g flow-bin
 '''
