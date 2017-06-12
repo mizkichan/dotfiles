@@ -1,18 +1,16 @@
 #!/usr/bin/bash
-current=$(light -Gbr)
-min=$(light -Gcr)
-max=$(light -Gmr)
+current=$(xbacklight -get)
 case $1 in
 	up)
-		value=$(($current * 2))
-		light -Sr $value
+		value=$(echo "scale=5; $current * 2" | bc)
+		xbacklight -set $value
 		;;
 	down)
-		value=$(($current / 2))
-		light -Sr $value
+		value=$(echo "scale=5; if ($current > 4) $current / 2 else 2" | bc)
+		xbacklight -set $value
 		;;
 	*)
 		exit
 		;;
 esac
-notify-send backlight "`light -Gb` %"
+notify-send backlight "`xbacklight -get` %"
