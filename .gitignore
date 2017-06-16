@@ -1,7 +1,7 @@
 *.sw?
 .vim/.netrwhist
 .vim/backup/
-.vim/bundle/
+.vim/dein/
 .vim/misc/
 .vim/swap/
 .vim/undo/

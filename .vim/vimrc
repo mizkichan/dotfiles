@@ -364,26 +364,6 @@ set scrolloff=9999
 "function! CloseParenthesByCloser(closer) abort
 "endfunction
 
-" チルダコマンド上書き {{{2
-nnoremap <silent> ~ :call Tilde()<Enter>
-function! Tilde()
-	let l:from = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-	let l:to   = '=''#$%|"[]/_,+.\0123456789:;(!)?@abcdefghijklmnopqrstuvwxyz{*}^-`ABCDEFGHIJKLMNOPQRSTUVWXYZ<&>~'
-
-	let l:current_line = getline('.')
-	let l:current_line_num = line('.')
-	let l:current_column_num = col('.')
-	let l:cursor_char = matchstr(l:current_line, '.', l:current_column_num - 1)
-	let l:charbytes = strlen(l:cursor_char)
-	let l:split_index = match(l:current_line, '.', l:current_column_num - 1)
-	let l:head = l:current_line[: l:split_index - 1]
-	let l:tail = l:current_line[l:split_index + l:charbytes :]
-	let l:newchar = tr(l:cursor_char, l:from, l:to)
-
-	call setline(line('.'), l:head . l:newchar . l:tail)
-	"call cursor(l:current_line_num, l:current_column_num + l:charbytes)
-endfunction
-
 " コマンドラインモード {{{2
 " Emacs 風
 cnoremap <C-f> <Right>
