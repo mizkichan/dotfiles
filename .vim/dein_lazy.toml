@@ -7,19 +7,22 @@ let g:unite_data_directory = $MYVIMDIR . '/misc/unite'
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
+on_cmd = 'Unite'
 depends = 'unite.vim'
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'
+on_cmd = 'Unite'
 depends  = 'unite.vim'
 
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
+on_cmd = 'Unite'
 depends  = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/neocomplete'
-depends = 'Shougo/vimproc'
+depends = 'vimproc'
 on_i = 1
 hook_source = '''
 let g:neocomplete#enable_at_startup = 1
@@ -120,3 +123,6 @@ hook_post_update = '''
 hook_source = '''
 setl omnifunc=tern#Complete
 '''
+
+[[plugins]]
+repo = 'osyo-manga/shabadou.vim'

@@ -209,6 +209,9 @@ endif
 	" read modeline! fuck debian!
 	set modeline
 
+	" Python
+	set pythonthreedll=python36.dll
+
 " Auto Commands {{{1
 augroup vimrc
 	autocmd!

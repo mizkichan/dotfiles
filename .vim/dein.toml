@@ -52,7 +52,14 @@ repo = 'cespare/vim-toml'
 [[plugins]]
 repo = 'Shougo/vimproc'
 hook_post_update = '''
-!make -f make_unix.mak
+if has('unix')
+	!make -f make_unix.mak
+endif
+'''
+hook_add = '''
+if has('kaoriya')
+	let g:vimproc#dll_path = '$VIM\plugins\vimproc\lib\vimproc_win64.dll'
+endif
 '''
 
 [[plugins]]
@@ -61,7 +68,7 @@ depends = 'mattn/webapi-vim'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-depends = 'Shougo/vimproc'
+depends = 'vimproc'
 
 [[plugins]]
 repo = 'tomasr/molokai'
