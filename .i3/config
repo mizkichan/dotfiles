@@ -27,7 +27,7 @@ focus_follows_mouse no
 bindsym $mod+x kill
 
 # start dmenu
-bindsym $mod+space exec dmenu_run -l 20 -fn 'xft:M+ 1mn regular:pixelsize=12'
+bindsym $mod+space exec dmenu_run -i -l 20
 
 # move focus
 bindsym $mod+h focus left
