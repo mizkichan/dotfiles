@@ -54,7 +54,7 @@ let g:quickrun_config['c/watchdogs_checker'] = {
 \}
 let g:quickrun_config['cpp/watchdogs_checker'] = {
 \	'type': 'watchdogs_checker/clang++',
-\	'cmdopt': '-W -Wall -std=c++1z',
+\	'cmdopt': '-W -Wall -std=c++14',
 \}
 let g:quickrun_config['python/watchdogs_checker'] = {
 \	'type': 'watchdogs_checker/flake8',
@@ -113,7 +113,7 @@ hook_source = '''
 let g:clang_auto = 0
 let g:clang_c_completeopt = 'menuone,preview'
 let g:clang_cpp_completeopt = 'menuone,preview'
-let g:clang_cpp_options = '-std=c++1z'
+let g:clang_cpp_options = '-std=c++14'
 let g:clang_diagsopt = ''
 '''
 
@@ -136,4 +136,8 @@ let g:racer_experimental_completer = 1
 '''
 
 [[plugins]]
-repo = 'osyo-manga/shabadou.vim'
+repo = 'Quramy/tsuquyomi'
+on-ft = 'typescript'
+hook_post_update = '''
+!npm install -g typescript
+'''
