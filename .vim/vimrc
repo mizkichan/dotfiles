@@ -46,7 +46,7 @@ endif
 
 		" 見えない文字の可視化
 		set list	" local
-		set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:«
+		set listchars=eol:⏎,tab:\|\ ,trail:␣,extends:»,precedes:«
 		
 		" 行番号を表示
 		set number	" local
@@ -164,6 +164,9 @@ endif
 
 		" コマンド履歴の数
 		set history=100
+
+		" Windows でもパスの区切りに forward slash を使う
+		set shellslash
 	" Scrolling {{{2
 		" スクロール同期のオプション
 		set scrollopt=ver,hor,jump
