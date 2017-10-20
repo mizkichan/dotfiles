@@ -1,1 +1,0 @@
-C:/Users/hagimoto/AppData/Local/nvim/init.vim
