@@ -67,8 +67,18 @@ repo = 'mattn/gist-vim'
 depends = 'mattn/webapi-vim'
 
 [[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
-depends = 'vimproc'
+depends = 'Shougo/vimproc'
+hook_add = '''
+let g:quickrun_config = {}
+let g:quickrun_config.cpp = {
+    \ 'command': 'clang',
+    \ 'cmdopt': '-std=c++14'
+\ }
+'''
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -106,3 +116,6 @@ depends  = 'unite.vim'
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
 depends  = 'unite.vim'
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
