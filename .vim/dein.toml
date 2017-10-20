@@ -94,3 +94,15 @@ depends = 'pangloss/vim-javascript'
 hook_add = '''
 let g:jsx_ext_required = 0
 '''
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+depends = 'unite.vim'
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+depends  = 'unite.vim'
+
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+depends  = 'unite.vim'
