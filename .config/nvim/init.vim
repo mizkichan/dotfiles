@@ -25,6 +25,8 @@ set scrolloff=9999
 set sidescrolloff=9999
 set list
 set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:»
+set ignorecase
+set smartcase
 
 let g:deoplete#enable_at_startup = 1
 let g:indent_guides_enable_on_vim_startup = 1
