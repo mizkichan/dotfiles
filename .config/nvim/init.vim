@@ -1,5 +1,5 @@
 if has('unix')
-    let $MYVIMDIR = expand('$XDG_CONFIG_HOME/nvim')
+    let $MYVIMDIR = expand('$HOME/.config/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
 endif
