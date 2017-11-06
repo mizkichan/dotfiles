@@ -17,6 +17,8 @@ Plug 'Rip-Rip/clang_complete'
 
 call plug#end()
 
+nnoremap <silent> <Esc> :set hls!<Enter>
+
 set number
 set background=dark
 set scrolloff=9999
