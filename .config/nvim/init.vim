@@ -14,6 +14,8 @@ Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Rip-Rip/clang_complete'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
@@ -38,10 +40,15 @@ set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:»
 set ignorecase
 set smartcase
 
+if exists('+shellslash')
+    set shellslash
+endif
+
 let g:deoplete#enable_at_startup = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:clang_library_path='/usr/lib/libclang.so'
+let g:racer_cmd = "~/.cargo/bin/racer"
 
 let g:ale_linters = {
 	\ 'cpp': ['clang'],
