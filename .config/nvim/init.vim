@@ -18,6 +18,16 @@ Plug 'Rip-Rip/clang_complete'
 call plug#end()
 
 nnoremap <silent> <Esc> :set hls!<Enter>
+nnoremap / :set hls<Enter>/
+nnoremap ? :set hls<Enter>?
+nnoremap <silent> n :set hls<Enter>n
+nnoremap <silent> N :set hls<Enter>N
+
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> gj j
+nnoremap <silent> gk k
+nnoremap Y y$
 
 set number
 set background=dark
