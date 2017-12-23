@@ -21,7 +21,8 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
 uim-xim &
 uim-toolbar-gtk-systray &
-ibamtray &
+cbatticon -i symbolic BAT0 &
+cbatticon -i symbolic BAT1 &
 volumeicon &
 
 exec i3
