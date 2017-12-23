@@ -16,6 +16,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Rip-Rip/clang_complete'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 
