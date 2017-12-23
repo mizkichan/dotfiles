@@ -49,7 +49,8 @@ let g:deoplete#enable_at_startup = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:clang_library_path='/usr/lib/libclang.so'
-let g:racer_cmd = "~/.cargo/bin/racer"
+let g:racer_cmd = '~/.cargo/bin/racer'
+let $RUST_SRC_PATH=system('rustc --print sysroot')[:-2] . '/lib/rustlib/src/rust/src'
 
 let g:ale_linters = {
 	\ 'cpp': ['clang'],
