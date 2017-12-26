@@ -40,6 +40,7 @@ set list
 set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:»
 set ignorecase
 set smartcase
+set gdefault
 
 if exists('+shellslash')
     set shellslash
