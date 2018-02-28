@@ -26,6 +26,8 @@ nnoremap ? :set hls<Enter>?
 nnoremap <silent> n :set hls<Enter>n
 nnoremap <silent> N :set hls<Enter>N
 
+nnoremap <silent> <Space>w :set wrap!<Enter>
+
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 nnoremap <silent> gj j
@@ -41,6 +43,8 @@ set listchars=eol:⏎,tab:>\ ,trail:␣,extends:»,precedes:»
 set ignorecase
 set smartcase
 set gdefault
+set breakindent
+set backupcopy=yes
 
 if exists('+shellslash')
     set shellslash
@@ -55,6 +59,7 @@ let $RUST_SRC_PATH=system('rustc --print sysroot')[:-2] . '/lib/rustlib/src/rust
 
 let g:ale_linters = {
 	\ 'cpp': ['clang'],
+	\ 'html': ['tidy'],
 \}
 
 colorscheme pencil
