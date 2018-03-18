@@ -60,6 +60,11 @@ let $RUST_SRC_PATH=system('rustc --print sysroot')[:-2] . '/lib/rustlib/src/rust
 let g:ale_linters = {
 	\ 'cpp': ['clang'],
 	\ 'html': ['tidy'],
+	\ 'rust': ['cargo'],
 \}
+let g:ale_fixers = {
+	\ 'rust': ['rustfmt'],
+\}
+let g:ale_fix_on_save = 1
 
 colorscheme pencil
