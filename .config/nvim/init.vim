@@ -17,14 +17,17 @@ Plug 'Rip-Rip/clang_complete'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'zchee/deoplete-jedi'
+Plug 'osyo-manga/vim-anzu'
 
 call plug#end()
 
 nnoremap <silent> <Esc> :set hls!<Enter>
 nnoremap / :set hls<Enter>/
 nnoremap ? :set hls<Enter>?
-nnoremap <silent> n :set hls<Enter>n
-nnoremap <silent> N :set hls<Enter>N
+nmap <silent> n <Plug>(anzu-n-with-echo)zv:set hls<Enter>
+nmap <silent> N <Plug>(anzu-N-with-echo)zv:set hls<Enter>
+nmap <silent> * <Plug>(anzu-star-with-echo)zv:set hls<Enter>
+nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:set hls<Enter>
 
 nnoremap <silent> <Space>w :set wrap!<Enter>
 
@@ -45,6 +48,7 @@ set smartcase
 set gdefault
 set breakindent
 set backupcopy=yes
+set termguicolors
 
 if exists('+shellslash')
     set shellslash
