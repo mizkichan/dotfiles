@@ -6,18 +6,19 @@ endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
 
-Plug 'reedes/vim-colors-pencil'
 Plug 'airblade/vim-gitgutter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'osyo-manga/vim-anzu'
+Plug 'reedes/vim-colors-pencil'
+Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'junegunn/vim-easy-align'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'Rip-Rip/clang_complete'
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'zchee/deoplete-jedi'
-Plug 'osyo-manga/vim-anzu'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'make release',
+            \ }
 
 call plug#end()
 
@@ -57,18 +58,23 @@ endif
 let g:deoplete#enable_at_startup = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
-let g:clang_library_path='/usr/lib/libclang.so'
-let g:racer_cmd = '~/.cargo/bin/racer'
-let $RUST_SRC_PATH=system('rustc --print sysroot')[:-2] . '/lib/rustlib/src/rust/src'
+
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rls'],
+            \ 'c': ['clangd'],
+            \ 'cpp': ['clangd'],
+            \ 'javascript': ['flow-language-server', '--stdio'],
+            \}
 
 let g:ale_linters = {
-	\ 'cpp': ['clang'],
-	\ 'html': ['tidy'],
-	\ 'rust': ['cargo'],
-\}
+            \ 'cpp': ['clang'],
+            \ 'html': ['tidy'],
+            \ 'rust': ['cargo'],
+            \}
 let g:ale_fixers = {
-	\ 'rust': ['rustfmt'],
-\}
+            \ 'rust': ['rustfmt'],
+            \}
 let g:ale_fix_on_save = 1
 
 colorscheme pencil
+" vim: set ts=4 sw=4 et:
