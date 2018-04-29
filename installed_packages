@@ -38,7 +38,6 @@ ibus-m17n
 ibus-skk
 inotify-tools
 intel-ucode
-ipython
 keepassx2
 llvm
 lm_sensors
@@ -48,6 +47,7 @@ namcap
 ncdu
 needformadness
 neovim
+nethogs
 nmap
 nodejs
 npm
@@ -64,7 +64,6 @@ pulseaudio
 pulseaudio-ctl
 pv
 python
-qemu
 qpdfview
 rustup
 skk-jisyo
@@ -80,6 +79,7 @@ uefi-shell-git
 uim
 unzip-iconv
 volumeicon
+wpa_supplicant
 x11-ssh-askpass
 xf86-video-intel
 xorg-server
@@ -92,6 +92,7 @@ xorg-xkill
 yarn
 youtube-dl
 zip
+zotero
 zsh
 zsh-completions
 zsh-syntax-highlighting
