@@ -16,8 +16,8 @@ export QT_IM_MODULE=uim
 export GTK_OVERLAY_SCROLLING=0
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
-[ -f ~/.xkeymap.xkb ]	&& xkbcomp ~/.xkeymap.xkb $DISPLAY
-[ -f ~/.Xresources ]	&& xrdb ~/.Xresources
+[ -f ~/.xkeymap.xkb ] && xkbcomp ~/.xkeymap.xkb $DISPLAY
+[ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 uim-xim &
 uim-toolbar-gtk-systray &
@@ -27,4 +27,4 @@ volumeicon &
 
 exec i3
 
-# vim: set ft=sh:
+# vim: set ft=sh ts=4 sw=4:
