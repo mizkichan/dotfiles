@@ -38,6 +38,8 @@ nnoremap <silent> gj j
 nnoremap <silent> gk k
 nnoremap Y y$
 
+nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<Enter>
+
 set number
 set background=dark
 set scrolloff=9999
@@ -50,6 +52,7 @@ set gdefault
 set breakindent
 set backupcopy=yes
 set termguicolors
+set splitright
 
 if exists('+shellslash')
     set shellslash
@@ -64,20 +67,29 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
             \ 'javascript': ['flow-language-server', '--stdio'],
-            \}
+            \ }
 
 let g:ale_linters = {
             \ 'cpp': ['clang'],
             \ 'html': ['tidy'],
-            \ 'rust': ['cargo'],
-            \}
+            \ }
 let g:ale_fixers = {
             \ 'rust': ['rustfmt'],
             \ 'javascript': ['prettier'],
             \ 'css': ['prettier'],
             \ 'json': ['prettier'],
-            \}
+            \ 'sh': ['shfmt'],
+            \ }
 let g:ale_fix_on_save = 1
+
+command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
+function! TabEdit(...) abort
+   for l:arg in a:000
+       for l:filename in glob(l:arg, 0, 1)
+           execute 'tabedit' l:filename
+       endfor
+   endfor
+endfunction
 
 colorscheme pencil
 " vim: set ts=4 sw=4 et:
