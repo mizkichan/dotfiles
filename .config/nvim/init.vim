@@ -1,24 +1,29 @@
-if has('unix')
+﻿if has('unix')
     let $MYVIMDIR = expand('$HOME/.config/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
+    let $HOME = expand('$HOME')
 endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
 
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'make release',
+            \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go'
+Plug 'zchee/deoplete-jedi'
+
+Plug 'Rip-Rip/clang_complete'
 Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
 Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'make release',
-            \ }
 
 call plug#end()
 
@@ -53,34 +58,40 @@ set breakindent
 set backupcopy=yes
 set termguicolors
 set splitright
+set hidden
 
-if exists('+shellslash')
-    set shellslash
-endif
-
-let g:deoplete#enable_at_startup = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
 let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rls'],
+            \ 'rust': [expand('$HOME/.cargo/bin/rustup'), 'run', 'nightly', 'rls'],
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
             \ 'javascript': ['flow-language-server', '--stdio'],
             \ }
+let g:deoplete#enable_at_startup = 1
+let g:clang_library_path = '/usr/lib/libclang.so'
 
 let g:ale_linters = {
             \ 'cpp': ['clang'],
             \ 'html': ['tidy'],
             \ }
 let g:ale_fixers = {
-            \ 'rust': ['rustfmt'],
-            \ 'javascript': ['prettier'],
             \ 'css': ['prettier'],
+            \ 'go': ['gofmt'],
+            \ 'javascript': ['prettier'],
             \ 'json': ['prettier'],
+            \ 'python': ['yapf'],
             \ 'sh': ['shfmt'],
             \ }
 let g:ale_fix_on_save = 1
+
+
+" LSP でフォーマットをかける
+augroup format
+    autocmd!
+    autocmd BufWritePre * silent! call LanguageClient#textDocument_rangeFormatting_sync()
+augroup END
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort
