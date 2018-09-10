@@ -9,11 +9,11 @@ call plug#begin(expand('$MYVIMDIR/plugged'))
 
 Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
-            \ 'do': 'make release',
+            \ 'do': 'install.sh',
             \ }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go'
-Plug 'zchee/deoplete-jedi'
+"Plug 'zchee/deoplete-jedi'
 
 Plug 'Rip-Rip/clang_complete'
 Plug 'airblade/vim-gitgutter'
@@ -64,10 +64,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
 let g:LanguageClient_serverCommands = {
-            \ 'rust': [expand('$HOME/.cargo/bin/rustup'), 'run', 'nightly', 'rls'],
+            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
             \ 'javascript': ['flow-language-server', '--stdio'],
+            \ 'python': ['pyls'],
             \ }
 let g:deoplete#enable_at_startup = 1
 let g:clang_library_path = '/usr/lib/libclang.so'
@@ -83,15 +84,16 @@ let g:ale_fixers = {
             \ 'json': ['prettier'],
             \ 'python': ['yapf'],
             \ 'sh': ['shfmt'],
+            \ 'rust': ['rustfmt'],
             \ }
 let g:ale_fix_on_save = 1
 
 
 " LSP でフォーマットをかける
-augroup format
-    autocmd!
-    autocmd BufWritePre * silent! call LanguageClient#textDocument_rangeFormatting_sync()
-augroup END
+"augroup format
+"    autocmd!
+"    autocmd BufWritePre * silent! call LanguageClient#textDocument_rangeFormatting_sync()
+"augroup END
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort

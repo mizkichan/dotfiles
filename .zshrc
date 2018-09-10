@@ -43,14 +43,14 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
-alias pacman="pacaur --color=auto"
+alias pacman="pakku --color=auto"
 alias xargs="xargs "
 alias rm="rm -I"
 
 ################
 
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
+HISTSIZE=100000
 SAVEHIST=100000
 bindkey -e
 
