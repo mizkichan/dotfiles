@@ -12,11 +12,9 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ 'do': 'install.sh',
             \ }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go'
-"Plug 'zchee/deoplete-jedi'
 
-Plug 'Rip-Rip/clang_complete'
 Plug 'airblade/vim-gitgutter'
+Plug 'leafgarland/typescript-vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
@@ -68,10 +66,10 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
             \ 'javascript': ['flow-language-server', '--stdio'],
+            \ 'typescript': ['javascript-typescript-stdio'],
             \ 'python': ['pyls'],
             \ }
 let g:deoplete#enable_at_startup = 1
-let g:clang_library_path = '/usr/lib/libclang.so'
 
 let g:ale_linters = {
             \ 'cpp': ['clang'],
@@ -81,6 +79,7 @@ let g:ale_fixers = {
             \ 'css': ['prettier'],
             \ 'go': ['gofmt'],
             \ 'javascript': ['prettier'],
+            \ 'typescript': ['prettier'],
             \ 'json': ['prettier'],
             \ 'python': ['yapf'],
             \ 'sh': ['shfmt'],
