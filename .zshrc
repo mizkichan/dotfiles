@@ -54,10 +54,6 @@ HISTSIZE=100000
 SAVEHIST=100000
 bindkey -e
 
-if [ $TERM != "linux" ]; then
-	export LANG=ja_JP.UTF-8
-fi
-
 [ -e "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
 [ -e "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #[ -e "~/.dir_colors" ] && eval `dircolors -b ~/.dir_colors`
@@ -65,31 +61,36 @@ fi
 
 # tmux menu
 if type tmux > /dev/null && [ -z $TMUX ]; then
-	if [ -z "$(pidof tmux)" -a $TERM != 'linux' ]; then
-		exec tmux -2
-	else
-		entries=()
-		tmux list-session | while read session; do
-			session_num=$(sed 's/:.*$//' <<< "$session")
-			entries+=($session_num $session)
-		done
-		entries+=("new" "start new session")
-		entries+=("no" "no tmux")
+	entries=()
 
-		tmpfile=/tmp/zsh-tmux-menu-$$
-		dialog --menu tmux 0 0 0 "${entries[@]}" 2>!$tmpfile
-		selected=$(cat $tmpfile)
-		rm $tmpfile
+	if [ $TERM = "linux" ]; then
+		entries+=("startx" "startx")
+	fi
 
-		if [ $selected ]; then
-			if [ $selected = "new" ]; then
-				exec tmux -2 new-session
-			elif [ $selected != "no" ]; then
-				exec tmux -2 attach -t $selected
-			fi
-		else
-			exit
+	tmux list-session | while read session; do
+		session_num=$(sed 's/:.*$//' <<< "$session")
+		entries+=($session_num $session)
+	done
+
+	entries+=("new" "start new session")
+	entries+=("no" "no tmux")
+
+	tmpfile=/tmp/zsh-tmux-menu-$$
+	dialog --menu "Welcome" 0 0 0 "${entries[@]}" 2>!$tmpfile
+	selected=$(cat $tmpfile)
+	rm $tmpfile
+
+	if [ $selected ]; then
+		if [ $selected = "startx" ]; then
+			export LANG=ja_JP.UTF-8
+			exec startx
+		elif [ $selected = "new" ]; then
+			exec tmux -2 new-session
+		elif [ $selected != "no" ]; then
+			exec tmux -2 attach -t $selected
 		fi
+	else
+		exit
 	fi
 fi
 
