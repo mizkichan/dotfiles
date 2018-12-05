@@ -19,8 +19,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
 Plug 'rust-lang/rust.vim'
-Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ebnf.vim'
 Plug 'w0rp/ale'
 
 call plug#end()
@@ -72,27 +72,24 @@ let g:LanguageClient_serverCommands = {
 let g:deoplete#enable_at_startup = 1
 
 let g:ale_linters = {
-            \ 'cpp': ['clang'],
-            \ 'html': ['tidy'],
+            \ 'c': [],
+            \ 'python': ['mypy'],
+            \ 'typescript': [],
             \ }
 let g:ale_fixers = {
+            \ 'c': ['clang-format'],
+            \ 'cpp': ['clang-format'],
             \ 'css': ['prettier'],
             \ 'go': ['gofmt'],
+            \ 'html': ['prettier'],
             \ 'javascript': ['prettier'],
-            \ 'typescript': ['prettier'],
             \ 'json': ['prettier'],
             \ 'python': ['yapf'],
-            \ 'sh': ['shfmt'],
             \ 'rust': ['rustfmt'],
+            \ 'sh': ['shfmt'],
+            \ 'typescript': ['prettier'],
             \ }
 let g:ale_fix_on_save = 1
-
-
-" LSP でフォーマットをかける
-"augroup format
-"    autocmd!
-"    autocmd BufWritePre * silent! call LanguageClient#textDocument_rangeFormatting_sync()
-"augroup END
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort

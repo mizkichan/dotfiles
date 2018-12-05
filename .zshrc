@@ -43,7 +43,7 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
-alias pacman="pakku --color=auto"
+alias pacman="trizen --color=auto"
 alias xargs="xargs "
 alias rm="rm -I"
 
@@ -75,19 +75,16 @@ if type tmux > /dev/null && [ -z $TMUX ]; then
 	entries+=("new" "start new session")
 	entries+=("no" "no tmux")
 
-	tmpfile=/tmp/zsh-tmux-menu-$$
-	dialog --menu "Welcome" 0 0 0 "${entries[@]}" 2>!$tmpfile
-	selected=$(cat $tmpfile)
-	rm $tmpfile
+	selected=$(dialog --stdout --menu "Welcome" 0 0 0 "${entries[@]}")
 
 	if [ $selected ]; then
 		if [ $selected = "startx" ]; then
 			export LANG=ja_JP.UTF-8
 			exec startx
 		elif [ $selected = "new" ]; then
-			exec tmux -2 new-session
+			exec tmux new-session
 		elif [ $selected != "no" ]; then
-			exec tmux -2 attach -t $selected
+			exec tmux attach -t $selected
 		fi
 	else
 		exit

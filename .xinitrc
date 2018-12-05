@@ -20,10 +20,8 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 [ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 ibus-daemon -drx
-cbatticon -i symbolic BAT0 &
-cbatticon -i symbolic BAT1 &
-volumeicon &
+slstatus &
 
-exec i3
+exec dwm
 
 # vim: set ft=sh ts=4 sw=4:
