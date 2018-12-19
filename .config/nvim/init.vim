@@ -11,7 +11,6 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'install.sh',
             \ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'airblade/vim-gitgutter'
 Plug 'leafgarland/typescript-vim'
@@ -69,7 +68,6 @@ let g:LanguageClient_serverCommands = {
             \ 'typescript': ['javascript-typescript-stdio'],
             \ 'python': ['pyls'],
             \ }
-let g:deoplete#enable_at_startup = 1
 
 let g:ale_linters = {
             \ 'c': [],
