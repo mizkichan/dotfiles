@@ -43,7 +43,7 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
-alias pacman="trizen --color=auto"
+alias pacman="pikaur"
 alias xargs="xargs "
 alias rm="rm -I"
 
