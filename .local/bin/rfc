@@ -4,4 +4,4 @@ if [ $# -ne 1 ]; then
 	exit 1
 fi
 
-w3m "https://tools.ietf.org/html/rfc$1"
+curl "https://tools.ietf.org/rfv/rfc$1.txt" | less

@@ -13,11 +13,13 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ }
 
 Plug 'airblade/vim-gitgutter'
+Plug 'arrufat/vala.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
 Plug 'rust-lang/rust.vim'
+Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ebnf.vim'
 Plug 'w0rp/ale'
@@ -64,7 +66,7 @@ let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
-            \ 'javascript': ['flow-language-server', '--stdio'],
+            \ 'javascript': ['javascript-typescript-stdio'],
             \ 'typescript': ['javascript-typescript-stdio'],
             \ 'python': ['pyls'],
             \ }

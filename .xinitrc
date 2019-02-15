@@ -14,7 +14,6 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
 export GTK_OVERLAY_SCROLLING=0
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
 [ -f ~/.xkeymap.xkb ] && xkbcomp ~/.xkeymap.xkb $DISPLAY
 [ -f ~/.Xresources ] && xrdb ~/.Xresources
