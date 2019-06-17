@@ -1,16 +1,51 @@
-#!/usr/bin/bash
-current=$(xbacklight -get)
-case $1 in
-	up)
-		value=$(echo "scale=5; $current * 2" | bc)
-		xbacklight -set $value
-		;;
-	down)
-		value=$(echo "scale=5; if ($current > 4) $current / 2 else 2" | bc)
-		xbacklight -set $value
-		;;
-	*)
-		exit
-		;;
-esac
-notify-send backlight "`xbacklight -get` %"
+#!/usr/bin/env python3
+from pathlib import Path
+import math
+import sys
+import gi
+
+
+def percent(ratio):
+    return f'{int(ratio * 100)} %'
+
+
+gi.require_version('Notify', '0.7')
+from gi.repository import Notify
+Notify.init('backlight')
+
+device = Path('/sys/class/backlight/intel_backlight')
+
+with open(device / 'actual_brightness') as f:
+    actual_brightness = int(f.read())
+with open(device / 'max_brightness') as f:
+    max_brightness = int(f.read())
+
+ratio = round(math.log(actual_brightness, max_brightness), 1)
+
+try:
+    x = int(sys.argv[2]) / 100
+except IndexError:
+    x = 0.1
+
+try:
+    if sys.argv[1] == 'up':
+        ratio += x
+    elif sys.argv[1] == 'down':
+        ratio -= x
+    elif sys.argv[1] == 'set':
+        ratio = x
+    else:
+        raise IndexError()
+except IndexError:
+    print(percent(ratio))
+    exit()
+
+ratio = min(max(ratio, 0.0), 1.0)
+value = math.ceil(max_brightness**ratio)
+
+with open(device / 'brightness', 'w') as f:
+    f.write(str(value))
+
+print(percent(ratio))
+notify = Notify.Notification.new(sys.argv[1], percent(ratio))
+notify.show()
