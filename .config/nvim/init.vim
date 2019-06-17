@@ -2,15 +2,9 @@
     let $MYVIMDIR = expand('$HOME/.config/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
-    let $HOME = expand('$HOME')
 endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
-
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'install.sh',
-            \ }
 
 Plug 'airblade/vim-gitgutter'
 Plug 'arrufat/vala.vim'
@@ -42,8 +36,6 @@ nnoremap <silent> gj j
 nnoremap <silent> gk k
 nnoremap Y y$
 
-nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<Enter>
-
 set number
 set background=dark
 set scrolloff=9999
@@ -62,20 +54,15 @@ set hidden
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
-let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+let g:ale_completion_enabled = 1
+let g:ale_linters = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ 'typescript': ['javascript-typescript-stdio'],
-            \ 'python': ['pyls'],
-            \ }
-
-let g:ale_linters = {
-            \ 'c': [],
+            \ 'typescript': ['tsserver'],
             \ 'python': ['mypy'],
-            \ 'typescript': [],
+            \ 'rust': ['rls'],
             \ }
+let g:ale_linters_explicit = 1
 let g:ale_fixers = {
             \ 'c': ['clang-format'],
             \ 'cpp': ['clang-format'],
