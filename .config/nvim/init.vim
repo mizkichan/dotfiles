@@ -2,7 +2,6 @@
     let $MYVIMDIR = expand('$HOME/.config/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
-    let $HOME = expand('$HOME')
 endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
