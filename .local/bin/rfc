@@ -1,7 +1,0 @@
-#!/bin/sh
-if [ $# -ne 1 ]; then
-	echo "Usage: `basename $0` [RFC]" >&2
-	exit 1
-fi
-
-curl "https://tools.ietf.org/rfv/rfc$1.txt" | less
