@@ -7,11 +7,6 @@ endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
 
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'install.sh',
-            \ }
-
 Plug 'airblade/vim-gitgutter'
 Plug 'arrufat/vala.vim'
 Plug 'leafgarland/typescript-vim'
@@ -36,13 +31,11 @@ nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:set hls<Enter>
 
 nnoremap <silent> <Space>w :set wrap!<Enter>
 
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-nnoremap <silent> gj j
-nnoremap <silent> gk k
+noremap <silent> j gj
+noremap <silent> k gk
+noremap <silent> gj j
+noremap <silent> gk k
 nnoremap Y y$
-
-nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<Enter>
 
 set number
 set background=dark
@@ -58,23 +51,22 @@ set backupcopy=yes
 set termguicolors
 set splitright
 set hidden
+set undofile
+set backup
+set backupdir=~/.local/share/nvim/backup
+set omnifunc=ale#completion#OmniFunc
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
-let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+"let g:ale_completion_enabled = 1
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ 'typescript': ['javascript-typescript-stdio'],
             \ 'python': ['pyls'],
-            \ }
-
-let g:ale_linters = {
-            \ 'c': [],
-            \ 'python': ['mypy'],
-            \ 'typescript': [],
+            \ 'rust': ['rls'],
+            \ 'typescript': ['tsserver'],
             \ }
 let g:ale_fixers = {
             \ 'c': ['clang-format'],
@@ -94,11 +86,19 @@ let g:ale_fix_on_save = 1
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort
    for l:arg in a:000
-       for l:filename in glob(l:arg, 0, 1)
-           execute 'tabedit' l:filename
+       for l:path in glob(l:arg, 0, 1)
+           if isdirectory(l:path)
+                continue
+            endif
+           execute 'tabedit' l:path
        endfor
    endfor
 endfunction
+
+augroup vimrc
+	autocmd!
+	autocmd BufWritePre * let &l:backupext = '-' . substitute(expand("%:p"), "/", "%", "g") . '-' . strftime("%y%m%d%H%M%S")
+augroup END
 
 colorscheme pencil
 " vim: set ts=4 sw=4 et:
