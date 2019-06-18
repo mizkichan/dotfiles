@@ -19,8 +19,7 @@ export GTK_OVERLAY_SCROLLING=0
 [ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 ibus-daemon -drx
-slstatus &
 
-exec dwm
+exec i3
 
 # vim: set ft=sh ts=4 sw=4:

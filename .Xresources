@@ -1,0 +1,6 @@
+XTerm.termName: xterm-256color
+XTerm*metaSendsEscape: true
+XTerm.vt100.reverseVideo: true
+Xterm*saveLines: 0
+XTerm.vt100.faceName: Noto Serif CJK JP Regular
+XTerm.vt100.faceSize: 12
