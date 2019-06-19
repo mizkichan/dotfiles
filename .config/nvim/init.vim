@@ -1,7 +1,9 @@
 ﻿if has('unix')
-    let $MYVIMDIR = expand('$HOME/.config/nvim')
+    let $MYVIMDIR = expand('$XDG_CONFIG_HOME/nvim')
+    let $DATADIR = expand('$XDG_DATA_HOME/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
+    let $DATADIR = expand('$LOCALAPPDATA/nvim-data')
 endif
 
 call plug#begin(expand('$MYVIMDIR/plugged'))
@@ -52,7 +54,7 @@ set splitright
 set hidden
 set undofile
 set backup
-set backupdir=~/.local/share/nvim/backup
+set backupdir=$DATADIR/backup
 set omnifunc=ale#completion#OmniFunc
 
 let g:indent_guides_enable_on_vim_startup = 1
