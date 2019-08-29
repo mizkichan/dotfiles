@@ -15,7 +15,6 @@ export QT_IM_MODULE=ibus
 
 export GTK_OVERLAY_SCROLLING=0
 
-[ -f ~/.xkeymap.xkb ] && xkbcomp ~/.xkeymap.xkb $DISPLAY
 [ -f ~/.Xresources ] && xrdb ~/.Xresources
 
 ibus-daemon -drx
