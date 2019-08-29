@@ -9,16 +9,19 @@ endif
 call plug#begin(expand('$MYVIMDIR/plugged'))
 
 Plug 'airblade/vim-gitgutter'
-Plug 'arrufat/vala.vim'
-Plug 'leafgarland/typescript-vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
-Plug 'rust-lang/rust.vim'
-Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/ebnf.vim'
 Plug 'w0rp/ale'
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'ElmCast/elm-vim'
+Plug 'arrufat/vala.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/ebnf.vim'
+Plug 'justinmk/vim-syntax-extra'
 
 call plug#end()
 
@@ -39,7 +42,6 @@ noremap <silent> gk k
 nnoremap Y y$
 
 set number
-set background=dark
 set scrolloff=9999
 set sidescrolloff=9999
 set list
@@ -56,23 +58,33 @@ set undofile
 set backup
 set backupdir=$DATADIR/backup
 set omnifunc=ale#completion#OmniFunc
+set cursorline
+
+let g:vala_syntax_folding_enabled = 0
+
+" elm-vim does unnecessary things...
+let g:elm_format_autosave = 0
+let g:elm_setup_keybindings = 0
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
-"let g:ale_completion_enabled = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
+            \ 'elm': ['elm_ls'],
             \ 'python': ['pyls'],
             \ 'rust': ['rls'],
+            \ 'sh': ['language_server'],
             \ 'typescript': ['tsserver'],
             \ }
+let g:ale_fix_on_save = 1
 let g:ale_fixers = {
             \ 'c': ['clang-format'],
             \ 'cpp': ['clang-format'],
             \ 'css': ['prettier'],
+            \ 'elm': ['elm-format'],
             \ 'go': ['gofmt'],
             \ 'html': ['prettier'],
             \ 'javascript': ['prettier'],
@@ -82,7 +94,6 @@ let g:ale_fixers = {
             \ 'sh': ['shfmt'],
             \ 'typescript': ['prettier'],
             \ }
-let g:ale_fix_on_save = 1
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort
@@ -94,6 +105,18 @@ function! TabEdit(...) abort
            execute 'tabedit' l:path
        endfor
    endfor
+endfunction
+
+command! -nargs=? -complete=file WriteWithoutFix :call WriteWithoutFix(<f-args>)
+function! WriteWithoutFix(...) abort
+    let l:ale_fix_on_save = g:ale_fix_on_save
+    let g:ale_fix_on_save = 0
+    if a:0 == 0
+        write
+    else
+        write a:1
+    endif
+    let g:ale_fix_on_save = l:ale_fix_on_save
 endfunction
 
 augroup vimrc
