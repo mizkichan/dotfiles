@@ -1,6 +1,6 @@
 ﻿if has('unix')
-    let $MYVIMDIR = expand('$XDG_CONFIG_HOME/nvim')
-    let $DATADIR = expand('$XDG_DATA_HOME/nvim')
+    let $MYVIMDIR = expand('$HOME/.config/nvim')
+    let $DATADIR = expand('$HOME/.local/share/nvim')
 elseif has('win32')
     let $MYVIMDIR = expand('$LOCALAPPDATA/nvim')
     let $DATADIR = expand('$LOCALAPPDATA/nvim-data')
@@ -9,17 +9,18 @@ endif
 call plug#begin(expand('$MYVIMDIR/plugged'))
 
 Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
+Plug 'jiangmiao/auto-pairs'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
 Plug 'reedes/vim-colors-pencil'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'
 
 Plug 'ElmCast/elm-vim'
 Plug 'arrufat/vala.vim'
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'vim-scripts/ebnf.vim'
 Plug 'justinmk/vim-syntax-extra'
 
@@ -59,6 +60,7 @@ set backup
 set backupdir=$DATADIR/backup
 set omnifunc=ale#completion#OmniFunc
 set cursorline
+set completeopt+=noselect
 
 let g:vala_syntax_folding_enabled = 0
 
@@ -69,15 +71,17 @@ let g:elm_setup_keybindings = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
+let g:ale_completion_enabled = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
             \ 'elm': ['elm_ls'],
-            \ 'python': ['pyls'],
+            \ 'python': ['pyls', 'mypy'],
             \ 'rust': ['rls'],
             \ 'sh': ['language_server'],
             \ 'typescript': ['tsserver'],
+            \ 'typescriptreact': ['tsserver'],
             \ }
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
@@ -88,11 +92,15 @@ let g:ale_fixers = {
             \ 'go': ['gofmt'],
             \ 'html': ['prettier'],
             \ 'javascript': ['prettier'],
+            \ 'javascriptreact': ['prettier'],
             \ 'json': ['prettier'],
-            \ 'python': ['yapf'],
+            \ 'python': ['black'],
             \ 'rust': ['rustfmt'],
+            \ 'scss': ['prettier'],
             \ 'sh': ['shfmt'],
             \ 'typescript': ['prettier'],
+            \ 'typescriptreact': ['prettier'],
+            \ 'yaml': ['prettier'],
             \ }
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)

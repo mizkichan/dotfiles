@@ -6,7 +6,7 @@ import gi
 
 
 def percent(ratio):
-    return f'{int(ratio * 100)} %'
+    return str(int(ratio * 100)) + '%'
 
 
 gi.require_version('Notify', '0.7')
