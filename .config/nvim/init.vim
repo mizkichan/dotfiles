@@ -26,21 +26,23 @@ Plug 'justinmk/vim-syntax-extra'
 
 call plug#end()
 
-nnoremap <silent> <Esc> :set hls!<Enter>
-nnoremap / :set hls<Enter>/
-nnoremap ? :set hls<Enter>?
-nmap <silent> n <Plug>(anzu-n-with-echo)zv:set hls<Enter>
-nmap <silent> N <Plug>(anzu-N-with-echo)zv:set hls<Enter>
-nmap <silent> * <Plug>(anzu-star-with-echo)zv:set hls<Enter>
-nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:set hls<Enter>
+nnoremap <silent> <Esc> :set hls!<CR>
+nnoremap / :set hls<CR>/
+nnoremap ? :set hls<CR>?
+nmap <silent> n <Plug>(anzu-n-with-echo)zv:set hls<CR>
+nmap <silent> N <Plug>(anzu-N-with-echo)zv:set hls<CR>
+nmap <silent> * <Plug>(anzu-star-with-echo)zv:set hls<CR>
+nmap <silent> # <Plug>(anzu-sharp-with-echo)zv:set hls<CR>
 
-nnoremap <silent> <Space>w :set wrap!<Enter>
+nnoremap <silent> <Space>w :set wrap!<CR>
 
 noremap <silent> j gj
 noremap <silent> k gk
 noremap <silent> gj j
 noremap <silent> gk k
 nnoremap Y y$
+
+noremap <LeftMouse> :ALEHover<CR>
 
 set number
 set scrolloff=9999
@@ -100,6 +102,7 @@ let g:ale_fixers = {
             \ 'sh': ['shfmt'],
             \ 'typescript': ['prettier'],
             \ 'typescriptreact': ['prettier'],
+            \ 'vue': ['prettier'],
             \ 'yaml': ['prettier'],
             \ }
 

@@ -15,8 +15,6 @@ export QT_IM_MODULE=ibus
 
 export GTK_OVERLAY_SCROLLING=0
 
-[ -f ~/.Xresources ] && xrdb ~/.Xresources
-
 ibus-daemon -drx
 
 exec i3

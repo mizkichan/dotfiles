@@ -12,7 +12,7 @@ set $mod Mod4
 floating_modifier $mod
 
 bindsym $mod+space exec dmenu_run -i -l 10
-bindsym $mod+Return exec "insst -f \\"Noto Sans Mono Medium 12\\" zsh"
+bindsym $mod+Return exec "insst -f \\"Noto Sans Mono 12\\" zsh"
 bindsym XF86MonBrightnessUp exec backlight up
 bindsym XF86MonBrightnessDown exec backlight down
 bindsym XF86AudioMute exec volume mute
