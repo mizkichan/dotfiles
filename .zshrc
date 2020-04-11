@@ -12,15 +12,15 @@ compinit
 ################
 
 # Changing Directories
-setopt AUTO_PUSHD           # 自動で pushd する
+setopt AUTO_PUSHD # 自動で pushd する
 # Completion
-setopt COMPLETE_IN_WORD     # 単語の途中から補完できるようにする
+setopt COMPLETE_IN_WORD # 単語の途中から補完できるようにする
 # History
-setopt EXTENDED_HISTORY     # 日時情報を付加して履歴を保存する
-setopt HIST_IGNORE_SPACE    # 空白で始まる履歴を保存しない
-setopt HIST_IGNORE_DUPS     # 重複する履歴を保存しない
-setopt HIST_VERIFY          # 履歴呼び出しを直接実行しない
-setopt SHARE_HISTORY        # 異るシェルインスタンス間で履歴を共有する
+setopt EXTENDED_HISTORY  # 日時情報を付加して履歴を保存する
+setopt HIST_IGNORE_SPACE # 空白で始まる履歴を保存しない
+setopt HIST_IGNORE_DUPS  # 重複する履歴を保存しない
+setopt HIST_VERIFY       # 履歴呼び出しを直接実行しない
+setopt SHARE_HISTORY     # 異るシェルインスタンス間で履歴を共有する
 # I/O
 unsetopt CLOBBER            # リダイレクト時に既存ファイルを上書きできないようにする
 setopt CORRECT              # コマンドのスペルミス訂正をする
@@ -43,9 +43,9 @@ PROMPT_EOL_MARK="%B%S$%s%b"
 ################
 alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
-alias pacman="pikaur"
 alias xargs="xargs "
 alias rm="rm -I"
+alias pacman="pacman --color auto"
 
 ################
 
@@ -57,11 +57,12 @@ bindkey -e
 [ -e "/usr/share/doc/pkgfile/command-not-found.zsh" ] && source /usr/share/doc/pkgfile/command-not-found.zsh
 [ -e "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -e "/usr/share/fzf/key-bindings.zsh" ] && source /usr/share/fzf/key-bindings.zsh
-#[ -e "~/.dir_colors" ] && eval `dircolors -b ~/.dir_colors`
-[ -e "$HOME/.local/etc/proxy.zsh" ] && source "$HOME/.local/etc/proxy.zsh"
+[ -e "/usr/share/fzf/completion.zsh" ] && source /usr/share/fzf/completion.zsh
+
+LANG=en_US.UTF-8
 
 # tmux menu
-if type tmux > /dev/null && [ -z $TMUX ]; then
+if type tmux >/dev/null && [ -z $TMUX ]; then
 	entries=()
 
 	if [ $TERM = "linux" ]; then
@@ -69,7 +70,7 @@ if type tmux > /dev/null && [ -z $TMUX ]; then
 	fi
 
 	tmux list-session | while read session; do
-		session_num=$(sed 's/:.*$//' <<< "$session")
+		session_num=$(sed 's/:.*$//' <<<"$session")
 		entries+=($session_num $session)
 	done
 

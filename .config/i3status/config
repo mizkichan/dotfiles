@@ -1,0 +1,48 @@
+general {
+	colors = true
+	interval = 1
+	separator = " "
+}
+
+order += "ethernet _first_"
+order += "wireless _first_"
+order += "cpu_temperature 0"
+order += "battery all"
+order += "cpu_usage"
+order += "memory"
+order += "volume master"
+
+wireless _first_ {
+	format_up = "[%essid %ip]"
+	format_down = ""
+}
+
+ethernet _first_ {
+	format_up = "[%ip]"
+	format_down = ""
+}
+
+cpu_temperature 0 {
+	format = "[TEMP %degrees℃]"
+}
+
+battery all {
+	format = "[%status %percentage %remaining %consumption]"
+	last_full_capacity = true
+	integer_battery_capacity = true
+	low_threshold = 10
+	threshold_type = "percentage"
+}
+
+cpu_usage {
+	format = "[CPU %usage]"
+}
+
+memory {
+	format = "[MEM %percentage_used]"
+}
+
+volume master {
+	format = "[VOL %volume]"
+	format_muted = "[VOL --%]"
+}

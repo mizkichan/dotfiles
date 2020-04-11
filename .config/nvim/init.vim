@@ -10,7 +10,6 @@ call plug#begin(expand('$MYVIMDIR/plugged'))
 
 Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
-Plug 'easymotion/vim-easymotion'
 Plug 'jiangmiao/auto-pairs'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-anzu'
@@ -19,10 +18,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'ElmCast/elm-vim'
 Plug 'arrufat/vala.vim'
-"Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'vim-scripts/ebnf.vim'
-Plug 'justinmk/vim-syntax-extra'
 
 call plug#end()
 
