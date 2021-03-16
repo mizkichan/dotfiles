@@ -13,9 +13,8 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-export GTK_OVERLAY_SCROLLING=0
-
 ibus-daemon -drx
+dunst &
 
 exec i3
 

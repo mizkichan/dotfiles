@@ -11,13 +11,14 @@ client.background       #000000
 set $mod Mod4
 floating_modifier $mod
 
-bindsym $mod+space exec dmenu_run -i -l 10
+bindsym $mod+space exec i3-dmenu-desktop --dmenu 'dmenu -i -l 10' --entry-type command
 bindsym $mod+Return exec "insst -f \\"Noto Sans Mono 12\\" zsh"
 bindsym XF86MonBrightnessUp exec backlight up
 bindsym XF86MonBrightnessDown exec backlight down
 bindsym XF86AudioMute exec pulseaudio-ctl mute
 bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up 10
 bindsym XF86AudioLowerVolume exec pulseaudio-ctl down 10
+bindsym XF86AudioMicMute exec pulseaudio-ctl mute-input
 
 bindsym $mod+q restart
 bindsym $mod+Shift+q exit
@@ -25,8 +26,7 @@ bindsym $mod+Shift+c kill
 
 bindsym $mod+i layout stacking
 bindsym $mod+o layout tabbed
-
-bindsym $mod+slash split toggle
+bindsym $mod+p split toggle
 
 bindsym $mod+f focus mode_toggle
 bindsym $mod+Shift+f floating toggle
@@ -78,9 +78,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	status_command mystatus.sh
+	status_command slstatus -s
 	position top
-	tray_output none
+	tray_output primary
+	tray_padding 0
 
 	colors {
 		background #000000

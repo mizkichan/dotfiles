@@ -20,6 +20,8 @@ Plug 'ElmCast/elm-vim'
 Plug 'arrufat/vala.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
+Plug 'cespare/vim-toml'
+
 call plug#end()
 
 nnoremap <silent> <Esc> :set hls!<CR>
@@ -59,6 +61,7 @@ set backupdir=$DATADIR/backup
 set omnifunc=ale#completion#OmniFunc
 set cursorline
 set completeopt+=noselect
+set inccommand=split
 
 let g:vala_syntax_folding_enabled = 0
 
@@ -74,12 +77,15 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
             \ 'c': ['clangd'],
             \ 'cpp': ['clangd'],
+            \ 'css': ['stylelint'],
             \ 'elm': ['elm_ls'],
+            \ 'javascript': ['eslint'],
+            \ 'javascriptreact': ['eslint'],
             \ 'python': ['pyls', 'mypy'],
             \ 'rust': ['rls'],
-            \ 'sh': ['language_server'],
-            \ 'typescript': ['tsserver'],
-            \ 'typescriptreact': ['tsserver'],
+            \ 'sh': ['language_server', 'shellcheck'],
+            \ 'typescript': ['tsserver','eslint'],
+            \ 'typescriptreact': ['tsserver','eslint'],
             \ }
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
@@ -101,6 +107,7 @@ let g:ale_fixers = {
             \ 'vue': ['prettier'],
             \ 'yaml': ['prettier'],
             \ }
+let g:ale_rust_rustfmt_options = '--edition 2018'
 
 command! -nargs=+ -complete=file TabEdit :call TabEdit(<f-args>)
 function! TabEdit(...) abort

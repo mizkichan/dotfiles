@@ -45,7 +45,6 @@ alias ls="ls -AbFhkv --color --group-directories-first"
 alias ll="ls -l"
 alias xargs="xargs "
 alias rm="rm -I"
-alias pacman="pacman --color auto"
 
 ################
 
@@ -62,16 +61,16 @@ bindkey -e
 LANG=en_US.UTF-8
 
 # tmux menu
-if type tmux >/dev/null && [ -z $TMUX ]; then
+if type tmux >/dev/null && [ -z "$TMUX" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$VSCODE_PID" ]; then
 	entries=()
 
-	if [ $TERM = "linux" ]; then
+	if [ "$TERM" = "linux" ]; then
 		entries+=("startx" "startx")
 	fi
 
-	tmux list-session | while read session; do
+	tmux list-session | while read -r session; do
 		session_num=$(sed 's/:.*$//' <<<"$session")
-		entries+=($session_num $session)
+		entries+=("$session_num" "$session")
 	done
 
 	entries+=("new" "start new session")
@@ -79,14 +78,14 @@ if type tmux >/dev/null && [ -z $TMUX ]; then
 
 	selected=$(dialog --stdout --menu "Welcome" 0 0 0 "${entries[@]}")
 
-	if [ $selected ]; then
-		if [ $selected = "startx" ]; then
+	if [ "$selected" ]; then
+		if [ "$selected" = "startx" ]; then
 			export LANG=ja_JP.UTF-8
 			exec startx
-		elif [ $selected = "new" ]; then
+		elif [ "$selected" = "new" ]; then
 			exec tmux new-session
-		elif [ $selected != "no" ]; then
-			exec tmux attach -t $selected
+		elif [ "$selected" != "no" ]; then
+			exec tmux attach -t "$selected"
 		fi
 	else
 		exit
